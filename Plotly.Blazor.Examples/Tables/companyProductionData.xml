@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<companyProductionData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<record>
+		<PLTMachines>10</PLTMachines>
+		<PCMachines>5</PCMachines>
+		<Chip1>165000</Chip1>
+		<Chip2>117000</Chip2>
+		<PLTs>75000</PLTs>
+		<Chip1Price>1.27</Chip1Price>
+		<Chip2Price>6.17</Chip2Price>
+		<PLTPrice>225</PLTPrice>
+		<Quality>90</Quality>
+	</record>
+	<record>
+		<PLTMachines>10</PLTMachines>
+		<PCMachines>5</PCMachines>
+		<Chip1>690000</Chip1>
+		<Chip2>432000</Chip2>
+		<PLTs>75000</PLTs>
+		<Chip1Price>1.42</Chip1Price>
+		<Chip2Price>6.58</Chip2Price>
+		<PLTPrice>200</PLTPrice>
+		<Quality>90</Quality>
+	</record>
+</companyProductionData>
