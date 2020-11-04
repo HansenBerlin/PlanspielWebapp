@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PlanspielWebApp.Models
+namespace Plotly.Blazor.Examples.Models
 {
     interface IMachine
     {

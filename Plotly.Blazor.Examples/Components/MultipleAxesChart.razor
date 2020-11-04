@@ -6,7 +6,7 @@
 
 <div class="text-right">
     <button type="button" class="btn btn-primary" @onclick="() => Clear()">Clear</button>
-    <button type="button" class="btn btn-primary" @onclick="() => AddData()">Add data</button>
+    <button type="button" class="btn btn-primary" @onclick="@(e => AddData(1, "Test"))">Add data</button>
 </div>
 
 @code
@@ -50,7 +50,7 @@
     {
         new Scatter
         {
-            Name = "ScatterTrace",
+            Name = "Test",
             Mode = ModeFlag.Lines | ModeFlag.Markers,
             X = new List<object>(),
             Y = new List<object>()
@@ -65,13 +65,13 @@
         }
     };
 
-    private async Task AddData(int count = 100)
+    private async Task AddData(int company, string key, int count = 100)
     {
         if (!(chart.Data.ElementAt(0) is Scatter scatter)) return;
         if (!(chart.Data.ElementAt(1) is Bar bar)) return;
 
-        var (x, y) = Helper.GenerateData(scatter.X.Count + 1, scatter.X.Count + 1 + count);
-        var (x2, y2) = Helper.GenerateData(bar.X.Count + 1, bar.X.Count + 1 + count, GenerateMethod.Cos);
+        var (x, y) = Helper.GenerateData(scatter.X.Count + 1, scatter.X.Count + 1 + count, company, key);
+        var (x2, y2) = Helper.GenerateData(bar.X.Count + 1, bar.X.Count + 1 + count, company, key, GenerateMethod.Cos);
 
         scatter.X.AddRange(x);
         scatter.Y.AddRange(y);
@@ -101,11 +101,11 @@
     }
 
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await AddData();
-        }
-    }
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        await AddData();
+    //    }
+    //}
 }

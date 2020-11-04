@@ -1,15 +1,17 @@
-﻿@inherits LayoutComponentBase
+﻿@using Plotly.Blazor.Examples.Controller
+@using Plotly.Blazor.Examples.Models
+@inherits LayoutComponentBase
 
-<div class="sidebar">
-    <NavMenu/>
+<div class="sidebar" style="font-family: 'Anaheim'">
+    <NavMenu />
 </div>
 
-<div class="main">
-    <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-    </div>
+<div class="main" style="font-family: 'Anaheim'">
+    <div class="top-row px-2">
+        <p class="center" style="font-size:1.3em">Kontostand: @Convert.ToDouble(FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound, 1, "Account")).ToString("N0") DM</p>
+</div>
 
-    <div class="content px-4">
-        @Body
-    </div>
+<div class="content px-4" style="font-family: 'Anaheim'">
+    @Body
+</div>
 </div>

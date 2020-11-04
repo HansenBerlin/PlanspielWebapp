@@ -1,0 +1,142 @@
+﻿@using Plotly.Blazor.LayoutLib
+@using Plotly.Blazor.Examples.Controller
+@using System.Text.RegularExpressions
+@using Plotly.Blazor.Examples.Models
+
+@page "/"
+<style>
+    body {
+        background-color: #E1ECFA;
+    }
+</style>
+        <div class="grid-container-dashboard">
+            <div class="grid-item-dashboard">
+                <PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" />
+            </div>
+            <div class="grid-item-dashboard">
+                <p3>Maschinenpark</p3>
+                <p>Kaputte Maschinen nächste Runde mit je einem Icon</p>
+            </div>
+            <div class="grid-item-dashboard" style="background-color:#f2f2f2; padding:0px;">
+                <div class="grid-container-mini">
+                    <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px">
+                        <p>Test1</p>
+                    </div>
+                    <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px">
+                        <p>Test2</p>
+                    </div>
+                    <div class="grid-item-mini" style="margin-right: 10px; margin-top: 10px">
+                        <p>Test3</p>
+                    </div>
+                    <div class="grid-item-mini" style="margin-left: 10px; margin-top: 10px">
+                        <p>Test4</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item-dashboard">
+                <PlotlyChart Id="TestId2" Config="config2" Layout="layout2" Data="data2" @ref="chart2" />
+            </div>
+            <div class="grid-item-dashboard">
+                <p>Stückpreise letzte Produktion</p>
+            </div>
+            <div class="grid-item-dashboard">
+                <p>Konjunktur PCs, Auslastung</p>
+            </div>
+        </div>
+
+    @code
+{
+        PlotlyChart chart;
+
+        Config config = new Config
+        {
+            Responsive = true
+        };
+
+        Layout layout = new Layout
+        {
+            Title = new Title
+            {
+                Text = "Marktanteil"
+            },
+            Height = 400,
+            Font = new Font { Family = "Anaheim" },
+            Colorway = new List<object> { "0b0c10", "1f2833", "#c5c6c7", "66fcf1", "#45a29e", "d1e8e2" },
+            PaperBgColor = "#fff",
+            //AutoSize = true
+            Margin = new Margin { B = -10, L = -10, R = -10, T = -10 }
+
+        };
+
+        List<ITrace> data = new List<ITrace>
+    {
+        new Pie
+        {
+            Values = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "Marketshare"),
+            Labels = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" }
+        }
+    };
+
+        //PlotlyChart chart2;
+        //
+        //Config config2 = new Config
+        //{
+        //    Responsive = true
+        //};
+        //
+        //Layout layout2 = new Layout
+        //{
+        //    Title = new Title
+        //    {
+        //        Text = "PC Preis"
+        //    },
+        //    Height = 400,
+        //    Font = new Font { Family = "Anaheim" },
+        //    Colorway = new List<object> { "0b0c10", "1f2833", "#c5c6c7", "66fcf1", "#45a29e", "d1e8e2" },
+        //    PaperBgColor = "#f6f6f6",
+        //    //AutoSize = true
+        //    Margin = new Margin { B = -10, L = -10, R = -10, T = -10 }
+        //};
+        //
+        //List<ITrace> data2 = new List<ITrace>
+        //{
+        //    new Pie
+        //    {
+        //        Values = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "PricePerPC"),
+        //        Labels = new List<object> {"Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" }
+        //    }
+        //};
+
+
+        PlotlyChart chart2;
+
+        Config config2 = new Config
+        {
+            Responsive = true
+        };
+
+        Layout layout2 = new Layout
+        {
+            Title = new Title
+            {
+                Text = "Lagerbestand/Fehlende Rohstoffe"
+            },
+            //BarMode = BarModeEnum.Stack,
+            Height = 400,
+            Font = new Font { Family = "Anaheim" },
+            Colorway = new List<object> { "#45a29e", "rgb(165,0,38)" },
+            PaperBgColor = "#fff"
+        };
+
+
+        List<ITrace> data2 = new List<ITrace>
+    {
+        new Bar
+        {
+            X = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" },
+            Y = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "PricePerPC"),
+            Name = "Angebotspreis"
+
+        },
+    };
+    }

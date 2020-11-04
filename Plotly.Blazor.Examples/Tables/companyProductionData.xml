@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <companyProductionData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<record>
+	<record companyID="1" round="0">
 		<PLTMachines>10</PLTMachines>
 		<PCMachines>5</PCMachines>
-		<Chip1>165000</Chip1>
-		<Chip2>117000</Chip2>
-		<PLTs>75000</PLTs>
+		<Chip1Storage>165000</Chip1Storage>
+		<Chip2Storage>117000</Chip2Storage>
+		<PLTStorage>75000</PLTStorage>
+		<PCStorage>12000</PCStorage>
+		<Chip1Bought>825000</Chip1Bought>
+		<Chip2Bought>585000</Chip2Bought>
+		<PLTBought>75000</PLTBought>
 		<Chip1Price>1.27</Chip1Price>
 		<Chip2Price>6.17</Chip2Price>
 		<PLTPrice>225</PLTPrice>
 		<Quality>90</Quality>
 	</record>
-	<record>
+	<record companyID="1" round="1">
 		<PLTMachines>10</PLTMachines>
-		<PCMachines>5</PCMachines>
-		<Chip1>690000</Chip1>
-		<Chip2>432000</Chip2>
-		<PLTs>75000</PLTs>
+		<PCMachines>10</PCMachines>
+		<Chip1Storage>690000</Chip1Storage>
+		<Chip2Storage>432000</Chip2Storage>
+		<PLTStorage>75000</PLTStorage>
+		<PCStorage>12000</PCStorage>
+		<Chip1Bought>1500000</Chip1Bought>
+		<Chip2Bought>1000000</Chip2Bought>
+		<PLTBought>0</PLTBought>
 		<Chip1Price>1.42</Chip1Price>
 		<Chip2Price>6.58</Chip2Price>
 		<PLTPrice>200</PLTPrice>

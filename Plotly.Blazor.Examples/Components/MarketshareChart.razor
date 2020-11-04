@@ -13,17 +13,19 @@
     {
         Title = new Title
         {
-            Text = "Pie"
+            Text = "Marketshare"
         },
         Height = 500
     };
 
     List<ITrace> data = new List<ITrace>
-{
+    {
         new Pie
         {
-            Values = new List<object> {19, 26, 55},
-            Labels = new List<object> {"Residential", "Non-Residential", "Utility"}
+            Values = Plotly.Blazor.Examples.Controller.MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "Marketshare"),
+            Labels = new List<object> {"Company1", "Company2", "Company3", "Company4", "Company5", "Company6" }
         }
     };
+
+
 }

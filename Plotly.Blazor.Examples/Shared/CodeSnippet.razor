@@ -10,12 +10,12 @@
     /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            Code = await CodeHttpClient.GetStringAsync(Url);
-            StateHasChanged();
-        }
-        await JsRunTime.InvokeVoidAsync("onBlazorReady");
+        //if (firstRender)
+        //{
+        //    Code = await CodeHttpClient.GetStringAsync(Url);
+        //    StateHasChanged();
+        //}
+        //await JsRunTime.InvokeVoidAsync("onBlazorReady");
     }
 
 }

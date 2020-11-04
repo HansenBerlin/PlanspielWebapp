@@ -8,17 +8,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Plotly.Blazor.Examples</title>
-    <base href="~/"/>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/all.css"/>
-    <link rel="stylesheet" href="css/site.css"/>
-    <link rel="stylesheet" href="css/default.min.css"/>
-    <link rel="stylesheet" href="css/vs.css"/>
-    <link href="_content/Blazorise/blazorise.css" rel="stylesheet"/>
-    <link href="_content/Blazorise.Bootstrap/blazorise.bootstrap.css" rel="stylesheet"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThinkBig</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/default.min.css" />
+    <link rel="stylesheet" href="css/vs.css" />
+    <link href="_content/Blazorise/blazorise.css" rel="stylesheet" />
+    <link href="_content/Blazorise.Bootstrap/blazorise.bootstrap.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Anaheim' rel='stylesheet'>
+
 </head>
 <body>
 <app>
@@ -35,6 +37,22 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+<script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
 
 
 <!-- Import the plotly.js library -->

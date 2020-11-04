@@ -1,5 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <marketData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<record companyID="1" round="0">
+		<CapacityPC>15000</CapacityPC>
+		<CapacityPLT>75000</CapacityPLT>
+		<OutputPC>12000</OutputPC>
+		<OutputPLT>60000</OutputPLT>
+		<SalesPC>0</SalesPC>
+		<SalesPLT>0</SalesPLT>
+		<Marketshare>0</Marketshare>
+		<PricePerPC>4000</PricePerPC>
+		<Marketing>0</Marketing>
+		<Saldo>-54075000</Saldo>
+		<Account>-14075000</Account>
+	</record>
+	<record companyID="2" round="0">
+		<CapacityPC>15000</CapacityPC>
+		<CapacityPLT>75000</CapacityPLT>
+		<OutputPC>12000</OutputPC>
+		<OutputPLT>60000</OutputPLT>
+		<SalesPC>0</SalesPC>
+		<SalesPLT>0</SalesPLT>
+		<Marketshare>0</Marketshare>
+		<PricePerPC>4000</PricePerPC>
+		<Marketing>0</Marketing>
+		<Saldo>-54075000</Saldo>
+		<Account>-14075000</Account>
+	</record>
+	<record companyID="3" round="0">
+		<CapacityPC>15000</CapacityPC>
+		<CapacityPLT>75000</CapacityPLT>
+		<OutputPC>12000</OutputPC>
+		<OutputPLT>60000</OutputPLT>
+		<SalesPC>0</SalesPC>
+		<SalesPLT>0</SalesPLT>
+		<Marketshare>0</Marketshare>
+		<PricePerPC>4000</PricePerPC>
+		<Marketing>0</Marketing>
+		<Saldo>-54075000</Saldo>
+		<Account>-14075000</Account>
+	</record>
+	<record companyID="4" round="0">
+		<CapacityPC>15000</CapacityPC>
+		<CapacityPLT>75000</CapacityPLT>
+		<OutputPC>12000</OutputPC>
+		<OutputPLT>60000</OutputPLT>
+		<SalesPC>0</SalesPC>
+		<SalesPLT>0</SalesPLT>
+		<Marketshare>0</Marketshare>
+		<PricePerPC>4000</PricePerPC>
+		<Marketing>0</Marketing>
+		<Saldo>-54075000</Saldo>
+		<Account>-14075000</Account>
+	</record>
+	<record companyID="5" round="0">
+		<CapacityPC>15000</CapacityPC>
+		<CapacityPLT>75000</CapacityPLT>
+		<OutputPC>12000</OutputPC>
+		<OutputPLT>60000</OutputPLT>
+		<SalesPC>0</SalesPC>
+		<SalesPLT>0</SalesPLT>
+		<Marketshare>0</Marketshare>
+		<PricePerPC>4000</PricePerPC>
+		<Marketing>0</Marketing>
+		<Saldo>-54075000</Saldo>
+		<Account>-14075000</Account>
+	</record>
+	<record companyID="6" round="0">
+		<CapacityPC>15000</CapacityPC>
+		<CapacityPLT>75000</CapacityPLT>
+		<OutputPC>12000</OutputPC>
+		<OutputPLT>60000</OutputPLT>
+		<SalesPC>0</SalesPC>
+		<SalesPLT>0</SalesPLT>
+		<Marketshare>0</Marketshare>
+		<PricePerPC>4000</PricePerPC>
+		<Marketing>0</Marketing>
+		<Saldo>-54075000</Saldo>
+		<Account>-14075000</Account>
+	</record>
 	<record companyID="1" round="1">
 		<CapacityPC>15000</CapacityPC>
 		<CapacityPLT>75000</CapacityPLT>

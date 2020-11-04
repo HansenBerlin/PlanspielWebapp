@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Plotly.Blazor.Examples.Controller;
 using Plotly.Blazor.Traces;
 
 namespace Plotly.Blazor.Examples
@@ -18,10 +19,10 @@ namespace Plotly.Blazor.Examples
         /// <param name="method">The method.</param>
         /// <returns>Scatter.</returns>
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-        public static Scatter GenerateData(this Scatter reference, int startIndex, int stopIndex,
+        public static Scatter GenerateData(this Scatter reference, int startIndex, int stopIndex, int company, string key,
             GenerateMethod method = GenerateMethod.Sin)
         {
-            (reference.X, reference.Y) = GenerateData(startIndex, stopIndex);
+            (reference.X, reference.Y) = GenerateData(startIndex, stopIndex, company, key);
             return reference;
         }
 
@@ -35,19 +36,26 @@ namespace Plotly.Blazor.Examples
         ///     System.ValueTuple&lt;List&lt;System.Nullable&lt;System.Double&gt;&gt;, List&lt;System.Nullable&lt;
         ///     System.Double&gt;&gt;&gt;.
         /// </returns>
-        public static (List<object> X, List<object> Y) GenerateData(int startIndex, int stopIndex,
+        public static (List<object> X, List<object> Y) GenerateData(int startIndex, int stopIndex, int company, string key,
             GenerateMethod method = GenerateMethod.Sin)
         {
             var x = new List<object>();
             var y = new List<object>();
 
-            var start = Math.Min(startIndex, stopIndex);
-            var stop = Math.Max(startIndex, stopIndex);
+            //var start = Math.Min(startIndex, stopIndex);
+            //var stop = Math.Max(startIndex, stopIndex);
+            //
+            //for (var i = start; i < stop; i++)
+            //{
+            //    x.Add(i);
+            //    y.Add(i.Randomize(method));
+            //}
 
-            for (var i = start; i < stop; i++)
+            int gameRound = 2;
+            for (int i = 0; i < gameRound; i++)
             {
                 x.Add(i);
-                y.Add(i.Randomize(method));
+                y.Add(FetchTableDataController.ReadValueFromXML("marketData.xml", i, company, key));
             }
 
             return (x, y);

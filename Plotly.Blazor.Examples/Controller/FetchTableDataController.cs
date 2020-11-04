@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
-namespace PlanspielWebApp.Controller
+namespace Plotly.Blazor.Examples.Controller
 {
     public class FetchTableDataController
     {
@@ -13,7 +14,7 @@ namespace PlanspielWebApp.Controller
 
         }
 
-        public static int ReadValueFromXML(string tableName, int gameRound, int companyID, string searchForKey)
+        public static double ReadValueFromXML(string tableName, int gameRound, int companyID, string searchForKey)
         {
             XDocument doc = XDocument.Load("Tables\\" + tableName);
 
@@ -25,12 +26,14 @@ namespace PlanspielWebApp.Controller
                     {
                         if(element.Name == searchForKey)
                         {
-                            return int.Parse(element.Value);                            
+                            //return double.Parse(element.Value);
+                            return XmlConvert.ToDouble(element.Value);
                         }
                     }
                 } 
             }
             return 0;
+
         }
     }
 }
