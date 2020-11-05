@@ -12,7 +12,7 @@ namespace Plotly.Blazor.Examples.Models
         public double StorageCosts { get; set; }
 
 
-        public double CalculateCurrentCost();
+        public double CalculateCurrentCost(int calculateForGameRound);
 
     }
 }

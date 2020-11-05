@@ -15,28 +15,31 @@ namespace Plotly.Blazor.Examples.Models
 
 
 
-        public double CalculateCurrentCost()
+        public double CalculateCurrentCost(int calculateForGameRound)
         {
             var producedPLT = new CalculatePLTProductionController();
-            double boughtInLastRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "PLTBought");
-            double lastBasePrice = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "PLTPrice")*
-                (100 / FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "Quality"));
-            double priceWithDiscount = lastBasePrice - (lastBasePrice / 10);             
+            double boughtInLastRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PLTBought");
+            
+            double lastBasePrice = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "PLTPrice") *
+                (100 / FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "Quality"));            
+            
+            double priceWithDiscount = lastBasePrice - (lastBasePrice / 10);    
+            
             if(ProducedInLastRound > 0)
             {
                 if (boughtInLastRound >= 250000) PricePerUnit = priceWithDiscount;
                 else PricePerUnit = lastBasePrice;                
-                return (((producedPLT.CurrentPLTPrice() * ProducedInLastRound) + (PricePerUnit * boughtInLastRound)) / (ProducedInLastRound + boughtInLastRound))+10; 
+                return (((producedPLT.CurrentPLTPrice(calculateForGameRound) * ProducedInLastRound) + (PricePerUnit * boughtInLastRound)) / (ProducedInLastRound + boughtInLastRound))+10; 
             }
             else if (boughtInLastRound >= 250000) return PricePerUnit = priceWithDiscount + 10;
             else return PricePerUnit = lastBasePrice + 10;
         }
 
-        public PLT()
+        public PLT(int calculateForGameRound)
         {
-            CurrentStorage = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "PLTStorage");
-            ProducedInLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound, 1, "OutputPLT");
-            PricePerUnit = CalculateCurrentCost();
+            CurrentStorage = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PLTStorage");
+            ProducedInLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound-1, 1, "OutputPLT");
+            PricePerUnit = CalculateCurrentCost(calculateForGameRound);
         }
     }
 }

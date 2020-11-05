@@ -99,12 +99,12 @@
     private double AdditionalPLTMachines { get; set; }
     private double AdditionalPCMachines { get; set; }
 
-    static private double StoredChipsType1 = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "Chip1Storage");
-    static private double StoredChipsType2 = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "Chip2Storage");
-    static private double StoredPLTs = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "PLTStorage");
+    static private double StoredChipsType1 = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip1Storage");
+    static private double StoredChipsType2 = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip2Storage");
+    static private double StoredPLTs = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PLTStorage");
     static private double AvailableWorkers = SetupData.CurrentWorkers;
-    static private double AvailablePCMachines = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "PCMachines");
-    static private double AvailablePLTMachines = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "PLTMachines");
+    static private double AvailablePCMachines = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PCMachines");
+    static private double AvailablePLTMachines = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PLTMachines");
 
 
     PlotlyChart chart;
@@ -150,12 +150,12 @@
         ResetData();
         var pcProductionCalculate = new CalculatePCProductionController();
         var plProductionCalculate = new CalculatePLTProductionController();
-        PricePerPCPiece = pcProductionCalculate.ShowCurrentProductionCosts(inputPCs, marketingCost) + " DM";
+        PricePerPCPiece = pcProductionCalculate.ShowCurrentProductionCosts(inputPCs, marketingCost, SetupData.CurrentGameRound) + " DM";
 
         var matchInputProducedUnits = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
         if (matchInputProducedUnits.Success)
         {
-            var compareAndShowAdditionalUnitsForPCProduction = new CompareDesiredProductionToStorageController(Int32.Parse(inputPCs), type);
+            var compareAndShowAdditionalUnitsForPCProduction = new CompareDesiredProductionToStorageController(Int32.Parse(inputPCs), type, SetupData.CurrentGameRound);
             AdditionalChips1 = compareAndShowAdditionalUnitsForPCProduction.AdditionalChipsType1;
             AdditionalChips2 = compareAndShowAdditionalUnitsForPCProduction.AdditionalChipsType2;
             AdditionalPLT = compareAndShowAdditionalUnitsForPCProduction.AdditionalPLT;
@@ -164,9 +164,9 @@
             AdditionalCostChips2 = compareAndShowAdditionalUnitsForPCProduction.AdditionalCostChip2;
             AdditionalCostPLT = compareAndShowAdditionalUnitsForPCProduction.AdditionalCostPLT;
 
-            AdditionalWorkers = compareAndShowAdditionalUnitsForPCProduction.AdditionalOrAvailableWorkers;
-            AdditionalPCMachines = compareAndShowAdditionalUnitsForPCProduction.AdditionalOrAvailablePCMachines;
-            AdditionalPLTMachines = compareAndShowAdditionalUnitsForPCProduction.AdditionalOrAvailablePLTMachines;
+            AdditionalWorkers = compareAndShowAdditionalUnitsForPCProduction.AdditionalWorkers;
+            AdditionalPCMachines = compareAndShowAdditionalUnitsForPCProduction.AdditionalPCMachines;
+            AdditionalPLTMachines = compareAndShowAdditionalUnitsForPCProduction.AdditionalPLTMachines;
         }
         if (inputPLTs == "") UpdatePLTData("0", "PLT");
         else UpdatePLTData(inputPLTs, "PLT");
@@ -176,12 +176,12 @@
     private void UpdatePLTData(string input, string type)
     {
         var pltProductionCalculate = new CalculatePLTProductionController();
-        PricePerPLTPiece = pltProductionCalculate.ShowCurrentProductionCosts(input) + " DM";
+        PricePerPLTPiece = pltProductionCalculate.ShowCurrentProductionCosts(input, SetupData.CurrentGameRound) + " DM";
 
         var matchInputProducedUnits = Regex.Match(input, "[0-9]+[.[0-9]+]?");
         if (matchInputProducedUnits.Success)
         {
-            var compareAndShowAdditionalUnitsForPLTProduction = new CompareDesiredProductionToStorageController(Int32.Parse(input), type);
+            var compareAndShowAdditionalUnitsForPLTProduction = new CompareDesiredProductionToStorageController(Int32.Parse(input), type, SetupData.CurrentGameRound);
             AdditionalChips1 += compareAndShowAdditionalUnitsForPLTProduction.AdditionalChipsType1;
             AdditionalChips2 += compareAndShowAdditionalUnitsForPLTProduction.AdditionalChipsType2;
             AdditionalPLT += compareAndShowAdditionalUnitsForPLTProduction.AdditionalPLT;
@@ -190,9 +190,9 @@
             AdditionalCostChips2 = compareAndShowAdditionalUnitsForPLTProduction.AdditionalCostChip2;
             AdditionalCostPLT = compareAndShowAdditionalUnitsForPLTProduction.AdditionalCostPLT;
 
-            AdditionalWorkers = AdditionalWorkers + compareAndShowAdditionalUnitsForPLTProduction.AdditionalOrAvailableWorkers + Plotly.Blazor.Examples.Models.SetupData.CurrentWorkers;
-            AdditionalPCMachines += compareAndShowAdditionalUnitsForPLTProduction.AdditionalOrAvailablePCMachines;
-            AdditionalPLTMachines += compareAndShowAdditionalUnitsForPLTProduction.AdditionalOrAvailablePLTMachines;
+            AdditionalWorkers = AdditionalWorkers + compareAndShowAdditionalUnitsForPLTProduction.AdditionalWorkers + Plotly.Blazor.Examples.Models.SetupData.CurrentWorkers;
+            AdditionalPCMachines += compareAndShowAdditionalUnitsForPLTProduction.AdditionalPCMachines;
+            AdditionalPLTMachines += compareAndShowAdditionalUnitsForPLTProduction.AdditionalPLTMachines;
         }
 
         UpdateChart();
@@ -207,7 +207,9 @@
             Y = new List<object> { StoredChipsType1/(StoredChipsType1+AdditionalChips1), StoredChipsType2/(StoredChipsType2+AdditionalChips2),
                 StoredPLTs/(StoredPLTs+AdditionalPLT), AvailableWorkers/(AvailableWorkers+AdditionalWorkers),
                 AvailablePCMachines/(AvailablePCMachines+AdditionalPCMachines), AvailablePLTMachines/(AvailablePLTMachines+AdditionalPLTMachines) },
-            Name = "lagernd"
+            Name = "lagernd",
+            HoverTemplateArray = new string[] { StoredChipsType1.ToString(), StoredChipsType2.ToString(), StoredPLTs.ToString(),
+                AvailableWorkers.ToString(), AvailablePCMachines.ToString(), AvailablePLTMachines.ToString() }
         };
 
         var neededRessources = new Bar
@@ -216,7 +218,9 @@
             Y = new List<object> { AdditionalChips1/(StoredChipsType1+AdditionalChips1), AdditionalChips2/(StoredChipsType2+AdditionalChips2),
                 AdditionalPLT/(StoredPLTs+AdditionalPLT), AdditionalWorkers/(AvailableWorkers+AdditionalWorkers),
                 AdditionalPCMachines/(AvailablePCMachines+AdditionalPCMachines), AdditionalPLTMachines/(AvailablePLTMachines+AdditionalPLTMachines)},
-            Name = "fehlend"
+            Name = "fehlend",
+            HoverTemplateArray = new string[] { AdditionalChips1.ToString(), AdditionalChips2.ToString(), AdditionalPLT.ToString(), 
+                AdditionalWorkers.ToString(), AdditionalPCMachines.ToString(), AdditionalPLTMachines.ToString() }
         };
 
         this.data[0] = storedRessources;

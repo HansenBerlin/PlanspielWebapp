@@ -8,7 +8,7 @@
 
 <div class="main" style="font-family: 'Anaheim'">
     <div class="top-row px-2">
-        <p class="center" style="font-size:1.3em">Kontostand: @Convert.ToDouble(FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound, 1, "Account")).ToString("N0") DM</p>
+        <p class="center" style="font-size:1.3em">Kontostand: @Convert.ToDouble(FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound-1, 1, "Account")).ToString("N0") DM</p>
 </div>
 
 <div class="content px-4" style="font-family: 'Anaheim'">

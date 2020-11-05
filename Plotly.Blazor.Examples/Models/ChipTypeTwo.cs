@@ -14,21 +14,23 @@ namespace Plotly.Blazor.Examples.Models
 
 
 
-        public double CalculateCurrentCost()
+        public double CalculateCurrentCost(int calculateForGameRound)
         {
-            double boughtInLastRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "Chip2Bought");
-            double lastBasePrice = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "Chip2Price")*
-                (100 / FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "Quality"));
+            double boughtInLastRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip2Bought");
+
+            double lastBasePrice = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "Chip2Price") *
+                (100 / FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound - 1, 1, "Quality"));           
+            
             StorageCosts = lastBasePrice * 0.5;
             double priceWithDiscount = lastBasePrice - (lastBasePrice / 10);
             if (boughtInLastRound >= 1000000) return PricePerUnit = priceWithDiscount + 0.5;
             else return PricePerUnit = lastBasePrice + 0.5;
         }
 
-        public ChipTypeTwo()
+        public ChipTypeTwo(int calculateForGameRound)
         {
-            CurrentStorage = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound, 1, "Chip2Storage");            
-            PricePerUnit = CalculateCurrentCost();
+            CurrentStorage = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip2Storage");            
+            PricePerUnit = CalculateCurrentCost(calculateForGameRound);
         }
     }
 }

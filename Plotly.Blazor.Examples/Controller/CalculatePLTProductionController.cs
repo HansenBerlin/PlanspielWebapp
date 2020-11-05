@@ -11,13 +11,13 @@ namespace Plotly.Blazor.Examples.Controller
 {
     public class CalculatePLTProductionController
     {
-        public string ShowCurrentProductionCosts(string unitsToProduce)
+        public string ShowCurrentProductionCosts(string unitsToProduce, int calculateForGameRound)
         {
             var matchInputProducedUnits = Regex.Match(unitsToProduce, "[0-9]+");
 
             if (matchInputProducedUnits.Success)
             {
-                return Convert.ToDouble(CurrentPLTPrice()).ToString("N2");
+                return Convert.ToDouble(CurrentPLTPrice(calculateForGameRound)).ToString("N2");
             }
             else
             {
@@ -26,10 +26,10 @@ namespace Plotly.Blazor.Examples.Controller
         }
 
 
-        public double CurrentPLTPrice()
+        public double CurrentPLTPrice(int calculateForGameRound)
         {
-            var chipOne = new ChipTypeOne();
-            var chipTwo = new ChipTypeTwo();
+            var chipOne = new ChipTypeOne(calculateForGameRound);
+            var chipTwo = new ChipTypeTwo(calculateForGameRound);
             return (533333 + (10 * SetupData.CurrentWage)) / 7500 + (8 * chipOne.PricePerUnit) + (6 * chipTwo.PricePerUnit);
         }
     }

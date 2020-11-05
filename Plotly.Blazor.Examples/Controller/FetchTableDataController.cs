@@ -8,12 +8,7 @@ using System.Xml.Linq;
 namespace Plotly.Blazor.Examples.Controller
 {
     public class FetchTableDataController
-    {
-        public FetchTableDataController()
-        {
-
-        }
-
+    {      
         public static double ReadValueFromXML(string tableName, int gameRound, int companyID, string searchForKey)
         {
             XDocument doc = XDocument.Load("Tables\\" + tableName);
@@ -26,14 +21,12 @@ namespace Plotly.Blazor.Examples.Controller
                     {
                         if(element.Name == searchForKey)
                         {
-                            //return double.Parse(element.Value);
                             return XmlConvert.ToDouble(element.Value);
                         }
                     }
                 } 
             }
             return 0;
-
         }
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Plotly.Blazor.Examples.Models;
 
 namespace Plotly.Blazor.Examples
 {

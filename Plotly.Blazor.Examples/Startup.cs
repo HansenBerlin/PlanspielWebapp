@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Plotly.Blazor.Examples.Models;
 
 namespace Plotly.Blazor.Examples
 {
@@ -23,6 +24,8 @@ namespace Plotly.Blazor.Examples
         /// <param name="configuration">The configuration.</param>
         public Startup(IConfiguration configuration)
         {
+            var setupData = new SetupData();
+
             Configuration = configuration;
         }
 

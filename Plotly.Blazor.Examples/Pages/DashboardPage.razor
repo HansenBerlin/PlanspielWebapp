@@ -19,14 +19,14 @@
                     <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
                         <h5 style="margin:15px">PCs</h5>
                         <object id="moneyIcon" type="image/svg+xml" data="/icons/pc.svg" style="width:80px;" class="svg-filter-grey"> </object>
-                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PCMachinesDyingNextRound</p>
-                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+2): @SetupData.PCMachinesDyingInTwoRounds</p>
+                        <p style="font-size:1.3em">Runde @SetupData.CurrentGameRound: @SetupData.PCMachinesDyingNextRound</p>
+                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PCMachinesDyingInTwoRounds</p>
                     </div>
                     <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
                         <h5 style="margin:15px">Platinen</h5>
                         <object id="moneyIcon" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:80px;" class="svg-filter-grey"> </object>
-                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PLTMachinesDyingNextRound</p>
-                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+2): @SetupData.PLTMachinesDyingInTwoRounds</p>
+                        <p style="font-size:1.3em">Runde @SetupData.CurrentGameRound+: @SetupData.PLTMachinesDyingNextRound</p>
+                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PLTMachinesDyingInTwoRounds</p>
                     </div>
                 </div>
                 </div>
@@ -58,14 +58,28 @@
                 <PlotlyChart Id="TestId2" Config="config2" Layout="layout2" Data="data2" @ref="chart2" />
             </div>
             <div class="grid-item-dashboard">
-                <p>Stückpreise letzte Produktion</p>
+                <h5 style="margin:20px">Maschinen Verschleiß</h5>
+                <div class="grid-container-mini" style="background-color:#fff">
+                    <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
+                        <h5 style="margin:15px">Stückkosten PC</h5>
+                        <p>Runde (@SetupData.CurrentGameRound-2): @UpdatePCData("12000", "0", (SetupData.CurrentGameRound - 1))</p>
+                        <p>Runde (@SetupData.CurrentGameRound-1): @UpdatePCData("15000", "1000000", SetupData.CurrentGameRound)</p>
+                    </div>
+                    <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
+                        <h5 style="margin:15px">Stückkosten Platine</h5>
+                        <p>Runde (@SetupData.CurrentGameRound-2): @UpdatePLTData("60000", (SetupData.CurrentGameRound - 1))</p>
+                        <p>Runde (@SetupData.CurrentGameRound-1): @UpdatePLTData("75000", SetupData.CurrentGameRound)</p>
+
+                    </div>
+                </div>                
             </div>
             <div class="grid-item-dashboard">
-                <p>Konjunktur PCs, Auslastung</p>
+                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound, 1, "PCDemandNextRound")</p>
+                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound, 1, "Efficiency")</p>
             </div>
         </div>
 
-    @code
+@code
 {
 
         PlotlyChart chart;
@@ -131,4 +145,16 @@
 
         },
     };
+
+    private string UpdatePCData(string inputPCs, string marketingCost, int calculateForGameRound)
+    {
+        var pcProductionCalculate = new CalculatePCProductionController();
+        return pcProductionCalculate.ShowCurrentProductionCosts(inputPCs, marketingCost, calculateForGameRound) + " DM";
     }
+
+    private string UpdatePLTData(string inputPLTs, int calculateForGameRound)
+    {
+        var pltProductionCalculate = new CalculatePLTProductionController();
+        return pltProductionCalculate.ShowCurrentProductionCosts(inputPLTs, calculateForGameRound) + " DM";
+    }
+}
