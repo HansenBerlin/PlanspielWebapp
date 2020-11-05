@@ -14,22 +14,43 @@
                 <PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" />
             </div>
             <div class="grid-item-dashboard">
-                <p3>Maschinenpark</p3>
-                <p>Kaputte Maschinen nächste Runde mit je einem Icon</p>
-            </div>
+                <h5 style="margin:20px">Maschinen Verschleiß</h5>
+                <div class="grid-container-mini" style="background-color:#fff">
+                    <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
+                        <h5 style="margin:15px">PCs</h5>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/pc.svg" style="width:80px;" class="svg-filter-grey"> </object>
+                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PCMachinesDyingNextRound</p>
+                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+2): @SetupData.PCMachinesDyingInTwoRounds</p>
+                    </div>
+                    <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
+                        <h5 style="margin:15px">Platinen</h5>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:80px;" class="svg-filter-grey"> </object>
+                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PLTMachinesDyingNextRound</p>
+                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+2): @SetupData.PLTMachinesDyingInTwoRounds</p>
+                    </div>
+                </div>
+                </div>
             <div class="grid-item-dashboard" style="background-color:#f2f2f2; padding:0px;">
                 <div class="grid-container-mini">
                     <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px">
-                        <p>Test1</p>
+                        <h5 style="margin:15px">Marktanteil</h5>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/rabatt.svg" style="width:80px;" class="svg-filter-teal"> </object>
+                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("Marketshare")</p>
                     </div>
                     <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px">
-                        <p>Test2</p>
+                        <h5 style="margin:15px">Saldo</h5>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/hand.svg" style="width:80px;" class="svg-filter-teal"> </object>
+                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("Saldo")</p>
                     </div>
                     <div class="grid-item-mini" style="margin-right: 10px; margin-top: 10px">
-                        <p>Test3</p>
+                        <h5 style="margin:15px">Kontostand</h5>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/geld.svg" style="width:80px;" class="svg-filter-teal"> </object>
+                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("Account")</p>
                     </div>
                     <div class="grid-item-mini" style="margin-left: 10px; margin-top: 10px">
-                        <p>Test4</p>
+                        <h5 style="margin:15px">Produktion</h5>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/massenproduktion.svg" style="width:80px;" class="svg-filter-teal"> </object>
+                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("production")</p>
                     </div>
                 </div>
             </div>
@@ -46,6 +67,7 @@
 
     @code
 {
+
         PlotlyChart chart;
 
         Config config = new Config

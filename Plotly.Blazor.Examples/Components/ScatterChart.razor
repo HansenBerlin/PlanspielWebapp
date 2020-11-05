@@ -42,7 +42,9 @@
                     Text = "Betrag"
                 }
             }
-        }
+        },
+        Font = new Font { Family = "Anaheim" },
+        Colorway = new List<object> { "0b0c10", "1f2833", "#c5c6c7", "66fcf1", "#45a29e", "d1e8e2" }
     };
 
     IList<ITrace> data = new List<ITrace>{
@@ -79,7 +81,7 @@
             await chart.AddTrace(new Scatter
             {
 
-                Name = $"Company {data.Count+1}",
+                Name = $"Firma {data.Count+1}",
                 Mode = ModeFlag.Lines | ModeFlag.Markers,
                 X = x,
                 Y = y
