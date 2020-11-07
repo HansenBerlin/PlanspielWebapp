@@ -14,19 +14,18 @@
                 <PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" />
             </div>
             <div class="grid-item-dashboard">
-                <h5 style="margin:20px">Maschinen Verschleiß</h5>
+                <h5 style="margin:20px">Maschinen ersetzen</h5>
                 <div class="grid-container-mini" style="background-color:#fff">
                     <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
-                        <h5 style="margin:15px">PCs</h5>
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/pc.svg" style="width:80px;" class="svg-filter-grey"> </object>
-                        <p style="font-size:1.3em">Runde @SetupData.CurrentGameRound: @SetupData.PCMachinesDyingNextRound</p>
-                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PCMachinesDyingInTwoRounds</p>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/pc.svg" style="width:80px;" class="svg-filter-red"> </object>
+                        <p class="paragraph-dashboard">in Runde @SetupData.CurrentGameRound:</p>
+                        <h2 style="color: rgb(165,0,38)">@SetupData.PCMachinesToReplaceThisRound</h2>
+                        
                     </div>
                     <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
-                        <h5 style="margin:15px">Platinen</h5>
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:80px;" class="svg-filter-grey"> </object>
-                        <p style="font-size:1.3em">Runde @SetupData.CurrentGameRound+: @SetupData.PLTMachinesDyingNextRound</p>
-                        <p style="font-size:1.3em">Runde @(SetupData.CurrentGameRound+1): @SetupData.PLTMachinesDyingInTwoRounds</p>
+                        <object id="moneyIcon" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:80px;" class="svg-filter-red"> </object>
+                        <p class="paragraph-dashboard">in Runde @SetupData.CurrentGameRound:</p>
+                        <h2 style="color: rgb(165,0,38)">@SetupData.PLTMachinesToReplaceThisRound</h2>
                     </div>
                 </div>
                 </div>
@@ -58,84 +57,81 @@
                 <PlotlyChart Id="TestId2" Config="config2" Layout="layout2" Data="data2" @ref="chart2" />
             </div>
             <div class="grid-item-dashboard">
-                <h5 style="margin:20px">Maschinen Verschleiß</h5>
-                <div class="grid-container-mini" style="background-color:#fff">
-                    <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
-                        <h5 style="margin:15px">Stückkosten PC</h5>
-                        <p>Runde (@SetupData.CurrentGameRound-2): @UpdatePCData("12000", "0", (SetupData.CurrentGameRound - 1))</p>
-                        <p>Runde (@SetupData.CurrentGameRound-1): @UpdatePCData("15000", "1000000", SetupData.CurrentGameRound)</p>
+                <h5 style="margin:20px">Letzte Stückkosten</h5>
+                <div class="grid-container-mini" style="background-color:#fff; grid-template-columns: 33% 33% 33%">
+                    <div class="grid-item-mini" style="background-color:transparent">                        
+                        <p class="paragraph-dashboard">Runde @(SetupData.CurrentGameRound-1): @SetupData.PPPPC</p>
                     </div>
-                    <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
-                        <h5 style="margin:15px">Stückkosten Platine</h5>
-                        <p>Runde (@SetupData.CurrentGameRound-2): @UpdatePLTData("60000", (SetupData.CurrentGameRound - 1))</p>
-                        <p>Runde (@SetupData.CurrentGameRound-1): @UpdatePLTData("75000", SetupData.CurrentGameRound)</p>
+                    <div class="grid-item-mini" style="background-color:transparent">
+                        <p class="paragraph-dashboard">Runde @(SetupData.CurrentGameRound-1): @SetupData.PPPPLTProductionLastRound</p>                        
+                    </div>
+                    <div class="grid-item-mini" style="background-color:transparent">
 
                     </div>
                 </div>                
             </div>
             <div class="grid-item-dashboard">
-                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound, 1, "PCDemandNextRound")</p>
-                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound, 1, "Efficiency")</p>
+                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound-1, 1, "PCDemandNextRound")</p>
+                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound-1, 1, "Efficiency")</p>
             </div>
         </div>
 
 @code
 {
 
-        PlotlyChart chart;
+    PlotlyChart chart;
 
-        Config config = new Config
+    Config config = new Config
+    {
+        Responsive = true
+    };
+
+    Layout layout = new Layout
+    {
+        Title = new Title
         {
-            Responsive = true
-        };
+            Text = "Marktanteil"
+        },
+        Height = 400,
+        Font = new Font { Family = "Anaheim" },
+        Colorway = new List<object> { "0b0c10", "1f2833", "#c5c6c7", "66fcf1", "#45a29e", "d1e8e2" },
+        PaperBgColor = "#fff",
+        //AutoSize = true
+        Margin = new Margin { B = -10, L = -10, R = -10, T = -10 }
 
-        Layout layout = new Layout
-        {
-            Title = new Title
-            {
-                Text = "Marktanteil"
-            },
-            Height = 400,
-            Font = new Font { Family = "Anaheim" },
-            Colorway = new List<object> { "0b0c10", "1f2833", "#c5c6c7", "66fcf1", "#45a29e", "d1e8e2" },
-            PaperBgColor = "#fff",
-            //AutoSize = true
-            Margin = new Margin { B = -10, L = -10, R = -10, T = -10 }
+    };
 
-        };
-
-        List<ITrace> data = new List<ITrace>
+    List<ITrace> data = new List<ITrace>
     {
         new Pie
         {
             Values = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "Marketshare"),
             Labels = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" }
         }
-    };      
+    };
 
 
-        PlotlyChart chart2;
+    PlotlyChart chart2;
 
-        Config config2 = new Config
+    Config config2 = new Config
+    {
+        Responsive = true
+    };
+
+    Layout layout2 = new Layout
+    {
+        Title = new Title
         {
-            Responsive = true
-        };
-
-        Layout layout2 = new Layout
-        {
-            Title = new Title
-            {
-                Text = "Lagerbestand/Fehlende Rohstoffe"
-            },
-            //BarMode = BarModeEnum.Stack,
-            Height = 400,
-            Font = new Font { Family = "Anaheim" },
-            Colorway = new List<object> { "#45a29e", "rgb(165,0,38)" },
-            PaperBgColor = "#fff"
-        };
+            Text = "PC Runde " + (SetupData.CurrentGameRound-1)
+        },
+        Height = 400,
+        Font = new Font { Family = "Anaheim" },
+        Colorway = new List<object> { "#45a29e", "rgb(165,0,38)" },
+        PaperBgColor = "#fff"
+    };
 
 
-        List<ITrace> data2 = new List<ITrace>
+    List<ITrace> data2 = new List<ITrace>
     {
         new Bar
         {
@@ -146,15 +142,15 @@
         },
     };
 
-    private string UpdatePCData(string inputPCs, string marketingCost, int calculateForGameRound)
-    {
-        var pcProductionCalculate = new CalculatePCProductionController();
-        return pcProductionCalculate.ShowCurrentProductionCosts(inputPCs, marketingCost, calculateForGameRound) + " DM";
-    }
-
-    private string UpdatePLTData(string inputPLTs, int calculateForGameRound)
-    {
-        var pltProductionCalculate = new CalculatePLTProductionController();
-        return pltProductionCalculate.ShowCurrentProductionCosts(inputPLTs, calculateForGameRound) + " DM";
-    }
+    //private string UpdatePCData(string inputPCs, string marketingCost, int calculateForGameRound)
+    //{
+    //    var pcProductionCalculate = new CalculatePCProductionController();
+    //    return pcProductionCalculate.ShowCurrentProductionCosts(inputPCs, marketingCost, calculateForGameRound) + " DM";
+    //}
+    //
+    //private string UpdatePLTData(string inputPLTs, int calculateForGameRound)
+    //{
+    //    var pltProductionCalculate = new CalculatePLTProductionController();
+    //    return pltProductionCalculate.ShowCurrentProductionCosts(inputPLTs, calculateForGameRound) + " DM";
+    //}
 }

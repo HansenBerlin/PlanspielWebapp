@@ -14,7 +14,7 @@ namespace Plotly.Blazor.Examples.Models
 
 
 
-        public double CalculateCurrentCost(int calculateForGameRound)
+        public double CalculateLastRoundProductionCosts(int calculateForGameRound)
         {
             double boughtInLastRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip2Bought");
 
@@ -30,7 +30,7 @@ namespace Plotly.Blazor.Examples.Models
         public ChipTypeTwo(int calculateForGameRound)
         {
             CurrentStorage = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip2Storage");            
-            PricePerUnit = CalculateCurrentCost(calculateForGameRound);
+            PricePerUnit = CalculateLastRoundProductionCosts(calculateForGameRound);
         }
     }
 }

@@ -12,12 +12,23 @@ a, .btn-link {
     transform: translate(-50%, -50%);
 }
 
+.paragraph-dashboard {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Anaheim';
+    font-size: 0.7em;
+}
+
 .svg-filter-grey {
     filter: invert(10%) sepia(4%) saturate(5550%) hue-rotate(174deg) brightness(93%) contrast(86%);
 }
 
 .svg-filter-teal {
     filter: invert(62%) sepia(11%) saturate(1640%) hue-rotate(128deg) brightness(88%) contrast(96%);
+}
+
+.svg-filter-red {
+    filter: invert(9%) sepia(93%) saturate(6961%) hue-rotate(342deg) brightness(69%) contrast(101%);
 }
 
 .btn-primary {

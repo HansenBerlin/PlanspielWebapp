@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <generalData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<record companyID="2" round="0">
-		<CurrentGameRound>1</CurrentGameRound>
+	<record companyID="1" round="0">
+		<CurrentGameRound>2</CurrentGameRound>
 		<CurrentWage>17000</CurrentWage>
 		<CurrentWorkers>200</CurrentWorkers>
-		<PCDemandNextRound>90</PCDemandNextRound>
-		<Efficiency>80</Efficiency>
-		<PCMachinesDyingNextRound>0</PCMachinesDyingNextRound>
-		<PCMachinesDyingInTwoRounds>5</PCMachinesDyingInTwoRounds>
-		<PLTMachinesDyingNextRound>0</PLTMachinesDyingNextRound>
-		<PLTMachinesDyingInTwoRounds>0</PLTMachinesDyingInTwoRounds>
+		<PCDemandThisRound>75</PCDemandThisRound>
+		<Efficiency>80</Efficiency>		
 	</record>
 	<record companyID="1" round="1">
 		<CurrentGameRound>2</CurrentGameRound>
 		<CurrentWage>17250</CurrentWage>
 		<CurrentWorkers>250</CurrentWorkers>
-		<PCDemandNextRound>90</PCDemandNextRound>
-		<Efficiency>100</Efficiency>
-		<PCMachinesDyingNextRound>5</PCMachinesDyingNextRound>
-		<PCMachinesDyingInTwoRounds>0</PCMachinesDyingInTwoRounds>
-		<PLTMachinesDyingNextRound>0</PLTMachinesDyingNextRound>
-		<PLTMachinesDyingInTwoRounds>10</PLTMachinesDyingInTwoRounds>
+    <PCDemandThisRound>90</PCDemandThisRound>
+		<Efficiency>100</Efficiency>		
 	</record>
 </generalData>
 

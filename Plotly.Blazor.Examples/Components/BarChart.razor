@@ -3,131 +3,152 @@
 @using System.Text.RegularExpressions
 @using Plotly.Blazor.Examples.Models
 
-<div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'London')">Graph</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Tabelle</button>
-</div>
 
-<div id="London" class="tabcontent" style="display:block">
-    <p><PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" /></p>
-</div>
-
-<div id="Paris" class="tabcontent">
-    <p><table class="table" style="width:100%">
-    <tr>
-        <th style="width:25%"></th>
-        <th style="width:25%">Chip 1</th>
-        <th style="width:25%">Chip 2</th>
-        <th style="width:25%">Platinen</th>
-    </tr>
-    <tr>
-        <td class="table-left-column">Lager</td>
-        <td>@ConvertToStringWithSeperators(StoredChipsType1)</td>
-        <td>@ConvertToStringWithSeperators(StoredChipsType2)</td>
-        <td>@ConvertToStringWithSeperators(StoredPLTs)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Einkaufen</td>
-        <td>@ConvertToStringWithSeperators(AdditionalChips1)</td>
-        <td>@ConvertToStringWithSeperators(AdditionalChips2)</td>
-        <td>@ConvertToStringWithSeperators(AdditionalPLT)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Kosten Einkauf</td>
-        <td>@ConvertToStringWithSeperators(AdditionalCostChips1)</td>
-        <td>@ConvertToStringWithSeperators(AdditionalCostChips2)</td>
-        <td>@ConvertToStringWithSeperators(AdditionalCostPLT)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">fehlt für 10% Rabatt</td>
-        <td>@HintForChips1</td>
-        <td>@HintForChips2</td>
-        <td>@HintForPLTs</td>
-    </tr>
-</table></p>
-</div>
-
-
-<div class="grid-container">
-    <div class="grid-item">
-        <input class="slider" id="pcProduction" @bind="PCProduction" @bind:event="oninput" type="range" step="3000" min="0" max="3000000" />
-        <input class="inputBox" @bind="PCProduction" @bind:event="oninput" placeholder="Geplante Produktion PCs" />
+<div class="grid-container" style="grid-template-columns: 50% 50%">
+    <div class="grid-item" style="text-align: left;">
+        <h2>Entscheidungsplaner</h2>
     </div>
-    <div class="grid-item">
-        <input class="slider" id="pltProduction" @bind="PLTProduction" @bind:event="oninput" type="range" step="7500" min="0" max="7500000" />
-        <input class="inputBox" @bind="PLTProduction" @bind:event="oninput" placeholder="Geplante Produktion Platinen" />
-    </div>
-    <div class="grid-item">
-        <input class="slider" id="marketingCost" @bind="MarketingCost" @bind:event="oninput" type="range" step="10000" min="0" max="10000000" />
-        <input class="inputBox" @bind="MarketingCost" @bind:event="oninput" placeholder="Geplantes Marketingbudget" />
-    </div>
-    <div class="grid-item">
-        <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:left" @onclick="@(e => UpdatePCData(PCProduction, PLTProduction, MarketingCost, "PC"))">CalculateProduction</button>
-        <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:right" @onclick="@(e => ResetInputFields())">Reset</button>
-    </div>
-    <div class="grid-item">
-        <p style="text-align:left; font-weight:400; font-size:1.4em">Stückkosten PC: @PricePerPCPiece</p>
-    </div>
-    <div class="grid-item">
-        <p style="text-align:left;font-weight:400; font-size:1.4em">Stückkosten Platine: @PricePerPLTPiece</p>
+    <div class="grid-item" style="text-align: right; color: #a50026; font-weight: 800">
+        <h4>@WarningMessageNotEnoughMachines</h4>
     </div>
 </div>
 
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, '1')">Graph</button>
+        <button class="tablinks" onclick="openCity(event, '2')">Tabelle</button>
+    </div>
 
-@code
+    <div id="1" class="tabcontent" style="display:block">
+        <p><PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" /></p>
+    </div>
+
+    <div id="2" class="tabcontent">
+        <p>
+            <table class="table" style="width:100%">
+                <tr>
+                    <th style="width:20%"></th>
+                    <th style="width:20%">Chip 1</th>
+                    <th style="width:20%">Chip 2</th>
+                    <th style="width:20%">Platinen</th>
+                    <th style="width:20%">Mitarbeiter</th>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Lager</td>
+                    <td>@ConvertToStringWithSeperators(StoredChipsType1)</td>
+                    <td>@ConvertToStringWithSeperators(StoredChipsType2)</td>
+                    <td>@ConvertToStringWithSeperators(StoredPLTs)</td>
+                    <td>@ConvertToStringWithSeperators(AvailableWorkers)</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Einkaufen</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalChips1)</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalChips2)</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalPLT)</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalWorkers)</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Kosten Einkauf</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalCostChips1)</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalCostChips2)</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalCostPLT)</td>
+                    <td>@ConvertToStringWithSeperators(AdditionalCostWorkers)</td>
+
+                </tr>
+                <tr>
+                    <td class="table-left-column">fehlt für 10% Rabatt</td>
+                    <td>@HintForChips1</td>
+                    <td>@HintForChips2</td>
+                    <td>@HintForPLTs</td>
+                </tr>
+            </table>
+        </p>
+    </div>
+
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <input class="slider" id="pcProduction" @bind="PCProduction" @bind:event="oninput" type="range" step="3000" min="0" max="3000000" />
+            <input class="inputBox" @bind="PCProduction" @bind:event="oninput" placeholder="Geplante Produktion PCs" />
+        </div>
+        <div class="grid-item">
+            <input class="slider" id="pltProduction" @bind="PLTProduction" @bind:event="oninput" type="range" step="7500" min="0" max="7500000" />
+            <input class="inputBox" @bind="PLTProduction" @bind:event="oninput" placeholder="Geplante Produktion Platinen" />
+        </div>
+        <div class="grid-item">
+            <input class="slider" id="marketingCost" @bind="MarketingCost" @bind:event="oninput" type="range" step="10000" min="0" max="100000000" />
+            <input class="inputBox" @bind="MarketingCost" @bind:event="oninput" placeholder="Geplantes Marketingbudget" />
+        </div>
+        <div class="grid-item">
+            <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:left" @onclick="@(e => CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost))">CalculateProduction</button>
+            <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:right" @onclick="@(e => ResetInputFields())">Reset</button>
+        </div>
+        <div class="grid-item">
+            <p style="text-align:left; font-weight:400; font-size:1.4em">Stückkosten PC: @(PricePerPCPiece + " DM")</p>
+        </div>
+        <div class="grid-item">
+            <p style="text-align:left;font-weight:400; font-size:1.4em">Stückkosten Platine: @(PricePerPLTPiece + " DM")</p>
+        </div>
+    </div>
+
+
+    @code
 {
 
-    public static string PCProduction { get; set; } = "";
-    public static string PLTProduction { get; set; } = "";
-    private string PricePerPCPiece { get; set; }
-    private string PricePerPLTPiece { get; set; }
-    private string MarketingCost { get; set; } = "";
+        public static string PCProduction { get; set; } = "";
+        public static string PLTProduction { get; set; } = "";
+        private string PricePerPCPiece { get; set; } = "";
+        private string PricePerPLTPiece { get; set; } = "";
+        private string MarketingCost { get; set; } = "";
 
-    private string HintForChips1 { get; set; }
-    private string HintForChips2 { get; set; }
-    private string HintForPLTs { get; set; }
+        private string HintForChips1 { get; set; }
+        private string HintForChips2 { get; set; }
+        private string HintForPLTs { get; set; }
 
-    private static double AdditionalChips1 { get; set; } = 0;
-    private static double AdditionalChips2 { get; set; } = 0;
-    private static double AdditionalPLT { get; set; } = 0;
+        private static double AdditionalChips1 { get; set; }
+        private static double AdditionalChips2 { get; set; }
+        private static double AdditionalPLT { get; set; }
 
-    private double AdditionalCostChips1 { get; set; }
-    private double AdditionalCostChips2 { get; set; }
-    private double AdditionalCostPLT { get; set; }
-
-    private double AdditionalWorkers { get; set; }
-    private double AdditionalPLTMachines { get; set; }
-    private double AdditionalPCMachines { get; set; }
-
-    static private double StoredChipsType1 = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip1Storage");
-    static private double StoredChipsType2 = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "Chip2Storage");
-    static private double StoredPLTs = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PLTStorage");
-    static private double AvailableWorkers = SetupData.CurrentWorkers;
-    static private double AvailablePCMachines = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PCMachines");
-    static private double AvailablePLTMachines = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", SetupData.CurrentGameRound-1, 1, "PLTMachines");
+        private double AdditionalCostChips1 { get; set; }
+        private double AdditionalCostChips2 { get; set; }
+        private double AdditionalCostPLT { get; set; }
+        private double AdditionalCostWorkers { get; set; }
 
 
-    PlotlyChart chart;
+        private double AdditionalWorkers { get; set; }
+        private double AdditionalPLTMachines { get; set; }
+        private double AdditionalPCMachines { get; set; }
 
-    Config config = new Config
-    {
-        Responsive = true
-    };
+        static private double StoredChipsType1 = SetupData.Chip1Storage;
+        static private double StoredChipsType2 = SetupData.Chip2Storage;
+        static private double StoredPLTs = SetupData.PLTStorage;
+        static private double AvailableWorkers = SetupData.CurrentWorkers;
+        static private double AvailablePCMachines = SetupData.PCMachinesAvailableThisRound;
+        static private double AvailablePLTMachines = SetupData.PLTMachinesAvailableThisRound;
 
-    Layout layout = new Layout
-    {
-        Title = new Title
+        static public string WarningMessageNotEnoughMachines { get; set; }
+
+
+        PlotlyChart chart;
+
+        Config config = new Config
         {
-            Text = "Lagerbestand/Fehlende Rohstoffe"
-        },
-        BarMode = BarModeEnum.Stack,
-        Height = 400,
-        Font = new Font { Family = "Anaheim" },
-        Colorway = new List<object> { "#45a29e", "rgb(165,0,38)" }
-    };
+            Responsive = true
+        };
+
+        Layout layout = new Layout
+        {
+            Title = new Title
+            {
+                Text = "Lagerbestand/Fehlende Rohstoffe"
+            },
+            BarMode = BarModeEnum.Stack,
+            Height = 400,
+            Font = new Font { Family = "Anaheim" },
+            Colorway = new List<object> { "#45a29e", "rgb(165,0,38)" }
+        };
 
 
-    List<ITrace> data = new List<ITrace>
+        List<ITrace> data = new List<ITrace>
 {
         new Bar
         {
@@ -145,148 +166,167 @@
 
     };
 
-    private void UpdatePCData(string inputPCs, string inputPLTs, string marketingCost, string type)
-    {
-        ResetData();
-        var pcProductionCalculate = new CalculatePCProductionController();
-        var plProductionCalculate = new CalculatePLTProductionController();
-        PricePerPCPiece = pcProductionCalculate.ShowCurrentProductionCosts(inputPCs, marketingCost, SetupData.CurrentGameRound) + " DM";
-
-        var matchInputProducedUnits = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
-        if (matchInputProducedUnits.Success)
+        private void UpdateInfoFields()
         {
-            var compareAndShowAdditionalUnitsForPCProduction = new CompareDesiredProductionToStorageController(Int32.Parse(inputPCs), type, SetupData.CurrentGameRound);
-            AdditionalChips1 = compareAndShowAdditionalUnitsForPCProduction.AdditionalChipsType1;
-            AdditionalChips2 = compareAndShowAdditionalUnitsForPCProduction.AdditionalChipsType2;
-            AdditionalPLT = compareAndShowAdditionalUnitsForPCProduction.AdditionalPLT;
+            AdditionalChips1 = CompareDesiredProductionToStorageController.AdditionalChipsType1;
+            AdditionalChips2 = CompareDesiredProductionToStorageController.AdditionalChipsType2;
+            AdditionalPLT = CompareDesiredProductionToStorageController.AdditionalPLT;
 
-            AdditionalCostChips1 = compareAndShowAdditionalUnitsForPCProduction.AdditionalCostChip1;
-            AdditionalCostChips2 = compareAndShowAdditionalUnitsForPCProduction.AdditionalCostChip2;
-            AdditionalCostPLT = compareAndShowAdditionalUnitsForPCProduction.AdditionalCostPLT;
+            AdditionalCostChips1 = CompareDesiredProductionToStorageController.AdditionalCostChip1;
+            AdditionalCostChips2 = CompareDesiredProductionToStorageController.AdditionalCostChip2;
+            AdditionalCostPLT = CompareDesiredProductionToStorageController.AdditionalCostPLT;
+            AdditionalCostWorkers = CompareDesiredProductionToStorageController.AdditionalCostWorkers;
 
-            AdditionalWorkers = compareAndShowAdditionalUnitsForPCProduction.AdditionalWorkers;
-            AdditionalPCMachines = compareAndShowAdditionalUnitsForPCProduction.AdditionalPCMachines;
-            AdditionalPLTMachines = compareAndShowAdditionalUnitsForPCProduction.AdditionalPLTMachines;
-        }
-        if (inputPLTs == "") UpdatePLTData("0", "PLT");
-        else UpdatePLTData(inputPLTs, "PLT");
-    }
-
-
-    private void UpdatePLTData(string input, string type)
-    {
-        var pltProductionCalculate = new CalculatePLTProductionController();
-        PricePerPLTPiece = pltProductionCalculate.ShowCurrentProductionCosts(input, SetupData.CurrentGameRound) + " DM";
-
-        var matchInputProducedUnits = Regex.Match(input, "[0-9]+[.[0-9]+]?");
-        if (matchInputProducedUnits.Success)
-        {
-            var compareAndShowAdditionalUnitsForPLTProduction = new CompareDesiredProductionToStorageController(Int32.Parse(input), type, SetupData.CurrentGameRound);
-            AdditionalChips1 += compareAndShowAdditionalUnitsForPLTProduction.AdditionalChipsType1;
-            AdditionalChips2 += compareAndShowAdditionalUnitsForPLTProduction.AdditionalChipsType2;
-            AdditionalPLT += compareAndShowAdditionalUnitsForPLTProduction.AdditionalPLT;
-
-            AdditionalCostChips1 = compareAndShowAdditionalUnitsForPLTProduction.AdditionalCostChip1;
-            AdditionalCostChips2 = compareAndShowAdditionalUnitsForPLTProduction.AdditionalCostChip2;
-            AdditionalCostPLT = compareAndShowAdditionalUnitsForPLTProduction.AdditionalCostPLT;
-
-            AdditionalWorkers = AdditionalWorkers + compareAndShowAdditionalUnitsForPLTProduction.AdditionalWorkers + Plotly.Blazor.Examples.Models.SetupData.CurrentWorkers;
-            AdditionalPCMachines += compareAndShowAdditionalUnitsForPLTProduction.AdditionalPCMachines;
-            AdditionalPLTMachines += compareAndShowAdditionalUnitsForPLTProduction.AdditionalPLTMachines;
+            AdditionalWorkers = CompareDesiredProductionToStorageController.AdditionalWorkers;
+            AdditionalPLTMachines = CompareDesiredProductionToStorageController.AdditionalPLTMachines;
+            AdditionalPCMachines = CompareDesiredProductionToStorageController.AdditionalPCMachines;
         }
 
-        UpdateChart();
-        UpdateDiscountHints();
-    }
 
-    private async Task UpdateChart()
-    {
-        var storedRessources = new Bar
+        private void CalculateProductionCosts(string inputPCs, string inputPLTs, string marketingCost)
         {
-            X = new List<object> { "Chip 1", "Chip 2", "Platinen", "Angestellte", "PC Maschinen", "PLT Maschinen" },
-            Y = new List<object> { StoredChipsType1/(StoredChipsType1+AdditionalChips1), StoredChipsType2/(StoredChipsType2+AdditionalChips2),
-                StoredPLTs/(StoredPLTs+AdditionalPLT), AvailableWorkers/(AvailableWorkers+AdditionalWorkers),
-                AvailablePCMachines/(AvailablePCMachines+AdditionalPCMachines), AvailablePLTMachines/(AvailablePLTMachines+AdditionalPLTMachines) },
-            Name = "lagernd",
-            HoverTemplateArray = new string[] { StoredChipsType1.ToString(), StoredChipsType2.ToString(), StoredPLTs.ToString(),
+            if (inputPCs == "") inputPCs = "0";
+            if (inputPLTs == "") inputPLTs = "0";
+
+            var matchInputProducedPCs = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
+            var matchInputProducedPLTs = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
+
+            var tempData = new TemporaryData();
+            tempData.ResetData();
+            ResetData();
+
+            var productionCalculate = new CalculateProductionController();
+            PricePerPCPiece = productionCalculate.ShowCurrentProductionCostsPC(inputPCs, marketingCost, SetupData.CurrentGameRound);
+            PricePerPLTPiece = productionCalculate.ShowCurrentProductionCostsPLT(inputPLTs, SetupData.CurrentGameRound);
+
+            tempData.ResetData();
+
+            if (!matchInputProducedPCs.Success) inputPCs = "0";
+            else if (!matchInputProducedPLTs.Success) inputPLTs = "0";
+
+            var compareAndShowAdditionalUnitsForPCProduction = new CompareDesiredProductionToStorageController
+                        (Int32.Parse(inputPCs), Int32.Parse(inputPLTs), "both", SetupData.CurrentGameRound);
+
+            UpdateInfoFields();
+            UpdateDiscountHints();
+            UpdateChart();
+            tempData.ResetData();
+        }
+
+
+        private void UpdateChart()
+        {
+            var storedRessources = new Bar
+            {
+                X = new List<object> { "Chip 1", "Chip 2", "Platinen", "Angestellte", "PC Maschinen", "PLT Maschinen" },
+                Y = new List<object>
+            {
+                StoredChipsType1/(StoredChipsType1+AdditionalChips1),
+                StoredChipsType2/(StoredChipsType2+AdditionalChips2),
+                StoredPLTs/(StoredPLTs+AdditionalPLT),
+                AvailableWorkers/(AvailableWorkers+AdditionalWorkers),
+                AvailablePCMachines/(AvailablePCMachines+AdditionalPCMachines),
+                AvailablePLTMachines/(AvailablePLTMachines+AdditionalPLTMachines)
+            },
+                Name = "lagernd",
+                HoverTemplateArray = new string[] { StoredChipsType1.ToString(), StoredChipsType2.ToString(), StoredPLTs.ToString(),
                 AvailableWorkers.ToString(), AvailablePCMachines.ToString(), AvailablePLTMachines.ToString() }
-        };
+            };
 
-        var neededRessources = new Bar
-        {
-            X = new List<object> { "Chip 1", "Chip 2", "Platinen", "Angestellte", "PC Maschinen", "PLT Maschinen" },
-            Y = new List<object> { AdditionalChips1/(StoredChipsType1+AdditionalChips1), AdditionalChips2/(StoredChipsType2+AdditionalChips2),
-                AdditionalPLT/(StoredPLTs+AdditionalPLT), AdditionalWorkers/(AvailableWorkers+AdditionalWorkers),
-                AdditionalPCMachines/(AvailablePCMachines+AdditionalPCMachines), AdditionalPLTMachines/(AvailablePLTMachines+AdditionalPLTMachines)},
-            Name = "fehlend",
-            HoverTemplateArray = new string[] { AdditionalChips1.ToString(), AdditionalChips2.ToString(), AdditionalPLT.ToString(), 
+            var neededRessources = new Bar
+            {
+                X = new List<object> { "Chip 1", "Chip 2", "Platinen", "Angestellte", "PC Maschinen", "PLT Maschinen" },
+                Y = new List<object>
+            {
+                AdditionalChips1/(StoredChipsType1+AdditionalChips1),
+                AdditionalChips2/(StoredChipsType2+AdditionalChips2),
+                AdditionalPLT/(StoredPLTs+AdditionalPLT),
+                AdditionalWorkers/(AvailableWorkers+AdditionalWorkers),
+                AdditionalPCMachines/(AvailablePCMachines+AdditionalPCMachines),
+                AdditionalPLTMachines/(AvailablePLTMachines+AdditionalPLTMachines)
+            },
+                Name = "fehlend",
+                HoverTemplateArray = new string[] { AdditionalChips1.ToString(), AdditionalChips2.ToString(), AdditionalPLT.ToString(),
                 AdditionalWorkers.ToString(), AdditionalPCMachines.ToString(), AdditionalPLTMachines.ToString() }
-        };
+            };
 
-        this.data[0] = storedRessources;
-        this.data[1] = neededRessources;
-        await this.chart.Update();
-    }
-
-
-    private void ResetData()
-    {
-        AdditionalChips1 = 0;
-        AdditionalChips2 = 0;
-        AdditionalPLT = 0;
-
-        AdditionalCostChips1 = 0;
-        AdditionalCostChips2 = 0;
-        AdditionalCostPLT = 0;
-
-        AdditionalWorkers = 0;
-        AdditionalPCMachines = 0;
-        AdditionalPLTMachines = 0;
-
-        HintForChips1 = "";
-        HintForChips2 = "";
-        HintForPLTs = "";
-    }
-
-
-    private void ResetInputFields()
-    {
-        PCProduction = "";
-        PLTProduction = "";
-        MarketingCost = "";
-        ResetData();
-        UpdateChart();
-    }
-
-    private string ConvertToStringWithSeperators(double convertThis)
-    {
-        return Convert.ToDouble(convertThis).ToString("N0");
-    }
-
-
-    private void UpdateDiscountHints()
-    {
-        if (AdditionalChips1 > 1500000)
-        {
-            AdditionalCostChips1 *= 0.9;
-            HintForChips1 = "inkl 10% Rabatt";
+            this.data[0] = storedRessources;
+            this.data[1] = neededRessources;
+            chart.Update();
         }
-        else HintForChips1 = ConvertToStringWithSeperators(1500000 - AdditionalChips1);
 
-        if (AdditionalChips2 > 1000000)
+
+        private void ResetData()
         {
-            AdditionalCostChips2 *= 0.9;
-            HintForChips2 = "inkl 10% Rabatt";
+            AdditionalChips1 = 0;
+            AdditionalChips2 = 0;
+            AdditionalPLT = 0;
+
+            AdditionalCostChips1 = 0;
+            AdditionalCostChips2 = 0;
+            AdditionalCostPLT = 0;
+
+            AdditionalWorkers = 0;
+            AdditionalPCMachines = 0;
+            AdditionalPLTMachines = 0;
+
+            HintForChips1 = "";
+            HintForChips2 = "";
+            HintForPLTs = "";
+
+            PricePerPCPiece = "";
+            PricePerPLTPiece = "";
+
+            WarningMessageNotEnoughMachines = "";
+        }
+
+
+        private void ResetInputFields()
+        {
+            ResetData();
+
+            PCProduction = "";
+            PLTProduction = "";
+            MarketingCost = "";
+
+            UpdateChart();
+        }
+
+        private string ConvertToStringWithSeperators(double convertThis)
+        {
+            return Convert.ToDouble(convertThis).ToString("N0");
+        }
+
+
+        private void UpdateDiscountHints()
+        {
+            if (AdditionalChips1 > 1500000)
+            {
+                AdditionalCostChips1 *= 0.9;
+                HintForChips1 = "inkl 10% Rabatt";
+            }
+            else HintForChips1 = ConvertToStringWithSeperators(1500000 - AdditionalChips1);
+
+            if (AdditionalChips2 > 1000000)
+            {
+                AdditionalCostChips2 *= 0.9;
+                HintForChips2 = "inkl 10% Rabatt";
+
+            }
+            else HintForChips2 = ConvertToStringWithSeperators(1000000 - AdditionalChips2);
+
+            if (AdditionalPLT > 250000)
+            {
+                AdditionalCostPLT *= 0.9;
+                HintForPLTs = "inkl 10% Rabatt";
+            }
+            else HintForPLTs = ConvertToStringWithSeperators(250000 - AdditionalPLT);
+
+            if (AdditionalPCMachines > 0 || AdditionalPLTMachines > 0)
+            {
+                WarningMessageNotEnoughMachines = "Fehlende Maschinen!";
+            }
+            else WarningMessageNotEnoughMachines = "";
 
         }
-        else HintForChips2 = ConvertToStringWithSeperators(1000000 - AdditionalChips2);
-
-        if (AdditionalPLT > 250000)
-        {
-            AdditionalCostPLT *= 0.9;
-            HintForPLTs = "inkl 10% Rabatt";
-        }
-        else HintForPLTs = ConvertToStringWithSeperators(250000 - AdditionalPLT);
-
     }
-}

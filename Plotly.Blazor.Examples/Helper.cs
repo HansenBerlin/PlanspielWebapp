@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Plotly.Blazor.Examples.Controller;
+using Plotly.Blazor.Examples.Models;
 using Plotly.Blazor.Traces;
 
 namespace Plotly.Blazor.Examples
@@ -51,13 +52,11 @@ namespace Plotly.Blazor.Examples
             //    y.Add(i.Randomize(method));
             //}
 
-            int gameRound = 2;
-            for (int i = 0; i < gameRound; i++)
+            for (int i = 0; i < SetupData.CurrentGameRound; i++)
             {
                 x.Add(i);
                 y.Add(FetchTableDataController.ReadValueFromXML("marketData.xml", i, company, key));
             }
-
             return (x, y);
         }
 
