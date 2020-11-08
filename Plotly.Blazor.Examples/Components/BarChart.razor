@@ -94,11 +94,11 @@
     @code
 {
 
-        public static string PCProduction { get; set; } = "";
-        public static string PLTProduction { get; set; } = "";
+        public static string PCProduction { get; set; } = "0";
+        public static string PLTProduction { get; set; } = "0";
         private string PricePerPCPiece { get; set; } = "";
         private string PricePerPLTPiece { get; set; } = "";
-        private string MarketingCost { get; set; } = "";
+        private string MarketingCost { get; set; } = "0";
 
         private string HintForChips1 { get; set; }
         private string HintForChips2 { get; set; }
@@ -285,9 +285,9 @@
         {
             ResetData();
 
-            PCProduction = "";
-            PLTProduction = "";
-            MarketingCost = "";
+            PCProduction = "0";
+            PLTProduction = "0";
+            MarketingCost = "0";
 
             UpdateChart();
         }

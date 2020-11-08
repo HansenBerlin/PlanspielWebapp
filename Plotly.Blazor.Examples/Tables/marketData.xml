@@ -156,4 +156,82 @@
 		<Saldo>12353080</Saldo>
 		<Account>-1721925</Account>
 	</record>
+  <record companyID="1" round="2">
+    <CapacityPC>30000</CapacityPC>
+    <CapacityPLT>75000</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>0</OutputPLT>
+    <SalesPC>0</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>0</Marketshare>
+    <PricePerPC>0</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>0</Saldo>
+    <Account>0</Account>
+  </record>
+  <record companyID="2" round="2">
+    <CapacityPC>0</CapacityPC>
+    <CapacityPLT>0</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>0</OutputPLT>
+    <SalesPC>0</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>0</Marketshare>
+    <PricePerPC>0</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>0</Saldo>
+    <Account>0</Account>
+  </record>
+  <record companyID="3" round="2">
+    <CapacityPC>0</CapacityPC>
+    <CapacityPLT>0</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>0</OutputPLT>
+    <SalesPC>0</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>0</Marketshare>
+    <PricePerPC>0</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>0</Saldo>
+    <Account>0</Account>
+  </record>
+  <record companyID="4" round="2">
+    <CapacityPC>0</CapacityPC>
+    <CapacityPLT>0</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>0</OutputPLT>
+    <SalesPC>0</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>0</Marketshare>
+    <PricePerPC>0</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>0</Saldo>
+    <Account>0</Account>
+  </record>
+  <record companyID="5" round="2">
+    <CapacityPC>0</CapacityPC>
+    <CapacityPLT>0</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>0</OutputPLT>
+    <SalesPC>0</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>0</Marketshare>
+    <PricePerPC>0</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>0</Saldo>
+    <Account>0</Account>
+  </record>
+  <record companyID="6" round="2">
+    <CapacityPC>0</CapacityPC>
+    <CapacityPLT>0</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>0</OutputPLT>
+    <SalesPC>0</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>0</Marketshare>
+    <PricePerPC>0</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>0</Saldo>
+    <Account>0</Account>
+  </record>  
 </marketData>

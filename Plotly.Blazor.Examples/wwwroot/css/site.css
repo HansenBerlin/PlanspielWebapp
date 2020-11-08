@@ -31,6 +31,10 @@ a, .btn-link {
     filter: invert(9%) sepia(93%) saturate(6961%) hue-rotate(342deg) brightness(69%) contrast(101%);
 }
 
+.svg-small-dashboard-icon {
+    filter: invert(9%) sepia(93%) saturate(6961%) hue-rotate(342deg) brightness(69%) contrast(101%);
+}
+
 .btn-primary {
     color: #0b0c10;
     background-color: #fff;

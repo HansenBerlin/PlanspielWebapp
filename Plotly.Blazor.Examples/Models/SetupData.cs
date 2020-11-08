@@ -18,7 +18,7 @@ namespace Plotly.Blazor.Examples.Models
         public static double PLTMachinesAvailableThisRound { get; set; }
         public static double PLTMachinesToReplaceThisRound { get; set; }
         public static double PPPPC { get; set; } 
-        public static double PPPPLTProductionLastRound { get; set; } 
+        public static double PPPPLTProduction { get; set; } 
         public static double PPPPLTBuy { get; set; }
         public static double PPPChip1 { get; set; } 
         public static double PPPChip2 { get; set; }
@@ -28,7 +28,9 @@ namespace Plotly.Blazor.Examples.Models
         public static double Chip1Storage { get; set; } 
         public static double Chip2Storage { get; set; } 
         public static double PLTStorage { get; set; } 
-        public static double PCStorage { get; set; } 
+        public static double PCStorage { get; set; }
+        public static double PLTCapacity { get; set; }
+        public static double PCCapacity { get; set; }
 
 
         public SetupData()
@@ -57,6 +59,8 @@ namespace Plotly.Blazor.Examples.Models
 
             PCsProducedLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "OutputPC");
             PLTProducedLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "OutputPLT");
+            PCCapacity = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound, 1, "CapacityPC");
+            PLTCapacity = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound, 1, "CapacityPLT");
 
             TemporaryData.TemporaryStorageChipOneLeftUnits = Chip1Storage;
             TemporaryData.TemporaryStorageChipTwoLeftUnits = Chip2Storage;
@@ -66,13 +70,13 @@ namespace Plotly.Blazor.Examples.Models
             var pltProductionCalculate = new CalculateProductionController();
             var resetTempData = new TemporaryData();
 
-            PPPPC = Convert.ToDouble(pcProductionCalculate.ShowCurrentProductionCostsPC(PCsProducedLastRound.ToString(),
-                FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "Marketing").ToString(),
+            PPPPC = Convert.ToDouble(pcProductionCalculate.ShowCurrentProductionCostsPC(PCCapacity.ToString(),
+                FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound-1, 1, "Marketing").ToString(),
                 CurrentGameRound));
 
             resetTempData.ResetData();
 
-            PPPPLTProductionLastRound = Convert.ToDouble(pltProductionCalculate.ShowCurrentProductionCostsPLT(PLTProducedLastRound.ToString(), CurrentGameRound-1));
+            PPPPLTProduction = Convert.ToDouble(pltProductionCalculate.ShowCurrentProductionCostsPLT(PLTCapacity.ToString(), CurrentGameRound));
 
             resetTempData.ResetData();            
         }    

@@ -25,6 +25,7 @@ namespace Plotly.Blazor.Examples
         public Startup(IConfiguration configuration)
         {
             var setupData = new SetupData();
+            var setupHistoricalData = new SetupHistoricalData();
 
             Configuration = configuration;
         }

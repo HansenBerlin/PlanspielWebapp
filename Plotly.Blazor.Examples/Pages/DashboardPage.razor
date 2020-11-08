@@ -57,18 +57,44 @@
                 <PlotlyChart Id="TestId2" Config="config2" Layout="layout2" Data="data2" @ref="chart2" />
             </div>
             <div class="grid-item-dashboard">
-                <h5 style="margin:20px">Letzte Stückkosten</h5>
-                <div class="grid-container-mini" style="background-color:#fff; grid-template-columns: 33% 33% 33%">
-                    <div class="grid-item-mini" style="background-color:transparent">                        
-                        <p class="paragraph-dashboard">Runde @(SetupData.CurrentGameRound-1): @SetupData.PPPPC</p>
-                    </div>
-                    <div class="grid-item-mini" style="background-color:transparent">
-                        <p class="paragraph-dashboard">Runde @(SetupData.CurrentGameRound-1): @SetupData.PPPPLTProductionLastRound</p>                        
-                    </div>
-                    <div class="grid-item-mini" style="background-color:transparent">
-
-                    </div>
-                </div>                
+                <h5 style="margin:20px">Stückkosten Preistrend</h5>
+                <table class="table" style="width:100%">
+                    <tr>
+                        <td><object id="chip1" type="image/svg+xml" data="/icons/chip2.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                        <td style="text-align:left">Chip 1</td>
+                        <td style="text-align:left"> @SetupData.PPPChip1</td>
+                        <td style="text-align:left">@ComparePricesForPricetrend("C1")</td>
+                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationChip1)" class="svg-filter-teal" /></td>
+                    </tr>
+                    <tr>
+                        <td><object id="chip2" type="image/svg+xml" data="/icons/chip1.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                        <td style="text-align:left">Chip 2</td>
+                        <td style="text-align:left">@SetupData.PPPChip2</td>
+                        <td style="text-align:left">@ComparePricesForPricetrend("C2")</td>
+                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationChip2)" class="svg-filter-teal"> </object></td>
+                    </tr>
+                    <tr>
+                        <td><object id="pltBuy" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                        <td style="text-align:left">Platine Kauf</td>
+                        <td style="text-align:left">@SetupData.PPPPLTBuy</td>
+                        <td style="text-align:left">@ComparePricesForPricetrend("PLTBuy")</td>
+                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPLTBuy)" class="svg-filter-teal"> </object></td>
+                    </tr>
+                    <tr>
+                        <td><object id="pltProd" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                        <td style="text-align:left">Platine Prod.</td>
+                        <td style="text-align:left">@SetupData.PPPPLTProduction</td>
+                        <td style="text-align:left">@ComparePricesForPricetrend("PLTProduce")</td>
+                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPLTProd)" class="svg-filter-teal"> </object></td>
+                    </tr>
+                    <tr>
+                        <td><object id="pc" type="image/svg+xml" data="/icons/pc.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                        <td style="text-align:left">PC</td>
+                        <td style="text-align:left">@SetupData.PPPPC</td>
+                        <td style="text-align:left">@ComparePricesForPricetrend("PC")</td>
+                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPC)" class="svg-filter-teal"> </object></td>
+                    </tr>
+                </table>                
             </div>
             <div class="grid-item-dashboard">
                 <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound-1, 1, "PCDemandNextRound")</p>
@@ -78,6 +104,14 @@
 
 @code
 {
+
+    public static string RotationChip1 { get; set; } = "180deg";
+    public static string RotationChip2 { get; set; } = "50deg";
+    public static string RotationPLTBuy { get; set; } = "50deg";
+    public static string RotationPLTProd { get; set; } = "50deg";
+    public static string RotationPC { get; set; } = "50deg";
+
+
 
     PlotlyChart chart;
 
@@ -142,15 +176,57 @@
         },
     };
 
-    //private string UpdatePCData(string inputPCs, string marketingCost, int calculateForGameRound)
-    //{
-    //    var pcProductionCalculate = new CalculatePCProductionController();
-    //    return pcProductionCalculate.ShowCurrentProductionCosts(inputPCs, marketingCost, calculateForGameRound) + " DM";
-    //}
-    //
-    //private string UpdatePLTData(string inputPLTs, int calculateForGameRound)
-    //{
-    //    var pltProductionCalculate = new CalculatePLTProductionController();
-    //    return pltProductionCalculate.ShowCurrentProductionCosts(inputPLTs, calculateForGameRound) + " DM";
-    //}
+    private string ComparePricesForPricetrend(string type)
+    {
+        double percentChip1 = (SetupData.PPPChip1 / SetupHistoricalData.PPPChip1LastRound - 1) *100;
+        double percentChip2 = (SetupData.PPPChip2 / SetupHistoricalData.PPPChip2LastRound - 1) *100;
+        double percentPLTBuy = (SetupData.PPPPLTBuy / SetupHistoricalData.PPPPLTBuyLastRound - 1) *100;
+        double percentPLTProduce = (SetupData.PPPPLTProduction / SetupHistoricalData.PPPPLTProductionLastRound - 1) *100;
+        double percentPCProduce = (SetupData.PPPPC / SetupHistoricalData.PPPPCLastRound - 1) *100;
+
+        if (percentChip1 > 20) RotationChip1 = "180deg";
+        else if (percentChip1 > 5) RotationChip1 = "235deg";
+        else if (percentChip1 > -5) RotationChip1 = "270deg";
+        else if (percentChip1 > -20) RotationChip1 = "315deg";
+        else if (percentChip1 < -20) RotationChip1 = "0deg";
+        else RotationChip1 = "0deg";
+
+        if (percentChip2 > 20) RotationChip2 = "180deg";
+        else if (percentChip2 > 5) RotationChip2 = "235deg";
+        else if (percentChip2 > -5) RotationChip2 = "270deg";
+        else if (percentChip2 > -20) RotationChip2 = "315deg";
+        else if (percentChip2 < -20) RotationChip2 = "0deg";
+        else RotationChip2 = "0deg";
+
+        if (percentPLTBuy > 20) RotationPLTBuy = "180deg";
+        else if (percentPLTBuy > 5) RotationPLTBuy = "235deg";
+        else if (percentPLTBuy > -5) RotationPLTBuy = "270deg";
+        else if (percentPLTBuy > -20) RotationPLTBuy = "315deg";
+        else if (percentPLTBuy < -20) RotationPLTBuy = "0deg";
+        else RotationPLTBuy = "0deg";
+
+        if (percentPLTProduce > 20) RotationPLTProd = "180deg";
+        else if (percentPLTProduce > 5) RotationPLTProd = "235deg";
+        else if (percentPLTProduce > -5) RotationPLTProd = "270deg";
+        else if (percentPLTProduce > -20) RotationPLTProd = "315deg";
+        else if (percentPLTProduce < -20) RotationPLTProd = "0deg";
+        else RotationPLTProd = "0deg";
+
+        if (percentPCProduce > 20) RotationPC = "180deg";
+        else if (percentPCProduce > 5) RotationPC = "235deg";
+        else if (percentPCProduce > -5) RotationPC = "270deg";
+        else if (percentPCProduce > -20) RotationPC = "315deg";
+        else if (percentPCProduce < -20) RotationPC = "0deg";
+        else RotationPC = "0deg";
+
+
+        if (type == "C1") return (percentChip1.ToString("N2") + "%");
+        else if (type == "C2") return (percentChip2.ToString("N2") + "%");
+        else if (type == "PLTBuy") return (percentPLTBuy.ToString("N2") + "%");
+        else if (type == "PLTProduce") return (percentPLTProduce.ToString("N2") + "%");
+        else if (type == "PC") return (percentPCProduce.ToString("N2") + "%");
+        else return "invalid";
+
+
+    }
 }
