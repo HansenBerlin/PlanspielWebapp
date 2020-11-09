@@ -13,6 +13,7 @@ namespace Plotly.Blazor.Examples.Models
         public static double CurrentWorkers { get; set; }
         public static double PCDemandLastRound { get; set; }
         public static double Efficiency { get; set; }
+        public static double AccountBalance { get; set; }
         public static double PCMachinesAvailableThisRound { get; set; }
         public static double PCMachinesToReplaceThisRound { get; set; } 
         public static double PLTMachinesAvailableThisRound { get; set; }
@@ -57,6 +58,7 @@ namespace Plotly.Blazor.Examples.Models
             PLTMachinesAvailableThisRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound, 1, "PLTMachinesAvailable");
             PLTMachinesToReplaceThisRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound, 1, "PLTMachinesBreakingAfterThisRound");
 
+            AccountBalance = FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound - 1, 1, "Account");
             PCsProducedLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "OutputPC");
             PLTProducedLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "OutputPLT");
             PCCapacity = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound, 1, "CapacityPC");

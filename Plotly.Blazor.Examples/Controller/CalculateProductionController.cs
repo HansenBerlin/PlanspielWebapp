@@ -32,9 +32,9 @@ namespace Plotly.Blazor.Examples.Controller
             if (matchInputProducedUnits.Success && matchInputMarketing.Success)
             {
                 return Convert.ToDouble(((2250000 + 20 * SetupData.CurrentWage + Convert.ToDouble(marketingCost)) / 3000)
-                    + PricePerPieceChip1(Convert.ToInt32(unitsToProduce), calculateForGameRound, 15)
-                    + PricePerPieceChip2(Convert.ToInt32(unitsToProduce), calculateForGameRound, 9)
-                    + PricePerPiecePLT(Convert.ToInt32(unitsToProduce), calculateForGameRound)).ToString("N2");
+                    + PricePerPieceChip1(Convert.ToDouble(unitsToProduce), calculateForGameRound, 15)
+                    + PricePerPieceChip2(Convert.ToDouble(unitsToProduce), calculateForGameRound, 9)
+                    + PricePerPiecePLT(Convert.ToDouble(unitsToProduce), calculateForGameRound)).ToString("N2");
             }
             else
             {
@@ -42,7 +42,7 @@ namespace Plotly.Blazor.Examples.Controller
             }
         }       
 
-        public double PricePerPieceChip1(int unitsToProduce, int calculateForGameRound, int multiplier)
+        public double PricePerPieceChip1(double unitsToProduce, int calculateForGameRound, double multiplier)
         {
             var chipOne = new ChipTypeOne(calculateForGameRound);
             double returnValue;
@@ -69,7 +69,7 @@ namespace Plotly.Blazor.Examples.Controller
             return returnValue;
         }
 
-        public double PricePerPieceChip2(int unitsToProduce, int calculateForGameRound, int multiplier)
+        public double PricePerPieceChip2(double unitsToProduce, int calculateForGameRound, double multiplier)
         {
             var chipTwo = new ChipTypeTwo(calculateForGameRound);
             double returnValue;
@@ -96,7 +96,7 @@ namespace Plotly.Blazor.Examples.Controller
             return returnValue;
         }
 
-        public double PricePerPiecePLT(int unitsToProduce, int calculateForGameRound)
+        public double PricePerPiecePLT(double unitsToProduce, int calculateForGameRound)
         {
             var plt = new PLT(calculateForGameRound);
             double returnValue;

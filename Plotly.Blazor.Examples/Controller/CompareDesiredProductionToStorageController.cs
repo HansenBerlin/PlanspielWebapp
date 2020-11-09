@@ -82,10 +82,14 @@ namespace Plotly.Blazor.Examples.Controller
                 double actualBasePrice = SetupData.PPPChip1 * (100 / SetupData.Quality);
                 double priceWithDiscount = actualBasePrice - (actualBasePrice / 10);
                 TemporaryData.TemporaryStorageChipOneLeftUnits -= input;
-                if (AdditionalChipsType1 >= 1500000) return priceWithDiscount* AdditionalChipsType1;
-                else return actualBasePrice* AdditionalChipsType1;
+                if (AdditionalChipsType1 >= 1500000) return priceWithDiscount * AdditionalChipsType1;
+                else return actualBasePrice * AdditionalChipsType1;
             }
-            else return 0;
+            else
+            {
+                TemporaryData.TemporaryStorageChipOneLeftUnits -= input;
+                return 0;
+            }
         }
 
         private double CompareChipsTypeTwo(double input, string type, int calculateForGameRound)
@@ -99,31 +103,35 @@ namespace Plotly.Blazor.Examples.Controller
                 double priceWithDiscount = actualBasePrice - (actualBasePrice / 10);
                 TemporaryData.TemporaryStorageChipTwoLeftUnits -= input;
                 if (AdditionalChipsType2 >= 1000000) return priceWithDiscount * AdditionalChipsType2;
-                else return actualBasePrice  * AdditionalChipsType2;
+                else return actualBasePrice * AdditionalChipsType2;
             }
-            else return 0;
+            else
+            {
+                TemporaryData.TemporaryStorageChipTwoLeftUnits -= input;
+                return 0;
+            }
         }
 
         private double ComparePLT(double input, int calculateForGameRound)
         {
-            if (input*5 > TemporaryData.TemporaryStoragePLTLeftUnits)
+            if (input * 5 > TemporaryData.TemporaryStoragePLTLeftUnits)
             {
-                AdditionalPLT = input*5 - TemporaryData.TemporaryStoragePLTLeftUnits;
+                AdditionalPLT = input * 5 - TemporaryData.TemporaryStoragePLTLeftUnits;
                 double actualBasePrice = SetupData.PPPPLTBuy * (100 / SetupData.Quality);
                 double priceWithDiscount = actualBasePrice - (actualBasePrice / 10);
-                TemporaryData.TemporaryStoragePLTLeftUnits -= input*5;
+                TemporaryData.TemporaryStoragePLTLeftUnits -= input * 5;
                 if (AdditionalPLT >= 250000) return priceWithDiscount * AdditionalPLT;
                 else return actualBasePrice * AdditionalPLT;
             }
-            else return 0;
+            else
+            {
+                TemporaryData.TemporaryStoragePLTLeftUnits -= input * 5;
+                return 0;
+            }
         }
 
         private double CompareWorkers(double input, string type)
         {
-            //if (type == "PC") input /= 120;
-            //else if (type == "PLT") input /= 600;
-            //if (input > SetupData.CurrentWorkers) return input - SetupData.CurrentWorkers;
-            //else return 0;
             if (type == "PC") input /= 120;
             else if (type == "PLT") input /= 600;
             if (input > TemporaryData.TemporaryStorageWorkersLeft)
@@ -133,7 +141,11 @@ namespace Plotly.Blazor.Examples.Controller
                 TemporaryData.TemporaryStorageWorkersLeft -= input;
                 return wage * AdditionalWorkers;
             }
-            else return 0;
+            else
+            {
+                TemporaryData.TemporaryStorageWorkersLeft -= input;
+                return 0;
+            }
         }
 
         private double CompareMachines(double input, string type)

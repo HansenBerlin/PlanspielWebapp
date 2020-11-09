@@ -8,8 +8,14 @@
 
 <div class="main" style="font-family: 'Anaheim'">
     <div class="top-row px-2">
-        <p class="center" style="font-size:1.3em">Kontostand: @Convert.ToDouble(FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound-1, 1, "Account")).ToString("N0") DM</p>
-</div>
+        <table class="table" style="width:100%; background-color:transparent; outline-color:transparent">
+            <tr style="border: 0px solid #dddddd; background-color: transparent;">
+                <td class="center" style="font-size:1.1em; font-weight:800; text-align:left; left:35%; border: 0px solid #dddddd; background-color: transparent;">Kontostand: @SetupData.AccountBalance.ToString("N0") DM</td>
+                <td class="center" style="font-size:1.1em; border: 0px solid #dddddd; background-color: transparent;">Nachfrage: @SetupData.PCDemandLastRound %</td>
+                <td class="center" style="font-size:1.1em; text-align:right; left:65%; border: 0px solid #dddddd; background-color: transparent;">Auslastung: @SetupData.Efficiency %</td>
+            </tr>
+        </table>
+    </div>
 
 <div class="content px-4" style="font-family: 'Anaheim'">
     @Body

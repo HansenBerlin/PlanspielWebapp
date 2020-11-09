@@ -1,0 +1,11 @@
+@echo off
+:A
+cls
+echo programs
+cd %~dp0
+start %1Plotly.Blazor.Examples.exe
+
+@ping -n 2 localhost> nul
+
+start "" https://localhost:5001
+

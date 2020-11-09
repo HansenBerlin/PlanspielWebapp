@@ -31,6 +31,14 @@ a, .btn-link {
     filter: invert(9%) sepia(93%) saturate(6961%) hue-rotate(342deg) brightness(69%) contrast(101%);
 }
 
+.svg-filter-yellow {
+    filter: invert(64%) sepia(94%) saturate(360%) hue-rotate(2deg) brightness(105%) contrast(104%);
+}
+
+.svg-filter-green {
+    filter: invert(88%) sepia(10%) saturate(2071%) hue-rotate(59deg) brightness(101%) contrast(101%);
+}
+
 .svg-small-dashboard-icon {
     filter: invert(9%) sepia(93%) saturate(6961%) hue-rotate(342deg) brightness(69%) contrast(101%);
 }

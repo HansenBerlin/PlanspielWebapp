@@ -9,107 +9,118 @@
         background-color: #E1ECFA;
     }
 </style>
-        <div class="grid-container-dashboard">
-            <div class="grid-item-dashboard">
-                <PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" />
+<div class="grid-container-dashboard">
+    <div class="grid-item-dashboard">
+        <PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" />
+    </div>
+    <div class="grid-item-dashboard">
+        <h5 style="margin:20px">Maschinen ersetzen in Runde @SetupData.CurrentGameRound</h5>
+        <div class="grid-container-mini" style="background-color:#fff">
+            <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
+                <object id="moneyIcon" type="image/svg+xml" data="/icons/pc.svg" style="width:60px;" class="svg-filter-grey"> </object>
+                <h3 style="color: @ColorPCMachinesReplace">@MachinesToReplaceThisRound("PC")</h3>
             </div>
-            <div class="grid-item-dashboard">
-                <h5 style="margin:20px">Maschinen ersetzen</h5>
-                <div class="grid-container-mini" style="background-color:#fff">
-                    <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/pc.svg" style="width:80px;" class="svg-filter-red"> </object>
-                        <p class="paragraph-dashboard">in Runde @SetupData.CurrentGameRound:</p>
-                        <h2 style="color: rgb(165,0,38)">@SetupData.PCMachinesToReplaceThisRound</h2>
-                        
-                    </div>
-                    <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:80px;" class="svg-filter-red"> </object>
-                        <p class="paragraph-dashboard">in Runde @SetupData.CurrentGameRound:</p>
-                        <h2 style="color: rgb(165,0,38)">@SetupData.PLTMachinesToReplaceThisRound</h2>
-                    </div>
-                </div>
-                </div>
-            <div class="grid-item-dashboard" style="background-color:#f2f2f2; padding:0px;">
-                <div class="grid-container-mini">
-                    <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px">
-                        <h5 style="margin:15px">Marktanteil</h5>
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/rabatt.svg" style="width:80px;" class="svg-filter-teal"> </object>
-                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("Marketshare")</p>
-                    </div>
-                    <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px">
-                        <h5 style="margin:15px">Saldo</h5>
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/hand.svg" style="width:80px;" class="svg-filter-teal"> </object>
-                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("Saldo")</p>
-                    </div>
-                    <div class="grid-item-mini" style="margin-right: 10px; margin-top: 10px">
-                        <h5 style="margin:15px">Kontostand</h5>
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/geld.svg" style="width:80px;" class="svg-filter-teal"> </object>
-                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("Account")</p>
-                    </div>
-                    <div class="grid-item-mini" style="margin-left: 10px; margin-top: 10px">
-                        <h5 style="margin:15px">Produktion</h5>
-                        <object id="moneyIcon" type="image/svg+xml" data="/icons/massenproduktion.svg" style="width:80px;" class="svg-filter-teal"> </object>
-                        <p style="font-size:1.3em">Rang @CalculateRankingsController.CheckPosition("production")</p>
-                    </div>
-                </div>
-            </div>
-            <div class="grid-item-dashboard">
-                <PlotlyChart Id="TestId2" Config="config2" Layout="layout2" Data="data2" @ref="chart2" />
-            </div>
-            <div class="grid-item-dashboard">
-                <h5 style="margin:20px">Stückkosten Preistrend</h5>
-                <table class="table" style="width:100%">
-                    <tr>
-                        <td><object id="chip1" type="image/svg+xml" data="/icons/chip2.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
-                        <td style="text-align:left">Chip 1</td>
-                        <td style="text-align:left"> @SetupData.PPPChip1</td>
-                        <td style="text-align:left">@ComparePricesForPricetrend("C1")</td>
-                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationChip1)" class="svg-filter-teal" /></td>
-                    </tr>
-                    <tr>
-                        <td><object id="chip2" type="image/svg+xml" data="/icons/chip1.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
-                        <td style="text-align:left">Chip 2</td>
-                        <td style="text-align:left">@SetupData.PPPChip2</td>
-                        <td style="text-align:left">@ComparePricesForPricetrend("C2")</td>
-                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationChip2)" class="svg-filter-teal"> </object></td>
-                    </tr>
-                    <tr>
-                        <td><object id="pltBuy" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
-                        <td style="text-align:left">Platine Kauf</td>
-                        <td style="text-align:left">@SetupData.PPPPLTBuy</td>
-                        <td style="text-align:left">@ComparePricesForPricetrend("PLTBuy")</td>
-                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPLTBuy)" class="svg-filter-teal"> </object></td>
-                    </tr>
-                    <tr>
-                        <td><object id="pltProd" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
-                        <td style="text-align:left">Platine Prod.</td>
-                        <td style="text-align:left">@SetupData.PPPPLTProduction</td>
-                        <td style="text-align:left">@ComparePricesForPricetrend("PLTProduce")</td>
-                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPLTProd)" class="svg-filter-teal"> </object></td>
-                    </tr>
-                    <tr>
-                        <td><object id="pc" type="image/svg+xml" data="/icons/pc.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
-                        <td style="text-align:left">PC</td>
-                        <td style="text-align:left">@SetupData.PPPPC</td>
-                        <td style="text-align:left">@ComparePricesForPricetrend("PC")</td>
-                        <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPC)" class="svg-filter-teal"> </object></td>
-                    </tr>
-                </table>                
-            </div>
-            <div class="grid-item-dashboard">
-                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound-1, 1, "PCDemandNextRound")</p>
-                <p>@FetchTableDataController.ReadValueFromXML("generalData.xml", SetupData.CurrentGameRound-1, 1, "Efficiency")</p>
+            <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
+                <object id="moneyIcon" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:60px;" class="svg-filter-grey"> </object>
+                <h3 style="color: @ColorPLTMachinesReplace">@MachinesToReplaceThisRound("PLT")</h3>
             </div>
         </div>
+    </div>
+    <div class="grid-item-dashboard" style="background-color:#f2f2f2; padding:0px;">
+        <div class="grid-container-mini">
+            <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px">
+                <h5 style="margin:20px">Marktanteil</h5>
+                <object id="moneyIcon" type="image/svg+xml" data="/icons/rabatt.svg" style="width:60px;" class="svg-filter-teal"> </object>
+                <p style="font-size:1.1em">#@CalculateRankingsController.CheckPosition("Marketshare")</p>
+            </div>
+            <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px">
+                <h5 style="margin:20px">Saldo</h5>
+                <object id="moneyIcon" type="image/svg+xml" data="/icons/hand.svg" style="width:60px;" class="svg-filter-teal"> </object>
+                <p style="font-size:1.1em">#@CalculateRankingsController.CheckPosition("Saldo")</p>
+            </div>
+            <div class="grid-item-mini" style="margin-right: 10px; margin-top: 10px">
+                <h5 style="margin:20px">Kontostand</h5>
+                <object id="moneyIcon" type="image/svg+xml" data="/icons/geld.svg" style="width:60px;" class="svg-filter-teal"> </object>
+                <p style="font-size:1.1em">#@CalculateRankingsController.CheckPosition("Account")</p>
+            </div>
+            <div class="grid-item-mini" style="margin-left: 10px; margin-top: 10px">
+                <h5 style="margin:20px">Produktion</h5>
+                <object id="moneyIcon" type="image/svg+xml" data="/icons/massenproduktion.svg" style="width:60px;" class="svg-filter-teal"> </object>
+                <p style="font-size:1.1em">#@CalculateRankingsController.CheckPosition("production")</p>
+            </div>
+        </div>
+    </div>
+    <div class="grid-item-dashboard">
+        <PlotlyChart Id="TestId2" Config="config2" Layout="layout2" Data="data2" @ref="chart2" />
+    </div>
+    <div class="grid-item-dashboard">
+        <h5 style="margin:20px">Stückkosten Preistrend</h5>
+        <table class="table" style="width:100%">
+            <tr>
+                <td><object id="chip1" type="image/svg+xml" data="/icons/chip2.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                <td style="text-align:left">Chip 1</td>
+                <td style="text-align:left">@SetupData.PPPChip1 €</td>
+                <td style="text-align:right">@ComparePricesForPricetrend("C1")</td>
+                <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationChip1)" class="@ClassChip1" /></td>
+            </tr>
+            <tr>
+                <td><object id="chip2" type="image/svg+xml" data="/icons/chip1.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                <td style="text-align:left">Chip 2</td>
+                <td style="text-align:left">@SetupData.PPPChip2 €</td>
+                <td style="text-align:right">@ComparePricesForPricetrend("C2")</td>
+                <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationChip2)" class="@ClassChip2"> </object></td>
+            </tr>
+            <tr>
+                <td><object id="pltBuy" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                <td style="text-align:left">Platine Kauf</td>
+                <td style="text-align:left">@SetupData.PPPPLTBuy €</td>
+                <td style="text-align:right">@ComparePricesForPricetrend("PLTBuy")</td>
+                <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPLTBuy)" class="@ClassPLTBuy"> </object></td>
+            </tr>
+            <tr>
+                <td><object id="pltProd" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                <td style="text-align:left">Platine Prod.</td>
+                <td style="text-align:left">@SetupData.PPPPLTProduction €</td>
+                <td style="text-align:right">@ComparePricesForPricetrend("PLTProduce")</td>
+                <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPLTProd)" class="@ClassPLTProduce"> </object></td>
+            </tr>
+            <tr>
+                <td><object id="pc" type="image/svg+xml" data="/icons/pc.svg" style="width:20px;" class="svg-filter-grey"> </object></td>
+                <td style="text-align:left">PC</td>
+                <td style="text-align:left">@SetupData.PPPPC €</td>
+                <td style="text-align:right">@ComparePricesForPricetrend("PC")</td>
+                <td><object type="image/svg+xml" data="/icons/arrow.svg" style="width:20px; transform:rotate(@RotationPC)" class="@ClassPC"> </object></td>
+            </tr>
+        </table>
+    </div>
+    <div class="grid-item-dashboard">
+        <h5 style="margin:20px">Aktueller Vorstand</h5>
+        <p>Julian Erxleben</p>
+        <p>Melanie Grafe</p>
+        <p>Jan Jeschinski</p>
+        <p>Dominik Lau</p>
+        <p>Hannes Roever</p>
+        <p>Simon Valiente</p>
+    </div>
+</div>
 
 @code
 {
 
-    public static string RotationChip1 { get; set; } = "180deg";
-    public static string RotationChip2 { get; set; } = "50deg";
-    public static string RotationPLTBuy { get; set; } = "50deg";
-    public static string RotationPLTProd { get; set; } = "50deg";
-    public static string RotationPC { get; set; } = "50deg";
+    public static string RotationChip1 { get; set; } = "";
+    public static string RotationChip2 { get; set; } = "";
+    public static string RotationPLTBuy { get; set; } = "";
+    public static string RotationPLTProd { get; set; } = "";
+    public static string RotationPC { get; set; } = "";
+
+    public static string ClassChip1 { get; set; } = "";
+    public static string ClassChip2 { get; set; } = "";
+    public static string ClassPLTBuy { get; set; } = "";
+    public static string ClassPLTProduce { get; set; } = "";
+    public static string ClassPC { get; set; } = "";
+
+    public static string ColorPCMachinesReplace { get; set; } = "";
+    public static string ColorPLTMachinesReplace { get; set; } = "";
 
 
 
@@ -124,19 +135,18 @@
     {
         Title = new Title
         {
-            Text = "Marktanteil"
+            Text = "Marktanteile"
         },
         Height = 400,
-        Font = new Font { Family = "Anaheim" },
+        Font = new Font { Family = "Anaheim"  },
         Colorway = new List<object> { "0b0c10", "1f2833", "#c5c6c7", "66fcf1", "#45a29e", "d1e8e2" },
         PaperBgColor = "#fff",
-        //AutoSize = true
         Margin = new Margin { B = -10, L = -10, R = -10, T = -10 }
 
     };
 
     List<ITrace> data = new List<ITrace>
-    {
+{
         new Pie
         {
             Values = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "Marketshare"),
@@ -156,7 +166,7 @@
     {
         Title = new Title
         {
-            Text = "PC Runde " + (SetupData.CurrentGameRound-1)
+            Text = "Verkaufspreise Runde " + (SetupData.CurrentGameRound - 1)
         },
         Height = 400,
         Font = new Font { Family = "Anaheim" },
@@ -166,57 +176,57 @@
 
 
     List<ITrace> data2 = new List<ITrace>
-    {
+{
         new Bar
         {
             X = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" },
             Y = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "PricePerPC"),
-            Name = "Angebotspreis"
+            Name = "Angebotspreise"
 
         },
     };
 
     private string ComparePricesForPricetrend(string type)
     {
-        double percentChip1 = (SetupData.PPPChip1 / SetupHistoricalData.PPPChip1LastRound - 1) *100;
-        double percentChip2 = (SetupData.PPPChip2 / SetupHistoricalData.PPPChip2LastRound - 1) *100;
-        double percentPLTBuy = (SetupData.PPPPLTBuy / SetupHistoricalData.PPPPLTBuyLastRound - 1) *100;
-        double percentPLTProduce = (SetupData.PPPPLTProduction / SetupHistoricalData.PPPPLTProductionLastRound - 1) *100;
-        double percentPCProduce = (SetupData.PPPPC / SetupHistoricalData.PPPPCLastRound - 1) *100;
+        double percentChip1 = (SetupData.PPPChip1 / SetupHistoricalData.PPPChip1LastRound - 1) * 100;
+        double percentChip2 = (SetupData.PPPChip2 / SetupHistoricalData.PPPChip2LastRound - 1) * 100;
+        double percentPLTBuy = (SetupData.PPPPLTBuy / SetupHistoricalData.PPPPLTBuyLastRound - 1) * 100;
+        double percentPLTProduce = (SetupData.PPPPLTProduction / SetupHistoricalData.PPPPLTProductionLastRound - 1) * 100;
+        double percentPCProduce = (SetupData.PPPPC / SetupHistoricalData.PPPPCLastRound - 1) * 100;
 
-        if (percentChip1 > 20) RotationChip1 = "180deg";
-        else if (percentChip1 > 5) RotationChip1 = "235deg";
-        else if (percentChip1 > -5) RotationChip1 = "270deg";
-        else if (percentChip1 > -20) RotationChip1 = "315deg";
-        else if (percentChip1 < -20) RotationChip1 = "0deg";
+        if (percentChip1 > 20) { RotationChip1 = "180deg"; ClassChip1 = "svg-filter-red"; }
+        else if (percentChip1 > 5) { RotationChip1 = "235deg"; ClassChip1 = "svg-filter-red"; }
+        else if (percentChip1 > -5) { RotationChip1 = "270deg"; ClassChip1 = "svg-filter-yellow"; }
+        else if (percentChip1 > -20) { RotationChip1 = "315deg"; ClassChip1 = "svg-filter-green"; }
+        else if (percentChip1 < -20) { RotationChip1 = "0deg"; ClassChip1 = "svg-filter-green"; }
         else RotationChip1 = "0deg";
 
-        if (percentChip2 > 20) RotationChip2 = "180deg";
-        else if (percentChip2 > 5) RotationChip2 = "235deg";
-        else if (percentChip2 > -5) RotationChip2 = "270deg";
-        else if (percentChip2 > -20) RotationChip2 = "315deg";
-        else if (percentChip2 < -20) RotationChip2 = "0deg";
+        if (percentChip2 > 20) { RotationChip2 = "180deg"; ClassChip2 = "svg-filter-red"; }
+        else if (percentChip2 > 5) { RotationChip2 = "235deg"; ClassChip2 = "svg-filter-red"; }
+        else if (percentChip2 > -5) { RotationChip2 = "270deg"; ClassChip2 = "svg-filter-yellow"; }
+        else if (percentChip2 > -20) { RotationChip2 = "315deg"; ClassChip2 = "svg-filter-green"; }
+        else if (percentChip2 < -20) { RotationChip2 = "0deg"; ClassChip2 = "svg-filter-green"; }
         else RotationChip2 = "0deg";
 
-        if (percentPLTBuy > 20) RotationPLTBuy = "180deg";
-        else if (percentPLTBuy > 5) RotationPLTBuy = "235deg";
-        else if (percentPLTBuy > -5) RotationPLTBuy = "270deg";
-        else if (percentPLTBuy > -20) RotationPLTBuy = "315deg";
-        else if (percentPLTBuy < -20) RotationPLTBuy = "0deg";
+        if (percentPLTBuy > 20) { RotationPLTBuy = "180deg"; ClassPLTBuy = "svg-filter-red"; }
+        else if (percentPLTBuy > 5) { RotationPLTBuy = "235deg"; ClassPLTBuy = "svg-filter-red"; }
+        else if (percentPLTBuy > -5) { RotationPLTBuy = "270deg"; ClassPLTBuy = "svg-filter-yellow"; }
+        else if (percentPLTBuy > -20) { RotationPLTBuy = "315deg"; ClassPLTBuy = "svg-filter-green"; }
+        else if (percentPLTBuy < -20) { RotationPLTBuy = "0deg"; ClassPLTBuy = "svg-filter-green"; }
         else RotationPLTBuy = "0deg";
 
-        if (percentPLTProduce > 20) RotationPLTProd = "180deg";
-        else if (percentPLTProduce > 5) RotationPLTProd = "235deg";
-        else if (percentPLTProduce > -5) RotationPLTProd = "270deg";
-        else if (percentPLTProduce > -20) RotationPLTProd = "315deg";
-        else if (percentPLTProduce < -20) RotationPLTProd = "0deg";
+        if (percentPLTProduce > 20) { RotationPLTProd = "180deg"; ClassPLTProduce = "svg-filter-red"; }
+        else if (percentPLTProduce > 5) { RotationPLTProd = "235deg"; ClassPLTProduce = "svg-filter-red"; }
+        else if (percentPLTProduce > -5) { RotationPLTProd = "270deg"; ClassPLTProduce = "svg-filter-yellow"; }
+        else if (percentPLTProduce > -20) { RotationPLTProd = "315deg"; ClassPLTProduce = "svg-filter-green"; }
+        else if (percentPLTProduce < -20) { RotationPLTProd = "0deg"; ClassPLTProduce = "svg-filter-green"; }
         else RotationPLTProd = "0deg";
 
-        if (percentPCProduce > 20) RotationPC = "180deg";
-        else if (percentPCProduce > 5) RotationPC = "235deg";
-        else if (percentPCProduce > -5) RotationPC = "270deg";
-        else if (percentPCProduce > -20) RotationPC = "315deg";
-        else if (percentPCProduce < -20) RotationPC = "0deg";
+        if (percentPCProduce > 20) { RotationPC = "180deg"; ClassPC = "svg-filter-red"; }
+        else if (percentPCProduce > 5) { RotationPC = "235deg"; ClassPC = "svg-filter-red"; }
+        else if (percentPCProduce > -5) { RotationPC = "270deg"; ClassPC = "svg-filter-yellow"; }
+        else if (percentPCProduce > -20) { RotationPC = "315deg"; ClassPC = "svg-filter-green"; }
+        else if (percentPCProduce < -20) { RotationPC = "0deg"; ClassPC = "svg-filter-green"; }
         else RotationPC = "0deg";
 
 
@@ -226,7 +236,30 @@
         else if (type == "PLTProduce") return (percentPLTProduce.ToString("N2") + "%");
         else if (type == "PC") return (percentPCProduce.ToString("N2") + "%");
         else return "invalid";
+    }
 
-
+    private string MachinesToReplaceThisRound(string type)
+    {
+        if (type == "PC" && SetupData.PCMachinesToReplaceThisRound != 0)
+        {
+            ColorPCMachinesReplace = "#a50026";
+            return SetupData.PCMachinesToReplaceThisRound.ToString();
+        }
+        else if (type == "PC" && SetupData.PCMachinesToReplaceThisRound == 0)
+        {
+            ColorPCMachinesReplace = "#0b0c10";
+            return SetupData.PCMachinesToReplaceThisRound.ToString();
+        }
+        else if (type == "PLT" && SetupData.PLTMachinesToReplaceThisRound != 0)
+        {
+            ColorPLTMachinesReplace = "#a50026";
+            return SetupData.PLTMachinesToReplaceThisRound.ToString();
+        }
+        else if (type == "PLT" && SetupData.PLTMachinesToReplaceThisRound == 0)
+        {
+            ColorPLTMachinesReplace = "#0b0c10";
+            return SetupData.PLTMachinesToReplaceThisRound.ToString();
+        }
+        else return "";
     }
 }
