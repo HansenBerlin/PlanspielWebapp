@@ -31,7 +31,8 @@ namespace Plotly.Blazor.Examples.Controller
             var matchInputMarketing = Regex.Match(marketingCost, "[0-9]+");
             if (matchInputProducedUnits.Success && matchInputMarketing.Success)
             {
-                return Convert.ToDouble(((2250000 + 20 * SetupData.CurrentWage + Convert.ToDouble(marketingCost)) / 3000)
+                return Convert.ToDouble(((2250000 + 20 * SetupData.CurrentWage) / 3000)
+                    + (Convert.ToDouble(marketingCost)/Convert.ToDouble(unitsToProduce))
                     + PricePerPieceChip1(Convert.ToDouble(unitsToProduce), calculateForGameRound, 15)
                     + PricePerPieceChip2(Convert.ToDouble(unitsToProduce), calculateForGameRound, 9)
                     + PricePerPiecePLT(Convert.ToDouble(unitsToProduce), calculateForGameRound)).ToString("N2");

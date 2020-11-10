@@ -6,12 +6,15 @@
 @using Plotly.Blazor.Examples.Models
 
 
-<div class="grid-container" style="grid-template-columns: 50% 50%">
+<div class="grid-container" style="grid-template-columns: 33% 33% 33%">
     <div class="grid-item" style="text-align: left;">
         <h2>Entscheidungsplaner</h2>
     </div>
-    <div class="grid-item" style="text-align: right; color: #a50026; font-weight: 800">
-        <h4>@WarningMessageNotEnoughMachines</h4>
+    <div class="grid-item" style="text-align: center; font-weight: 800; font-size:1em">
+        <h4>Stückpreis PC: @PricePerPCPiece</h4>
+    </div>
+    <div class="grid-item" style="text-align: right; font-weight: 800; font-size:1em">
+        <h4>Stückpreis PLT: @PricePerPLTPiece</h4>
     </div>
 </div>
 
@@ -19,32 +22,32 @@
     <tr>
         <th style="width:30%"></th>
         <th style="width:20%">Plan</th>
-        <th style="width:15%">Kosten</th>
+        <th style="width:15%; margin-right:20px">Kosten</th>
         <th style="width:35%">Hinweis</th>
     </tr>
     <tr>
         <td class="table-left-column">Produktion PLT</td>
         <td><input class="inputBox" value="@PLTProduction" @oninput="@FilterChangedAsyncPLT" /></td>
-        <td style="text-align:right">-</td>
-        <td>Hinweis wenn Maschinen fehlen</td>
+        <td style="text-align:right"></td>
+        <td>@WarningMessageNotEnoughPLTMachines</td>
     </tr>
     <tr>
         <td class="table-left-column">Produktion PC</td>
-        <td><input class="inputBox"  value="@PCProduction" @oninput="@FilterChangedAsyncPC" /></td>
-        <td style="text-align:right">-</td>
-        <td>Hinweis wenn Maschinen fehlen</td>
+        <td><input class="inputBox" value="@PCProduction" @oninput="@FilterChangedAsyncPC" /></td>
+        <td style="text-align:right"></td>
+        <td>@WarningMessageNotEnoughPCMachines</td>
     </tr>
     <tr>
         <td class="table-left-column">Bestellung Maschinen PLT</td>
         <td><input class="inputBox" value="@BuyPLTMachines" @oninput="@FilterChangedAsyncBuyPLTMachines" /></td>
-        <td style="text-align:right">@CalculateCostsForInput(BuyPLTMachines, 1000000) in Runde (@SetupData.CurrentGameRound+1)</td>
-        <td>Hinweis gehen kaputt diese Runde</td>
+        <td style="text-align:right">@CalculateCostsForInput(BuyPLTMachines, 1000000)</td>
+        <td>nachkaufen: @SetupData.PLTMachinesToReplaceThisRound; Kosten für Runde @(SetupData.CurrentGameRound+1)</td>
     </tr>
     <tr>
         <td class="table-left-column">Bestellung Maschinen PC</td>
         <td><input class="inputBox" value="@BuyPCMachines" @oninput="@FilterChangedAsyncBuyPCMachines" /></td>
-        <td style="text-align:right">@CalculateCostsForInput(BuyPCMachines, 3500000) in Runde (@SetupData.CurrentGameRound+1)</td>
-        <td>Hinweis gehen kaputt diese Runde</td>
+        <td style="text-align:right">@CalculateCostsForInput(BuyPCMachines, 3500000)</td>
+        <td>nachkaufen: @SetupData.PCMachinesToReplaceThisRound; Kosten für Runde @(SetupData.CurrentGameRound+1)</td>
     </tr>
     <tr>
         <td class="table-left-column">Personal Einstellungen</td>
@@ -56,43 +59,43 @@
         <td class="table-left-column">Personal Entlassungen</td>
         <td><input class="inputBox" value="@FireWorkers" @oninput="@FilterChangedAsyncFireWorkers" /></td>
         <td style="text-align:right">@CalculateCostsForInput(FireWorkers, SetupData.CurrentWage*5)</td>
-        <td>-</td>
+        <td></td>
     </tr>
     <tr>
         <td class="table-left-column">Einkauf Chip 1</td>
         <td><input class="inputBox" value="@BuyChip1" @oninput="@FilterChangedAsyncBuyChip1" /></td>
         <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip1, "Chip1")</td>
-        <td>@ConvertToStringWithSeperators(AdditionalChips1) benötigt für aktuelle Produktion</td>
+        <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips1) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip1", BuyChip1)</td>
     </tr>
     <tr>
         <td class="table-left-column">Einkauf Chip 2</td>
         <td><input class="inputBox" value="@BuyChip2" @oninput="@FilterChangedAsyncBuyChip2" /></td>
         <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip2, "Chip2")</td>
-        <td>@ConvertToStringWithSeperators(AdditionalChips2) benötigt für aktuelle Produktion</td>
+        <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips2) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip2", BuyChip2)</td>
     </tr>
     <tr>
         <td class="table-left-column">Einkauf PLT</td>
         <td><input class="inputBox" value="@BuyPLT" @oninput="@FilterChangedAsyncBuyPLT" /></td>
         <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyPLT, "PLT")</td>
-        <td>@ConvertToStringWithSeperators(AdditionalPLT) benötigt für aktuelle Produktion</td>
+        <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalPLT) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("PLT", BuyPLT)</td>
     </tr>
     <tr>
         <td class="table-left-column">Verkauf PLT</td>
         <td><input class="inputBox" value="@SellPLT" @oninput="@FilterChangedAsyncSellPLT" /></td>
-        <td style="text-align:right">-</td>
-        <td>Hinweis benötigt nächste Runde</td>
+        <td style="text-align:right"></td>
+        <td>benötigt in Runde @(SetupData.CurrentGameRound+1): @(SetupData.PCCapacity*5)</td>
     </tr>
     <tr>
         <td class="table-left-column">Marketingausgaben</td>
         <td><input class="inputBox" value="@MarketingCost" @oninput="@FilterChangedAsyncMarketing" /></td>
-        <td style="text-align:right">-</td>
-        <td>durchschn Budget alle</td>
+        <td style="text-align:right"></td>
+        <td>durchschn. Budget aller Firmen letzte Runde: @ConvertToStringWithSeperators(SetupData.AverageMarketingBudgetAllCompanys)</td>
     </tr>
     <tr>
         <td class="table-left-column">Verkauspreis PC</td>
         <td><input class="inputBox" value="@SellPCPrice" @oninput="@FilterChangedAsyncSellingPricePC" /></td>
-        <td style="text-align:right">-</td>
-        <td>Letzter Preis</td>
+        <td style="text-align:right"></td>
+        <td>Letzter Verkaufspreis: @SetupData.PCSalePriceLastRound</td>
     </tr>
 </table>
 
@@ -122,11 +125,11 @@
 @code
 {
 
-    public static string PCProduction { get; set; } = "0";
-    public static string PLTProduction { get; set; } = "0";
+    public static string PCProduction { get; set; } = "";
+    public static string PLTProduction { get; set; } = "";
     private string PricePerPCPiece { get; set; } = "";
     private string PricePerPLTPiece { get; set; } = "";
-    private string MarketingCost { get; set; } = "0";
+    private string MarketingCost { get; set; } = "";
 
     private string HintForChips1 { get; set; }
     private string HintForChips2 { get; set; }
@@ -152,7 +155,9 @@
     static private double AvailablePCMachines = SetupData.PCMachinesAvailableThisRound;
     static private double AvailablePLTMachines = SetupData.PLTMachinesAvailableThisRound;
 
-    static public string WarningMessageNotEnoughMachines { get; set; }
+    static public string WarningMessageNotEnoughPCMachines { get; set; }
+    static public string WarningMessageNotEnoughPLTMachines { get; set; }
+
 
     private static string BuyPLTMachines { get; set; } = "";
     private static string BuyPCMachines { get; set; } = "";
@@ -163,6 +168,25 @@
     private static string BuyPLT { get; set; } = "";
     private static string SellPLT { get; set; } = "";
     private static string SellPCPrice { get; set; } = "";
+
+    private string CalculateAdditionalPiecesForDiscount(string type, string input)
+    {
+        if (input == "") input = "0";
+        var matchInput = Regex.Match(input, "[0-9]+[.[0-9]+]?");
+
+        if (matchInput.Success)
+        {
+            double tempInput = Convert.ToDouble(input);
+            if (type == "Chip1" && tempInput < 1500000) return (1500000 - tempInput).ToString() + " weitere für Rabatt";
+            else if (type == "Chip2" && tempInput < 1000000) return (1000000 - tempInput).ToString() + " weitere für Rabatt";
+            else if (type == "PLT" && tempInput < 250000) return (250000 - tempInput).ToString() + " weitere für Rabatt";
+            else if (type == "Chip1" && tempInput >= 1500000) return "inkl. 10% Rabatt";
+            else if (type == "Chip2" && tempInput >= 1000000) return "inkl. 10% Rabatt";
+            else if (type == "PLT" && tempInput >= 250000) return "inkl. 10% Rabatt";
+            else return "";
+        }
+        else return ("");
+    }
 
     private string CalculateCostsForInput(string input, double multiplier)
     {
@@ -327,7 +351,8 @@
         PricePerPCPiece = "";
         PricePerPLTPiece = "";
 
-        WarningMessageNotEnoughMachines = "";
+        WarningMessageNotEnoughPCMachines = "";
+        WarningMessageNotEnoughPLTMachines = "";
     }
 
 
@@ -335,9 +360,19 @@
     {
         ResetData();
 
-        PCProduction = "0";
-        PLTProduction = "0";
-        MarketingCost = "0";
+        PCProduction = "";
+        PLTProduction = "";
+        MarketingCost = "";
+
+        BuyPLTMachines = "";
+        BuyPCMachines = "";
+        HireWorkers = "";
+        FireWorkers = "";
+        BuyChip1 = "";
+        BuyChip2 = "";
+        BuyPLT = "";
+        SellPLT = "";
+        SellPCPrice = "";
 
     }
 
@@ -371,11 +406,17 @@
         }
         else HintForPLTs = ConvertToStringWithSeperators(250000 - AdditionalPLT);
 
-        if (AdditionalPCMachines > 0 || AdditionalPLTMachines > 0)
+        if (AdditionalPCMachines > 0)
         {
-            WarningMessageNotEnoughMachines = "Fehlende Maschinen!";
+            WarningMessageNotEnoughPCMachines = "Fehlende Maschinen!";
         }
-        else WarningMessageNotEnoughMachines = "";
+        else WarningMessageNotEnoughPCMachines = "";
+
+        if (AdditionalPLTMachines > 0)
+        {
+            WarningMessageNotEnoughPLTMachines = "Fehlende Maschinen!";
+        }
+        else WarningMessageNotEnoughPLTMachines = "";
 
     }
 }

@@ -25,6 +25,7 @@ namespace Plotly.Blazor.Examples.Models
         public static double PPPChip2 { get; set; }
         public static double PCsProducedLastRound { get; set; } 
         public static double PLTProducedLastRound { get; set; } 
+        public static double PCSalePriceLastRound { get; set; }
         public static double Quality { get; set; } 
         public static double Chip1Storage { get; set; } 
         public static double Chip2Storage { get; set; } 
@@ -32,6 +33,7 @@ namespace Plotly.Blazor.Examples.Models
         public static double PCStorage { get; set; }
         public static double PLTCapacity { get; set; }
         public static double PCCapacity { get; set; }
+        public static double AverageMarketingBudgetAllCompanys { get; set; }
 
 
         public SetupData()
@@ -63,6 +65,8 @@ namespace Plotly.Blazor.Examples.Models
             PLTProducedLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "OutputPLT");
             PCCapacity = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound, 1, "CapacityPC");
             PLTCapacity = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound, 1, "CapacityPLT");
+            PCSalePriceLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "PricePerPC");
+
 
             TemporaryData.TemporaryStorageChipOneLeftUnits = Chip1Storage;
             TemporaryData.TemporaryStorageChipTwoLeftUnits = Chip2Storage;
@@ -80,7 +84,15 @@ namespace Plotly.Blazor.Examples.Models
 
             PPPPLTProduction = Convert.ToDouble(pltProductionCalculate.ShowCurrentProductionCostsPLT(PLTCapacity.ToString(), CurrentGameRound));
 
-            resetTempData.ResetData();            
-        }    
+            resetTempData.ResetData();
+
+            //var listMarketing = new List<double>();
+            double marketingMergerd = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                marketingMergerd += (FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound-1, i, "Marketing"));
+            }
+            AverageMarketingBudgetAllCompanys = marketingMergerd / 6;
+        }
     }
 }
