@@ -7,416 +7,586 @@
 
 
 <div class="grid-container" style="grid-template-columns: 33% 33% 33%">
-    <div class="grid-item" style="text-align: left;">
-        <h2>Entscheidungsplaner</h2>
-    </div>
-    <div class="grid-item" style="text-align: center; font-weight: 800; font-size:1em">
+
+    <div class="grid-item" style="text-align: left; font-weight: 800; font-size:1em">
         <h4>Stückpreis PC: @PricePerPCPiece</h4>
     </div>
-    <div class="grid-item" style="text-align: right; font-weight: 800; font-size:1em">
+    <div class="grid-item" style="text-align: center; font-weight: 800; font-size:1em">
         <h4>Stückpreis PLT: @PricePerPLTPiece</h4>
     </div>
-</div>
-
-<table class="table" style="width:100%">
-    <tr>
-        <th style="width:30%"></th>
-        <th style="width:20%">Plan</th>
-        <th style="width:15%; margin-right:20px">Kosten</th>
-        <th style="width:35%">Hinweis</th>
-    </tr>
-    <tr>
-        <td class="table-left-column">Produktion PLT</td>
-        <td><input class="inputBox" value="@PLTProduction" @oninput="@FilterChangedAsyncPLT" /></td>
-        <td style="text-align:right"></td>
-        <td>@WarningMessageNotEnoughPLTMachines</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Produktion PC</td>
-        <td><input class="inputBox" value="@PCProduction" @oninput="@FilterChangedAsyncPC" /></td>
-        <td style="text-align:right"></td>
-        <td>@WarningMessageNotEnoughPCMachines</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Bestellung Maschinen PLT</td>
-        <td><input class="inputBox" value="@BuyPLTMachines" @oninput="@FilterChangedAsyncBuyPLTMachines" /></td>
-        <td style="text-align:right">@CalculateCostsForInput(BuyPLTMachines, 1000000)</td>
-        <td>nachkaufen: @SetupData.PLTMachinesToReplaceThisRound; Kosten für Runde @(SetupData.CurrentGameRound+1)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Bestellung Maschinen PC</td>
-        <td><input class="inputBox" value="@BuyPCMachines" @oninput="@FilterChangedAsyncBuyPCMachines" /></td>
-        <td style="text-align:right">@CalculateCostsForInput(BuyPCMachines, 3500000)</td>
-        <td>nachkaufen: @SetupData.PCMachinesToReplaceThisRound; Kosten für Runde @(SetupData.CurrentGameRound+1)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Personal Einstellungen</td>
-        <td><input class="inputBox" value="@HireWorkers" @oninput="@FilterChangedAsyncHireWorkers" /></td>
-        <td style="text-align:right">@CalculateCostsForInput(HireWorkers, SetupData.CurrentWage)</td>
-        <td>@ConvertToStringWithSeperators(AdditionalWorkers) benötigt für aktuelle Produktion</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Personal Entlassungen</td>
-        <td><input class="inputBox" value="@FireWorkers" @oninput="@FilterChangedAsyncFireWorkers" /></td>
-        <td style="text-align:right">@CalculateCostsForInput(FireWorkers, SetupData.CurrentWage*5)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Einkauf Chip 1</td>
-        <td><input class="inputBox" value="@BuyChip1" @oninput="@FilterChangedAsyncBuyChip1" /></td>
-        <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip1, "Chip1")</td>
-        <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips1) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip1", BuyChip1)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Einkauf Chip 2</td>
-        <td><input class="inputBox" value="@BuyChip2" @oninput="@FilterChangedAsyncBuyChip2" /></td>
-        <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip2, "Chip2")</td>
-        <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips2) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip2", BuyChip2)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Einkauf PLT</td>
-        <td><input class="inputBox" value="@BuyPLT" @oninput="@FilterChangedAsyncBuyPLT" /></td>
-        <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyPLT, "PLT")</td>
-        <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalPLT) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("PLT", BuyPLT)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Verkauf PLT</td>
-        <td><input class="inputBox" value="@SellPLT" @oninput="@FilterChangedAsyncSellPLT" /></td>
-        <td style="text-align:right"></td>
-        <td>benötigt in Runde @(SetupData.CurrentGameRound+1): @(SetupData.PCCapacity*5)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Marketingausgaben</td>
-        <td><input class="inputBox" value="@MarketingCost" @oninput="@FilterChangedAsyncMarketing" /></td>
-        <td style="text-align:right"></td>
-        <td>durchschn. Budget aller Firmen letzte Runde: @ConvertToStringWithSeperators(SetupData.AverageMarketingBudgetAllCompanys)</td>
-    </tr>
-    <tr>
-        <td class="table-left-column">Verkauspreis PC</td>
-        <td><input class="inputBox" value="@SellPCPrice" @oninput="@FilterChangedAsyncSellingPricePC" /></td>
-        <td style="text-align:right"></td>
-        <td>Letzter Verkaufspreis: @SetupData.PCSalePriceLastRound</td>
-    </tr>
-</table>
-
-
-<div class="grid-container">
-    <div class="grid-item">
-        <input class="inputBox" placeholder="Geplante Produktion PCs" value="@PCProduction" @oninput="@FilterChangedAsyncPC" />
-    </div>
-    <div class="grid-item">
-        <input class="inputBox" placeholder="Geplante Produktion PLTs" value="@PLTProduction" @oninput="@FilterChangedAsyncPLT" />
-    </div>
-    <div class="grid-item">
-        <input class="inputBox" placeholder="Geplante Marketingausgaben" value="@MarketingCost" @oninput="@FilterChangedAsyncMarketing" />
-    </div>
-    <div class="grid-item">
-        <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:right" @onclick="@(e => ResetInputFields())">Reset</button>
-    </div>
-    <div class="grid-item">
-        <p style="text-align:left; font-weight:400; font-size:1.4em">Stückkosten PC: @(PricePerPCPiece + " DM")</p>
-    </div>
-    <div class="grid-item">
-        <p style="text-align:left;font-weight:400; font-size:1.4em">Stückkosten Platine: @(PricePerPLTPiece + " DM")</p>
+    <div class="grid-item" style="text-align: right;">
+        <input class="slider" value="@EstimatedSalesPC" @oninput="@FilterChangedAsyncEstimatePCs" type="range" step="1000" min="0" max="@SetupData.PCCapacity" />
+        <input class="inputBox" value="@EstimatedSalesPC" @oninput="@FilterChangedAsyncEstimatePCs" placeholder="Schätzung PC Verkäufe" />
     </div>
 </div>
 
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, '1')">Entscheidung eingeben</button>
+    <button class="tablinks" onclick="openCity(event, '2')">Übersicht Einnahmen/Ausgaben</button>
+</div>
 
-@code
+<div id="1" class="tabcontent" style="display:block">
+    <table class="table" style="width:100%">
+        <tr>
+            <th style="width:30%"></th>
+            <th style="width:20%">Plan</th>
+            <th style="width:15%; margin-right:20px">Kosten</th>
+            <th style="width:35%">Hinweis</th>
+        </tr>
+        <tr>
+            <td class="table-left-column">Produktion PLT</td>
+            <td><input class="inputBox" value="@PLTProduction" @oninput="@FilterChangedAsyncPLT" /></td>
+            <td style="text-align:right"></td>
+            <td>@WarningMessageNotEnoughPLTMachines</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Produktion PC</td>
+            <td><input class="inputBox" value="@PCProduction" @oninput="@FilterChangedAsyncPC" /></td>
+            <td style="text-align:right"></td>
+            <td>@WarningMessageNotEnoughPCMachines</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Bestellung Maschinen PLT</td>
+            <td><input class="inputBox" value="@BuyPLTMachines" @oninput="@FilterChangedAsyncBuyPLTMachines" /></td>
+            <td style="text-align:right">@CalculateCostsForInput(BuyPLTMachines, 1000000)</td>
+            <td>nachkaufen: @SetupData.PLTMachinesToReplaceThisRound; Kosten für Runde @(SetupData.CurrentGameRound+1)</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Bestellung Maschinen PC</td>
+            <td><input class="inputBox" value="@BuyPCMachines" @oninput="@FilterChangedAsyncBuyPCMachines" /></td>
+            <td style="text-align:right">@CalculateCostsForInput(BuyPCMachines, 3500000)</td>
+            <td>nachkaufen: @SetupData.PCMachinesToReplaceThisRound; Kosten für Runde @(SetupData.CurrentGameRound+1)</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Personal Einstellungen</td>
+            <td><input class="inputBox" value="@HireWorkers" @oninput="@FilterChangedAsyncHireWorkers" /></td>
+            <td style="text-align:right">@CalculateCostsForInput(HireWorkers, SetupData.CurrentWage)</td>
+            <td>@ConvertToStringWithSeperators(AdditionalWorkers) benötigt für aktuelle Produktion</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Personal Entlassungen</td>
+            <td><input class="inputBox" value="@FireWorkers" @oninput="@FilterChangedAsyncFireWorkers" /></td>
+            <td style="text-align:right">@CalculateCostsForInput(FireWorkers, SetupData.CurrentWage * 5)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Einkauf Chip 1</td>
+            <td><input class="inputBox" value="@BuyChip1" @oninput="@FilterChangedAsyncBuyChip1" /></td>
+            <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip1, "Chip1")</td>
+            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips1) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip1", BuyChip1)</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Einkauf Chip 2</td>
+            <td><input class="inputBox" value="@BuyChip2" @oninput="@FilterChangedAsyncBuyChip2" /></td>
+            <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip2, "Chip2")</td>
+            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips2) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip2", BuyChip2)</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Einkauf PLT</td>
+            <td><input class="inputBox" value="@BuyPLT" @oninput="@FilterChangedAsyncBuyPLT" /></td>
+            <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyPLT, "PLT")</td>
+            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalPLT) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("PLT", BuyPLT)</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Verkauf PLT</td>
+            <td><input class="inputBox" value="@SellPLT" @oninput="@FilterChangedAsyncSellPLT" /></td>
+            <td style="text-align:right"></td>
+            <td>benötigt in Runde @(SetupData.CurrentGameRound+1): @(SetupData.PCCapacity*5)</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Marketingausgaben</td>
+            <td><input class="inputBox" value="@MarketingCost" @oninput="@FilterChangedAsyncMarketing" /></td>
+            <td style="text-align:right"></td>
+            <td>durchschn. Budget aller Firmen letzte Runde: @ConvertToStringWithSeperators(SetupData.AverageMarketingBudgetAllCompanys)</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Verkauspreis PC</td>
+            <td><input class="inputBox" value="@SellPCPrice" @oninput="@FilterChangedAsyncSellingPricePC" /></td>
+            <td style="text-align:right"></td>
+            <td>Letzter Verkaufspreis: @SetupData.PCSalePriceLastRound</td>
+        </tr>
+    </table>
+</div>
+
+<div id="2" class="tabcontent" style="display:block">
+   
+            <table class="table" style="width:60%">
+                <tr>
+                    <th style="width:50%">Posten</th>
+                    <th style="width:50%; text-align:right">Summe in DM</th>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Einkauf Maschinen Runde @(SetupData.CurrentGameRound-1)</td>
+                    <td style="text-align:right">@ConvertToStringWithSeperators(SetupData.ExpenseBoughtMachines * -1)</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Einkauf Einsatzstoffe</td>
+                    <td style="text-align:right">@ExpenseBuyRessources</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Betrieb Maschinen</td>
+                    <td style="text-align:right">@ConvertToStringWithSeperators(SetupData.ExpenseRunMachines * -1)</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Lohn und Gehalt</td>
+                    <td style="text-align:right">@ExpenseSalary</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Lagerkosten</td>
+                    <td style="text-align:right">@ExpenseStorage</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Marketing</td>
+                    <td style="text-align:right">@MarketingCost</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Bericht</td>
+                    <td style="text-align:right">@ConvertToStringWithSeperators(-1000000)</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Kreditzinsen</td>
+                    <td style="text-align:right">@ExpenseInterestCost</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Verkäufe PC</td>
+                    <td style="text-align:right">@IncomePCSales</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Verkäufe PLT</td>
+                    <td style="text-align:right">@IncomePLTSales</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Guthabenzinsen</td>
+                    <td style="text-align:right">@IncomeInterestIncome</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Saldo</td>
+                    <td style="text-align:right">@Saldo</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Kontostand alt</td>
+                    <td style="text-align:right">@ConvertToStringWithSeperators(SetupData.AccountBalance)</td>
+                </tr>
+                <tr>
+                    <td class="table-left-column">Kontostand neu</td>
+                    <td style="text-align:right">@UpdatedAccBalance</td>
+                </tr>
+            </table>
+       
+</div>
+
+
+
+    @code
 {
 
-    public static string PCProduction { get; set; } = "";
-    public static string PLTProduction { get; set; } = "";
-    private string PricePerPCPiece { get; set; } = "";
-    private string PricePerPLTPiece { get; set; } = "";
-    private string MarketingCost { get; set; } = "";
+        public static string PCProduction { get; set; } = "";
+        public static string PLTProduction { get; set; } = "";
+        private string PricePerPCPiece { get; set; } = "";
+        private string PricePerPLTPiece { get; set; } = "";
+        private string MarketingCost { get; set; } = "";
 
-    private string HintForChips1 { get; set; }
-    private string HintForChips2 { get; set; }
-    private string HintForPLTs { get; set; }
+        private string HintForChips1 { get; set; }
+        private string HintForChips2 { get; set; }
+        private string HintForPLTs { get; set; }
 
-    private static double AdditionalChips1 { get; set; }
-    private static double AdditionalChips2 { get; set; }
-    private static double AdditionalPLT { get; set; }
+        private static double AdditionalChips1 { get; set; }
+        private static double AdditionalChips2 { get; set; }
+        private static double AdditionalPLT { get; set; }
 
-    private double AdditionalCostChips1 { get; set; }
-    private double AdditionalCostChips2 { get; set; }
-    private double AdditionalCostPLT { get; set; }
-    private double AdditionalCostWorkers { get; set; }
+        private double AdditionalCostChips1 { get; set; }
+        private double AdditionalCostChips2 { get; set; }
+        private double AdditionalCostPLT { get; set; }
+        private double AdditionalCostWorkers { get; set; }
 
-    private double AdditionalWorkers { get; set; }
-    private double AdditionalPLTMachines { get; set; }
-    private double AdditionalPCMachines { get; set; }
+        private double AdditionalWorkers { get; set; }
+        private double AdditionalPLTMachines { get; set; }
+        private double AdditionalPCMachines { get; set; }
 
-    static private double StoredChipsType1 = SetupData.Chip1Storage;
-    static private double StoredChipsType2 = SetupData.Chip2Storage;
-    static private double StoredPLTs = SetupData.PLTStorage;
-    static private double AvailableWorkers = SetupData.CurrentWorkers;
-    static private double AvailablePCMachines = SetupData.PCMachinesAvailableThisRound;
-    static private double AvailablePLTMachines = SetupData.PLTMachinesAvailableThisRound;
+        static private double StoredChipsType1 = SetupData.Chip1Storage;
+        static private double StoredChipsType2 = SetupData.Chip2Storage;
+        static private double StoredPLTs = SetupData.PLTStorage;
+        static private double AvailableWorkers = SetupData.CurrentWorkers;
+        static private double AvailablePCMachines = SetupData.PCMachinesAvailableThisRound;
+        static private double AvailablePLTMachines = SetupData.PLTMachinesAvailableThisRound;
 
-    static public string WarningMessageNotEnoughPCMachines { get; set; }
-    static public string WarningMessageNotEnoughPLTMachines { get; set; }
+        static public string WarningMessageNotEnoughPCMachines { get; set; }
+        static public string WarningMessageNotEnoughPLTMachines { get; set; }
+
+        private static string BuyPLTMachines { get; set; } = "";
+        private static string BuyPCMachines { get; set; } = "";
+        private static string HireWorkers { get; set; } = "";
+        private static string FireWorkers { get; set; } = "";
+        private static string BuyChip1 { get; set; } = "";
+        private static string BuyChip2 { get; set; } = "";
+        private static string BuyPLT { get; set; } = "";
+        private static string SellPLT { get; set; } = "";
+        private static string SellPCPrice { get; set; } = "";
+
+        private static string ExpenseBuyRessources { get; set; } = "";
+        private static string ExpenseSalary { get; set; } = "";
+        private static string ExpenseStorage { get; set; } = "";
+        private static string ExpenseInterestCost { get; set; } = "";
+        private static string IncomeInterestIncome { get; set; } = "";
+        private static string IncomePCSales { get; set; } = "";
+        private static string IncomePLTSales { get; set; } = "";
+
+        private static string Saldo { get; set; } = "";
+        private static string UpdatedAccBalance { get; set; } = "";
+
+        private static string EstimatedSalesPC { get; set; } = "";
 
 
-    private static string BuyPLTMachines { get; set; } = "";
-    private static string BuyPCMachines { get; set; } = "";
-    private static string HireWorkers { get; set; } = "";
-    private static string FireWorkers { get; set; } = "";
-    private static string BuyChip1 { get; set; } = "";
-    private static string BuyChip2 { get; set; } = "";
-    private static string BuyPLT { get; set; } = "";
-    private static string SellPLT { get; set; } = "";
-    private static string SellPCPrice { get; set; } = "";
 
-    private string CalculateAdditionalPiecesForDiscount(string type, string input)
-    {
-        if (input == "") input = "0";
-        var matchInput = Regex.Match(input, "[0-9]+[.[0-9]+]?");
 
-        if (matchInput.Success)
+
+
+        private void UpdateAllExpensesAndIncome()
         {
-            double tempInput = Convert.ToDouble(input);
-            if (type == "Chip1" && tempInput < 1500000) return (1500000 - tempInput).ToString() + " weitere für Rabatt";
-            else if (type == "Chip2" && tempInput < 1000000) return (1000000 - tempInput).ToString() + " weitere für Rabatt";
-            else if (type == "PLT" && tempInput < 250000) return (250000 - tempInput).ToString() + " weitere für Rabatt";
-            else if (type == "Chip1" && tempInput >= 1500000) return "inkl. 10% Rabatt";
-            else if (type == "Chip2" && tempInput >= 1000000) return "inkl. 10% Rabatt";
-            else if (type == "PLT" && tempInput >= 250000) return "inkl. 10% Rabatt";
+            var checkTheseObjects = new List<string>() { BuyChip1, BuyChip2, BuyPLT, EstimatedSalesPC, SellPCPrice, SellPLT, MarketingCost};
+            for (int i = 0; i < checkTheseObjects.Count(); i++)
+            {
+                if (checkTheseObjects[i] == "") checkTheseObjects[i] = "0";
+                var matchInput = Regex.Match(checkTheseObjects[i], "[0-9]+[.[0-9]+]?");
+
+                if (!matchInput.Success) checkTheseObjects[i] = "0";
+            }
+
+
+
+
+            double expenseRessources = 0;
+            if (Convert.ToDouble(checkTheseObjects[0]) >= 1500000) expenseRessources += (Convert.ToDouble(checkTheseObjects[0]) * SetupData.PPPChip1)*0.9;
+            else  expenseRessources += (Convert.ToDouble(checkTheseObjects[0]) * SetupData.PPPChip1);
+            if (Convert.ToDouble(checkTheseObjects[1]) >= 1000000) expenseRessources += (Convert.ToDouble(checkTheseObjects[1]) * SetupData.PPPChip2) * 0.9;
+            else expenseRessources += (Convert.ToDouble(checkTheseObjects[1]) * SetupData.PPPChip2);
+            if (Convert.ToDouble(checkTheseObjects[2]) >= 250000) expenseRessources += (Convert.ToDouble(checkTheseObjects[2]) * SetupData.PPPPLTBuy) * 0.9;
+            else expenseRessources += (Convert.ToDouble(checkTheseObjects[2]) * SetupData.PPPPLTBuy);
+            ExpenseBuyRessources = (expenseRessources*-1).ToString("N0");
+
+            double expenseSalary = 0;
+            expenseSalary = (AdditionalWorkers + SetupData.CurrentWorkers) * SetupData.CurrentWage;
+
+            ExpenseSalary = (expenseSalary * -1).ToString("N0");
+
+            double expenseStorage = 0;
+            if ((Convert.ToDouble(checkTheseObjects[0]) - Convert.ToDouble(AdditionalChips1)) > 0) expenseStorage += (Convert.ToDouble(checkTheseObjects[0]) - Convert.ToDouble(AdditionalChips1)) * 0.1;
+            if ((Convert.ToDouble(checkTheseObjects[1]) - Convert.ToDouble(AdditionalChips2)) > 0) expenseStorage += (Convert.ToDouble(checkTheseObjects[1]) - Convert.ToDouble(AdditionalChips2)) * 0.5;
+            if ((Convert.ToDouble(checkTheseObjects[2]) - Convert.ToDouble(AdditionalPLT)) > 0) expenseStorage += (Convert.ToDouble(checkTheseObjects[2]) - Convert.ToDouble(AdditionalPLT)) * 10;
+            ExpenseStorage = (expenseStorage * -1).ToString("N0");
+
+            double incomePCSales = 0;
+            double incomePLTSales = 0;
+
+            incomePCSales = Convert.ToDouble(checkTheseObjects[3]) * Convert.ToDouble(checkTheseObjects[4]);
+            incomePLTSales = Convert.ToDouble(checkTheseObjects[5]) * SetupData.PPPPLTBuy;
+            IncomePCSales = incomePCSales.ToString("N0");
+            IncomePLTSales = incomePLTSales.ToString("N0");
+
+            double interestCost = 0;
+            double interestIncome = 0;
+            if (SetupData.AccountBalance > 0) interestIncome = (SetupData.AccountBalance * 4) / 100;
+            else if (SetupData.AccountBalance < 0) interestCost = ((SetupData.AccountBalance * -1) * 12) / 100;
+            ExpenseInterestCost = (interestCost * -1).ToString("N0");
+            IncomeInterestIncome = interestIncome.ToString("N0");
+
+            double expenses = SetupData.ExpenseBoughtMachines + SetupData.ExpenseRunMachines + expenseRessources + expenseSalary + expenseStorage
+            + Convert.ToDouble(checkTheseObjects[6]) + 1000000 + interestCost;
+
+            double income = incomePCSales + incomePLTSales + interestIncome;
+
+            Saldo = (income - expenses).ToString("N0");
+            UpdatedAccBalance = (Convert.ToDouble(Saldo) + SetupData.AccountBalance).ToString("N0");
+        }
+
+
+        private string CalculateAdditionalPiecesForDiscount(string type, string input)
+        {
+            if (input == "") input = "0";
+            var matchInput = Regex.Match(input, "[0-9]+[.[0-9]+]?");
+
+            if (matchInput.Success)
+            {
+                double tempInput = Convert.ToDouble(input);
+                if (type == "Chip1" && tempInput < 1500000) return (1500000 - tempInput).ToString() + " weitere für Rabatt";
+                else if (type == "Chip2" && tempInput < 1000000) return (1000000 - tempInput).ToString() + " weitere für Rabatt";
+                else if (type == "PLT" && tempInput < 250000) return (250000 - tempInput).ToString() + " weitere für Rabatt";
+                else if (type == "Chip1" && tempInput >= 1500000) return "inkl. 10% Rabatt";
+                else if (type == "Chip2" && tempInput >= 1000000) return "inkl. 10% Rabatt";
+                else if (type == "PLT" && tempInput >= 250000) return "inkl. 10% Rabatt";
+                else return "";
+            }
+            else return ("");
+        }
+
+        private string CalculateCostsForInput(string input, double multiplier)
+        {
+            if (input == "") input = "0";
+            var matchInput = Regex.Match(input, "[0-9]+[.[0-9]+]?");
+
+            if (matchInput.Success)
+            {
+                return (Convert.ToDouble(input) * multiplier).ToString("N2") + " DM";
+            }
+            else return ("");
+        }
+
+        private string CalculateCostsForInputChipsAndPLT(string input, string type)
+        {
+            if (input == "") input = "0";
+            var matchInput = Regex.Match(input, "[0-9]+[.[0-9]+]?");
+            double returnValue = 0;
+
+            if (matchInput.Success)
+            {
+                double inputAsDouble = Convert.ToDouble(input);
+                if (type == "Chip1" && inputAsDouble >= 1500000) returnValue = (SetupData.PPPChip1 * (100 / SetupData.Quality)) * 0.9;
+                else if (type == "Chip1" && inputAsDouble < 1500000) returnValue = (SetupData.PPPChip1 * (100 / SetupData.Quality));
+                if (type == "Chip2" && inputAsDouble >= 1000000) returnValue = (SetupData.PPPChip2 * (100 / SetupData.Quality)) * 0.9;
+                else if (type == "Chip2" && inputAsDouble < 1000000) returnValue = (SetupData.PPPChip2 * (100 / SetupData.Quality));
+                if (type == "PLT" && inputAsDouble >= 250000) returnValue = (SetupData.PPPPLTBuy * (100 / SetupData.Quality)) * 0.9;
+                else if (type == "PLT" && inputAsDouble < 250000) returnValue = (SetupData.PPPPLTBuy * (100 / SetupData.Quality));
+
+                return (inputAsDouble * returnValue).ToString("N2") + " DM";
+            }
+            else return ("");
+        }
+
+        private void UpdateInfoFields()
+        {
+            AdditionalChips1 = CompareDesiredProductionToStorageController.AdditionalChipsType1;
+            AdditionalChips2 = CompareDesiredProductionToStorageController.AdditionalChipsType2;
+            AdditionalPLT = CompareDesiredProductionToStorageController.AdditionalPLT;
+
+            AdditionalCostChips1 = CompareDesiredProductionToStorageController.AdditionalCostChip1;
+            AdditionalCostChips2 = CompareDesiredProductionToStorageController.AdditionalCostChip2;
+            AdditionalCostPLT = CompareDesiredProductionToStorageController.AdditionalCostPLT;
+            AdditionalCostWorkers = CompareDesiredProductionToStorageController.AdditionalCostWorkers;
+
+            AdditionalWorkers = CompareDesiredProductionToStorageController.AdditionalWorkers;
+            AdditionalPLTMachines = CompareDesiredProductionToStorageController.AdditionalPLTMachines;
+            AdditionalPCMachines = CompareDesiredProductionToStorageController.AdditionalPCMachines;
+        }
+
+        private void FilterChangedAsyncPC(ChangeEventArgs args)
+        {
+            PCProduction = CheckInput(args.Value.ToString());
+            CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost);
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncPLT(ChangeEventArgs args)
+        {
+            PLTProduction = CheckInput(args.Value.ToString());
+            CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost);
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncBuyPLTMachines(ChangeEventArgs args)
+        {
+            BuyPLTMachines = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncBuyPCMachines(ChangeEventArgs args)
+        {
+            BuyPCMachines = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncHireWorkers(ChangeEventArgs args)
+        {
+            HireWorkers = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncFireWorkers(ChangeEventArgs args)
+        {
+            FireWorkers = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncBuyChip1(ChangeEventArgs args)
+        {
+            BuyChip1 = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncBuyChip2(ChangeEventArgs args)
+        {
+            BuyChip2 = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncBuyPLT(ChangeEventArgs args)
+        {
+            BuyPLT = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncSellPLT(ChangeEventArgs args)
+        {
+            SellPLT = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncMarketing(ChangeEventArgs args)
+        {
+            MarketingCost = CheckInput(args.Value.ToString());
+            CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost);
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncSellingPricePC(ChangeEventArgs args)
+        {
+            SellPCPrice = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+
+        }
+
+        private void FilterChangedAsyncEstimatePCs(ChangeEventArgs args)
+        {
+            EstimatedSalesPC = CheckInput(args.Value.ToString());
+            UpdateAllExpensesAndIncome();
+        }
+
+        private string CheckInput(string inputString)
+        {
+            var matchInput = Regex.Match(inputString, "[0-9]+[.[0-9]+]?");
+
+            if (matchInput.Success) return inputString;
             else return "";
         }
-        else return ("");
-    }
 
-    private string CalculateCostsForInput(string input, double multiplier)
-    {
-        if (input == "") input = "0";
-        var matchInput = Regex.Match(input, "[0-9]+[.[0-9]+]?");
 
-        if (matchInput.Success)
+        private void CalculateProductionCosts(string inputPCs, string inputPLTs, string marketingCost)
         {
-            return (Convert.ToDouble(input) * multiplier).ToString("N2") + " DM";
+            if (inputPCs == "") inputPCs = "0";
+            if (inputPLTs == "") inputPLTs = "0";
+
+            var matchInputProducedPCs = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
+            var matchInputProducedPLTs = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
+
+            var tempData = new TemporaryData();
+            tempData.ResetData();
+            ResetData();
+
+            var productionCalculate = new CalculateProductionController();
+            PricePerPCPiece = productionCalculate.ShowCurrentProductionCostsPC(inputPCs, marketingCost, SetupData.CurrentGameRound);
+            PricePerPLTPiece = productionCalculate.ShowCurrentProductionCostsPLT(inputPLTs, SetupData.CurrentGameRound);
+
+            tempData.ResetData();
+
+            if (!matchInputProducedPCs.Success) inputPCs = "0";
+            else if (!matchInputProducedPLTs.Success) inputPLTs = "0";
+
+            var compareAndShowAdditionalUnitsForPCProduction = new CompareDesiredProductionToStorageController
+                        (Int32.Parse(inputPCs), Int32.Parse(inputPLTs), "both", SetupData.CurrentGameRound);
+
+            UpdateInfoFields();
+            UpdateDiscountHints();
+            tempData.ResetData();
         }
-        else return ("");
-    }
 
-    private string CalculateCostsForInputChipsAndPLT(string input, string type)
-    {
-        if (input == "") input = "0";
-        var matchInput = Regex.Match(input, "[0-9]+[.[0-9]+]?");
-        double returnValue = 0;
 
-        if (matchInput.Success)
+        private void ResetData()
         {
-            double inputAsDouble = Convert.ToDouble(input);
-            if (type == "Chip1" && inputAsDouble >= 1500000) returnValue = (SetupData.PPPChip1 * (100 / SetupData.Quality)) * 0.9;
-            else if (type == "Chip1" && inputAsDouble < 1500000) returnValue = (SetupData.PPPChip1 * (100 / SetupData.Quality));
-            if (type == "Chip2" && inputAsDouble >= 1000000) returnValue = (SetupData.PPPChip2 * (100 / SetupData.Quality)) * 0.9;
-            else if (type == "Chip2" && inputAsDouble < 1000000) returnValue = (SetupData.PPPChip2 * (100 / SetupData.Quality));
-            if (type == "PLT" && inputAsDouble >= 250000) returnValue = (SetupData.PPPPLTBuy * (100 / SetupData.Quality)) * 0.9;
-            else if (type == "PLT" && inputAsDouble < 250000) returnValue = (SetupData.PPPPLTBuy * (100 / SetupData.Quality));
+            AdditionalChips1 = 0;
+            AdditionalChips2 = 0;
+            AdditionalPLT = 0;
 
-            return (inputAsDouble*returnValue).ToString("N2") + " DM";
+            AdditionalCostChips1 = 0;
+            AdditionalCostChips2 = 0;
+            AdditionalCostPLT = 0;
+
+            AdditionalWorkers = 0;
+            AdditionalPCMachines = 0;
+            AdditionalPLTMachines = 0;
+
+            HintForChips1 = "";
+            HintForChips2 = "";
+            HintForPLTs = "";
+
+            PricePerPCPiece = "";
+            PricePerPLTPiece = "";
+
+            WarningMessageNotEnoughPCMachines = "";
+            WarningMessageNotEnoughPLTMachines = "";
         }
-        else return ("");
-    }
-
-    private void UpdateInfoFields()
-    {
-        AdditionalChips1 = CompareDesiredProductionToStorageController.AdditionalChipsType1;
-        AdditionalChips2 = CompareDesiredProductionToStorageController.AdditionalChipsType2;
-        AdditionalPLT = CompareDesiredProductionToStorageController.AdditionalPLT;
-
-        AdditionalCostChips1 = CompareDesiredProductionToStorageController.AdditionalCostChip1;
-        AdditionalCostChips2 = CompareDesiredProductionToStorageController.AdditionalCostChip2;
-        AdditionalCostPLT = CompareDesiredProductionToStorageController.AdditionalCostPLT;
-        AdditionalCostWorkers = CompareDesiredProductionToStorageController.AdditionalCostWorkers;
-
-        AdditionalWorkers = CompareDesiredProductionToStorageController.AdditionalWorkers;
-        AdditionalPLTMachines = CompareDesiredProductionToStorageController.AdditionalPLTMachines;
-        AdditionalPCMachines = CompareDesiredProductionToStorageController.AdditionalPCMachines;
-    }
-
-    private void FilterChangedAsyncPC(ChangeEventArgs args)
-    {
-        PCProduction = args.Value.ToString();
-        CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost);
-    }
-
-    private void FilterChangedAsyncPLT(ChangeEventArgs args)
-    {
-        PLTProduction = args.Value.ToString();
-        CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost);
-    }
-
-    private void FilterChangedAsyncBuyPLTMachines(ChangeEventArgs args)
-    {
-        BuyPLTMachines = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncBuyPCMachines(ChangeEventArgs args)
-    {
-        BuyPCMachines = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncHireWorkers(ChangeEventArgs args)
-    {
-        HireWorkers = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncFireWorkers(ChangeEventArgs args)
-    {
-        FireWorkers = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncBuyChip1(ChangeEventArgs args)
-    {
-        BuyChip1 = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncBuyChip2(ChangeEventArgs args)
-    {
-        BuyChip2 = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncBuyPLT(ChangeEventArgs args)
-    {
-        BuyPLT = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncSellPLT(ChangeEventArgs args)
-    {
-        SellPLT = args.Value.ToString();
-    }
-
-    private void FilterChangedAsyncMarketing(ChangeEventArgs args)
-    {
-        MarketingCost = args.Value.ToString();
-        CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost);
-    }
-
-    private void FilterChangedAsyncSellingPricePC(ChangeEventArgs args)
-    {
-        SellPCPrice = args.Value.ToString();
-    }
-
-    private void CalculateProductionCosts(string inputPCs, string inputPLTs, string marketingCost)
-    {
-        if (inputPCs == "") inputPCs = "0";
-        if (inputPLTs == "") inputPLTs = "0";
-
-        var matchInputProducedPCs = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
-        var matchInputProducedPLTs = Regex.Match(inputPCs, "[0-9]+[.[0-9]+]?");
-
-        var tempData = new TemporaryData();
-        tempData.ResetData();
-        ResetData();
-
-        var productionCalculate = new CalculateProductionController();
-        PricePerPCPiece = productionCalculate.ShowCurrentProductionCostsPC(inputPCs, marketingCost, SetupData.CurrentGameRound);
-        PricePerPLTPiece = productionCalculate.ShowCurrentProductionCostsPLT(inputPLTs, SetupData.CurrentGameRound);
-
-        tempData.ResetData();
-
-        if (!matchInputProducedPCs.Success) inputPCs = "0";
-        else if (!matchInputProducedPLTs.Success) inputPLTs = "0";
-
-        var compareAndShowAdditionalUnitsForPCProduction = new CompareDesiredProductionToStorageController
-                    (Int32.Parse(inputPCs), Int32.Parse(inputPLTs), "both", SetupData.CurrentGameRound);
-
-        UpdateInfoFields();
-        UpdateDiscountHints();
-        tempData.ResetData();
-    }
 
 
-    private void ResetData()
-    {
-        AdditionalChips1 = 0;
-        AdditionalChips2 = 0;
-        AdditionalPLT = 0;
-
-        AdditionalCostChips1 = 0;
-        AdditionalCostChips2 = 0;
-        AdditionalCostPLT = 0;
-
-        AdditionalWorkers = 0;
-        AdditionalPCMachines = 0;
-        AdditionalPLTMachines = 0;
-
-        HintForChips1 = "";
-        HintForChips2 = "";
-        HintForPLTs = "";
-
-        PricePerPCPiece = "";
-        PricePerPLTPiece = "";
-
-        WarningMessageNotEnoughPCMachines = "";
-        WarningMessageNotEnoughPLTMachines = "";
-    }
-
-
-    private void ResetInputFields()
-    {
-        ResetData();
-
-        PCProduction = "";
-        PLTProduction = "";
-        MarketingCost = "";
-
-        BuyPLTMachines = "";
-        BuyPCMachines = "";
-        HireWorkers = "";
-        FireWorkers = "";
-        BuyChip1 = "";
-        BuyChip2 = "";
-        BuyPLT = "";
-        SellPLT = "";
-        SellPCPrice = "";
-
-    }
-
-    private string ConvertToStringWithSeperators(double convertThis)
-    {
-        return Convert.ToDouble(convertThis).ToString("N0");
-    }
-
-
-    private void UpdateDiscountHints()
-    {
-        if (AdditionalChips1 > 1500000)
+        private void ResetInputFields()
         {
-            AdditionalCostChips1 *= 0.9;
-            HintForChips1 = "inkl 10% Rabatt";
-        }
-        else HintForChips1 = ConvertToStringWithSeperators(1500000 - AdditionalChips1);
+            ResetData();
 
-        if (AdditionalChips2 > 1000000)
-        {
-            AdditionalCostChips2 *= 0.9;
-            HintForChips2 = "inkl 10% Rabatt";
+            PCProduction = "";
+            PLTProduction = "";
+            MarketingCost = "";
+
+            BuyPLTMachines = "";
+            BuyPCMachines = "";
+            HireWorkers = "";
+            FireWorkers = "";
+            BuyChip1 = "";
+            BuyChip2 = "";
+            BuyPLT = "";
+            SellPLT = "";
+            SellPCPrice = "";
 
         }
-        else HintForChips2 = ConvertToStringWithSeperators(1000000 - AdditionalChips2);
 
-        if (AdditionalPLT > 250000)
+        private string ConvertToStringWithSeperators(double convertThis)
         {
-            AdditionalCostPLT *= 0.9;
-            HintForPLTs = "inkl 10% Rabatt";
+            return Convert.ToDouble(convertThis).ToString("N0");
         }
-        else HintForPLTs = ConvertToStringWithSeperators(250000 - AdditionalPLT);
 
-        if (AdditionalPCMachines > 0)
+
+        private void UpdateDiscountHints()
         {
-            WarningMessageNotEnoughPCMachines = "Fehlende Maschinen!";
-        }
-        else WarningMessageNotEnoughPCMachines = "";
+            if (AdditionalChips1 > 1500000)
+            {
+                AdditionalCostChips1 *= 0.9;
+                HintForChips1 = "inkl 10% Rabatt";
+            }
+            else HintForChips1 = ConvertToStringWithSeperators(1500000 - AdditionalChips1);
 
-        if (AdditionalPLTMachines > 0)
-        {
-            WarningMessageNotEnoughPLTMachines = "Fehlende Maschinen!";
-        }
-        else WarningMessageNotEnoughPLTMachines = "";
+            if (AdditionalChips2 > 1000000)
+            {
+                AdditionalCostChips2 *= 0.9;
+                HintForChips2 = "inkl 10% Rabatt";
 
+            }
+            else HintForChips2 = ConvertToStringWithSeperators(1000000 - AdditionalChips2);
+
+            if (AdditionalPLT > 250000)
+            {
+                AdditionalCostPLT *= 0.9;
+                HintForPLTs = "inkl 10% Rabatt";
+            }
+            else HintForPLTs = ConvertToStringWithSeperators(250000 - AdditionalPLT);
+
+            if (AdditionalPCMachines > 0)
+            {
+                WarningMessageNotEnoughPCMachines = "Fehlende Maschinen!";
+            }
+            else WarningMessageNotEnoughPCMachines = "";
+
+            if (AdditionalPLTMachines > 0)
+            {
+                WarningMessageNotEnoughPLTMachines = "Fehlende Maschinen!";
+            }
+            else WarningMessageNotEnoughPLTMachines = "";
+
+        }
     }
-}

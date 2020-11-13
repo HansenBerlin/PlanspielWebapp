@@ -5,7 +5,9 @@
     <PCMachinesAvailable>5</PCMachinesAvailable>
     <PLTMachinesBreakingAfterThisRound>0</PLTMachinesBreakingAfterThisRound>
     <PCMachinesBreakingAfterThisRound>0</PCMachinesBreakingAfterThisRound>
-		<Chip1Storage>165000</Chip1Storage>
+    <PLTMachinesBoughtThisRound>0</PLTMachinesBoughtThisRound>
+    <PCMachinesBoughtThisRound>0</PCMachinesBoughtThisRound>
+    <Chip1Storage>165000</Chip1Storage>
 		<Chip2Storage>117000</Chip2Storage>
 		<PLTStorage>75000</PLTStorage>
 		<PCStorage>12000</PCStorage>
@@ -22,6 +24,8 @@
     <PCMachinesAvailable>5</PCMachinesAvailable>
     <PLTMachinesBreakingAfterThisRound>0</PLTMachinesBreakingAfterThisRound>
     <PCMachinesBreakingAfterThisRound>5</PCMachinesBreakingAfterThisRound>
+    <PLTMachinesBoughtThisRound>0</PLTMachinesBoughtThisRound>
+    <PCMachinesBoughtThisRound>10</PCMachinesBoughtThisRound>
 		<Chip1Storage>690000</Chip1Storage>
 		<Chip2Storage>432000</Chip2Storage>
 		<PLTStorage>75000</PLTStorage>
@@ -39,6 +43,8 @@
     <PCMachinesAvailable>10</PCMachinesAvailable>
     <PLTMachinesBreakingAfterThisRound>10</PLTMachinesBreakingAfterThisRound>
     <PCMachinesBreakingAfterThisRound>0</PCMachinesBreakingAfterThisRound>
+    <PLTMachinesBoughtThisRound>0</PLTMachinesBoughtThisRound>
+    <PCMachinesBoughtThisRound>0</PCMachinesBoughtThisRound>
     <Chip1Storage>0</Chip1Storage>
     <Chip2Storage>0</Chip2Storage>
     <PLTStorage>0</PLTStorage>

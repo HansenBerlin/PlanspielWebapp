@@ -34,6 +34,10 @@ namespace Plotly.Blazor.Examples.Models
         public static double PLTCapacity { get; set; }
         public static double PCCapacity { get; set; }
         public static double AverageMarketingBudgetAllCompanys { get; set; }
+        public static double ExpenseBoughtMachines { get; set; }
+        public static double ExpenseRunMachines { get; set; }
+        public static double ExpenseStorage { get; set; }
+        public static double IncomeInterest { get; set; }
 
 
         public SetupData()
@@ -59,6 +63,10 @@ namespace Plotly.Blazor.Examples.Models
             PCMachinesToReplaceThisRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound, 1, "PCMachinesBreakingAfterThisRound");
             PLTMachinesAvailableThisRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound, 1, "PLTMachinesAvailable");
             PLTMachinesToReplaceThisRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound, 1, "PLTMachinesBreakingAfterThisRound");
+            ExpenseBoughtMachines = (FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound-1, 1, "PLTMachinesBoughtThisRound")*1000000)
+                +(FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound-1, 1, "PCMachinesBoughtThisRound")*3500000);
+            ExpenseStorage = Chip1Storage * .01 + Chip2Storage * 0.5 + PLTStorage * 10 + PCStorage * 100;
+            ExpenseRunMachines = PCMachinesAvailableThisRound * 500000 + PLTMachinesAvailableThisRound * 200000;
 
             AccountBalance = FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound - 1, 1, "Account");
             PCsProducedLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "OutputPC");
@@ -66,7 +74,6 @@ namespace Plotly.Blazor.Examples.Models
             PCCapacity = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound, 1, "CapacityPC");
             PLTCapacity = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound, 1, "CapacityPLT");
             PCSalePriceLastRound = FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound - 1, 1, "PricePerPC");
-
 
             TemporaryData.TemporaryStorageChipOneLeftUnits = Chip1Storage;
             TemporaryData.TemporaryStorageChipTwoLeftUnits = Chip2Storage;
