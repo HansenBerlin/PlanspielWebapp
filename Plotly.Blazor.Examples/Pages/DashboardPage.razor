@@ -15,16 +15,20 @@
     </div>
     <div class="grid-item-dashboard">
         <h5 style="margin:20px">Maschinen ersetzen in Runde @SetupData.CurrentGameRound</h5>
-        <div class="grid-container-mini" style="background-color:#fff">
-            <div class="grid-item-mini" style="margin-right: 10px; margin-bottom:10px; background-color:transparent">
+        <div class="grid-container-mini" style="background-color:#fff; height:50%">
+            <div class="grid-item-mini" style="margin-right: 10px; background-color:transparent">
                 <object id="moneyIcon" type="image/svg+xml" data="/icons/pc.svg" style="width:60px;" class="svg-filter-grey"> </object>
-                <h3 style="color: @ColorPCMachinesReplace">@MachinesToReplaceThisRound("PC")</h3>
+                <p style="color: @ColorPCMachinesReplace">@MachinesToReplaceThisRound("PC")</p>
             </div>
-            <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px; background-color:transparent">
+            <div class="grid-item-mini" style="margin-left: 10px; background-color:transparent">
                 <object id="moneyIcon" type="image/svg+xml" data="/icons/soundkarte.svg" style="width:60px;" class="svg-filter-grey"> </object>
-                <h3 style="color: @ColorPLTMachinesReplace">@MachinesToReplaceThisRound("PLT")</h3>
+                <p style="color: @ColorPLTMachinesReplace">@MachinesToReplaceThisRound("PLT")</p>
             </div>
         </div>
+        <h5 style="margin:10px">Lagerbestand</h5>
+        <p style="font-size:0.9em">Chip 1: @SetupData.Chip1Storage | Chip 2: @SetupData.Chip2Storage</p>
+        <p style="font-size:0.9em">PLT: @SetupData.PLTStorage | PC: @SetupData.PCStorage</p>
+
     </div>
     <div class="grid-item-dashboard" style="background-color:#f2f2f2; padding:0px;">
         <div class="grid-container-mini">

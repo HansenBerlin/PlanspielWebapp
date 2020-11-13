@@ -22,7 +22,7 @@
         <p><PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" /></p>
     </div>
 
-    <div id="2" class="tabcontent">
+    <div id="2" class="tabcontent" style="display:none">
         <p>
             <table class="table" style="width:100%">
                 <tr>
@@ -79,8 +79,8 @@
             <input class="inputBox" @bind="MarketingCost" @bind:event="oninput" placeholder="Geplantes Marketingbudget" />
         </div>
         <div class="grid-item">
-            <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:left" @onclick="@(e => CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost))">CalculateProduction</button>
-            <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:right" @onclick="@(e => ResetInputFields())">Reset</button>
+            <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:left" @onclick="@(e => CalculateProductionCosts(PCProduction, PLTProduction, MarketingCost))">Produktion berechnen</button>
+            <button type="button" class="btn btn-primary" style="width:49%; padding:5px; float:right" @onclick="@(e => ResetInputFields())">zurücksetzen</button>
         </div>
         <div class="grid-item">
             <p style="text-align:left; font-weight:400; font-size:1.4em">Stückkosten PC: @(PricePerPCPiece + " DM")</p>

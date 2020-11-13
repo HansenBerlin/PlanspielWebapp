@@ -1,0 +1,72 @@
+﻿@page "/transparenz"
+
+<table class="table" style="width:100%">
+    <tr>
+        <th style="width:50%">Bereich</th>
+        <th style="width:50%; text-align:right">Berechnung</th>
+    </tr>
+    <tr>
+        <td class="table-left-column">Dashboard Preistrend Chips und PLT Einkauf</td>
+        <td>Einkaufspreise der letzten Runde verglichen mit dieser Runde ohne Berücksichtigung von Lagerkosten oder Rabatten.</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Dashboard Stückkosten PLT Produktion</td>
+        <td>Produktionskosten der letzten Runde unter Berücksichtigung der Maschinenkosten, Maschinennutzung, Personalkosten und der Produktionsmaterialien unter Einbeziehung von Rabatten und Lagerkosten, sowie der Lagerkosten für die Platinen.</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Dashboard Stückkosten PC</td>
+        <td>Wie PLT, aber mit Berücksichtigung der Stückpreise für selbstproduzierte und eingekaufte Platinen.</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Produktion/Entscheidung Stückkosten PLT</td>
+        <td >Wie im Dashboard, aber mit variabler Anpassung der Kosten wenn die nötigen Produktionsmittel die Rabattgrenzen überschreiten und unter Einbeziehung der Lagerreserven mit dem jeweiligen Preis der Vorrunde.</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Produktion/Entscheidung Stückkosten PC</td>
+        <td  >Wie Platinen, aber plus Berücksichtigung der variablen Platinenpreise und der Marketingkosten.</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Vorschläge fehlende Rohstoffe</td>
+        <td  >Die fehlenden Rohstoffe für die produzierten Platinen und PCs werden addiert und davon die Lagerreserven abgezogen.</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Vorschläge fehlende Arbeiter</td>
+        <td  >wird inkl der 25% berechnet für eine 100%ige Auslastung</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Vorschläge Rabatte</td>
+        <td  >Rabattgrenze-Einkauf</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Zinsen bei Überziehung</td>
+        <td  >12%</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Guthabenzinsen</td>
+        <td  >4%</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Einnahmen PC</td>
+        <td  >Geschätzte Verkaufsmenge (Slider) * Preis</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Einnahmen PLT</td>
+        <td  >Verkaufsmenge * aktueller Marktpreis (reeler Marktpreis ist unbekannt)</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Einkaufspreise</td>
+        <td  >jeweils die aktuellen, unter Berücksichtigung der Rabatte</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Lagerkosten</td>
+        <td  >Alle Rohstoffe, die nicht in der Produktion verbraucht werden verursachen hier Lagerkosten.</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Entlassungen</td>
+        <td  >Fiktiver Faktor, da nicht bekannt</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">Kontostand neu</td>
+        <td  >Einnahmen-Ausgaben=Saldo; Saldo+alterKontostand=neuer Kontostand.</td>
+    </tr>
+</table>

@@ -1,0 +1,108 @@
+﻿@page "/ideen"
+
+<style>
+    body {
+        background-color: #fff;
+    }
+</style>
+
+<div class="grid-container-dashboard" style="background-color:#fff">
+    <div class="grid-item-dashboard">
+        <div class="postit">
+            <textarea id="textarea" value="@ContentBox[0]" name="w3review" rows="5" cols="20" maxlength="115" style="background-color:transparent; border-color:transparent; font-family: 'Reenie Beanie'; margin-left:10px; margin-right:10px" @oninput="@FilterChangedAsyncInputBoxOne"></textarea>
+        </div>
+    </div>
+    <div class="grid-item-dashboard">
+        <div class="postit">
+            <textarea id="textarea" value="@ContentBox[1]" name="w3review" rows="5" cols="20" maxlength="115" style="background-color:transparent; border-color:transparent; font-family: 'Reenie Beanie'; margin-left:10px; margin-right:10px" @oninput="@FilterChangedAsyncInputBoxTwo"></textarea>
+        </div>
+    </div>
+    <div class="grid-item-dashboard">
+        <div class="postit">
+            <textarea id="textarea" value="@ContentBox[2]" name="w3review" rows="5" cols="20" maxlength="115" style="background-color:transparent; border-color:transparent; font-family: 'Reenie Beanie'; margin-left:10px; margin-right:10px" @oninput="@FilterChangedAsyncInputBoxThree"></textarea>
+        </div>
+    </div>
+    <div class="grid-item-dashboard">
+        <div class="postit">
+            <textarea id="textarea" value="@ContentBox[3]" name="w3review" rows="5" cols="20" maxlength="115" style="background-color:transparent; border-color:transparent; font-family: 'Reenie Beanie'; margin-left:10px; margin-right:10px" @oninput="@FilterChangedAsyncInputBoxFour"></textarea>
+        </div>
+    </div>
+    <div class="grid-item-dashboard">
+        <div class="postit">
+            <textarea id="textarea" value="@ContentBox[4]" name="w3review" rows="5" cols="20" maxlength="115" style="background-color:transparent; border-color:transparent; font-family: 'Reenie Beanie'; margin-left:10px; margin-right:10px" @oninput="@FilterChangedAsyncInputBoxFive"></textarea>
+        </div>
+    </div>
+    <div class="grid-item-dashboard">
+        <div class="postit">
+            <textarea id="textarea" value="@ContentBox[5]" name="w3review" rows="5" cols="20" maxlength="115" style="background-color:transparent; border-color:transparent; font-family: 'Reenie Beanie'; margin-left:10px; margin-right:10px" @oninput="@FilterChangedAsyncInputBoxSix"></textarea>
+            </div>
+        </div>
+    </div>
+<button type="button" class="btn btn-primary" style="width:10%; padding:5px; float:right" @onclick="@(e => ResetText())">ALLE LÖSCHEN</button>
+
+
+@code
+
+{
+    public string[] ContentBox { get; set; } = new string[]
+        {   System.IO.File.ReadAllText(@"Tables\\PostIt0.txt"),
+            System.IO.File.ReadAllText(@"Tables\\PostIt1.txt"),
+            System.IO.File.ReadAllText(@"Tables\\PostIt2.txt"),
+            System.IO.File.ReadAllText(@"Tables\\PostIt3.txt"),
+            System.IO.File.ReadAllText(@"Tables\\PostIt4.txt"),
+            System.IO.File.ReadAllText(@"Tables\\PostIt5.txt")
+        };
+
+
+    private void FilterChangedAsyncInputBoxOne(ChangeEventArgs args)
+    {
+        ContentBox[0] = args.Value.ToString();
+        System.IO.File.WriteAllText(@"Tables\\PostIt0.txt", ContentBox[0]);
+    }
+
+    private void FilterChangedAsyncInputBoxTwo(ChangeEventArgs args)
+    {
+        ContentBox[1] = args.Value.ToString();
+        System.IO.File.WriteAllText(@"Tables\\PostIt1.txt", ContentBox[1]);
+    }
+
+    private void FilterChangedAsyncInputBoxThree(ChangeEventArgs args)
+    {
+        ContentBox[2] = args.Value.ToString();
+        System.IO.File.WriteAllText(@"Tables\\PostIt2.txt", ContentBox[1]);
+
+    }
+
+    private void FilterChangedAsyncInputBoxFour(ChangeEventArgs args)
+    {
+        ContentBox[3] = args.Value.ToString();
+        System.IO.File.WriteAllText(@"Tables\\PostIt3.txt", ContentBox[1]);
+
+    }
+
+    private void FilterChangedAsyncInputBoxFive(ChangeEventArgs args)
+    {
+        ContentBox[4] = args.Value.ToString();
+        System.IO.File.WriteAllText(@"Tables\\PostIt4.txt", ContentBox[1]);
+
+    }
+
+    private void FilterChangedAsyncInputBoxSix(ChangeEventArgs args)
+    {
+        ContentBox[5] = args.Value.ToString();
+        System.IO.File.WriteAllText(@"Tables\\PostIt5.txt", ContentBox[1]);
+
+    }
+
+    private void ResetText()
+    {
+        for (int i = 0; i < ContentBox.Length; i++)
+        {
+            ContentBox[i] = "";
+            System.IO.File.WriteAllText(@"Tables\\PostIt"+i+".txt", "");
+
+        }
+    }
+
+
+}

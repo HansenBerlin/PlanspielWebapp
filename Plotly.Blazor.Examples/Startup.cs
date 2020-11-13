@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Plotly.Blazor.Examples.Controller;
 using Plotly.Blazor.Examples.Models;
-using System.Net;
 
 namespace Plotly.Blazor.Examples
 {
@@ -25,8 +25,7 @@ namespace Plotly.Blazor.Examples
         /// <param name="configuration">The configuration.</param>
         public Startup(IConfiguration configuration)
         {
-            WebClient webClient = new WebClient();
-            webClient.DownloadFile("http://mysite.com/myfile.txt", @"c:\myfile.txt");
+            var xmlDownloader = new DownloadXMLTablesController();
             var setupData = new SetupData();
             var setupHistoricalData = new SetupHistoricalData();
 
