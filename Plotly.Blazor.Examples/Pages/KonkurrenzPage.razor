@@ -1,4 +1,101 @@
-﻿@page "/konkurrenz"
+﻿@using Plotly.Blazor.Examples.Controller
+@using Plotly.Blazor.Examples.Models
 
-<p>TBD</p>
 
+
+@page "/konkurrenz"
+
+<h2>Maximale Ausgaben für Rohstoffe / Potentielle Lagerbestände, je 1/3 der Restsumme</h2>
+
+<table class="table" style="width:100%">
+    <tr>
+        <th style="width:20%">Firma</th>
+        <th style="width:20%; text-align:right">max</th>
+        <th style="width:20%; text-align:right">Chip 1</th>
+        <th style="width:20%; text-align:right">Chip 2</th>
+        <th style="width:20%; text-align:right">PLT</th>
+    </tr>
+    <tr>
+        <td class="table-left-column">1</td>
+        <td style="text-align:right">@CalculateMinValue(1).ToString("N0") DM</td>
+        <td style="text-align:right">@CalculateChips1(1).ToString("N0")</td>
+        <td style="text-align:right">@CalculateChips2(1).ToString("N0")</td>
+        <td style="text-align:right">@CalculatePLT(1).ToString("N0")</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">2</td>
+        <td style="text-align:right">@CalculateMinValue(2).ToString("N0") DM</td>
+        <td style="text-align:right">@CalculateChips1(2).ToString("N0")</td>
+        <td style="text-align:right">@CalculateChips2(2).ToString("N0")</td>
+        <td style="text-align:right">@CalculatePLT(2).ToString("N0")</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">3</td>
+        <td style="text-align:right">@CalculateMinValue(3).ToString("N0") DM</td>
+        <td style="text-align:right">@CalculateChips1(3).ToString("N0")</td>
+        <td style="text-align:right">@CalculateChips2(3).ToString("N0")</td>
+        <td style="text-align:right">@CalculatePLT(3).ToString("N0")</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">4</td>
+        <td style="text-align:right">@CalculateMinValue(4).ToString("N0") DM</td>
+        <td style="text-align:right">@CalculateChips1(4).ToString("N0")</td>
+        <td style="text-align:right">@CalculateChips2(4).ToString("N0")</td>
+        <td style="text-align:right">@CalculatePLT(4).ToString("N0")</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">5</td>
+        <td style="text-align:right">@CalculateMinValue(5).ToString("N0") DM</td>
+        <td style="text-align:right">@CalculateChips1(5).ToString("N0")</td>
+        <td style="text-align:right">@CalculateChips2(5).ToString("N0")</td>
+        <td style="text-align:right">@CalculatePLT(5).ToString("N0")</td>
+    </tr>
+    <tr>
+        <td class="table-left-column">6</td>
+        <td style="text-align:right">@CalculateMinValue(6).ToString("N0") DM</td>
+        <td style="text-align:right">@CalculateChips1(6).ToString("N0")</td>
+        <td style="text-align:right">@CalculateChips2(6).ToString("N0")</td>
+        <td style="text-align:right">@CalculatePLT(6).ToString("N0")</td>
+    </tr>
+</table>
+
+@code
+{
+
+    public static double[,] MinMaxPerCompany { get; set; } = ShowMinEstimatePerCompany();
+
+    private static double[,] ShowMinEstimatePerCompany()
+    {
+        var companyData = new EstimateProductionPurchases();
+        double[,] test = companyData.CalculateMinMaxCostsForAllCompanys();
+        return test;
+    }
+
+    private double CalculateChips1(int company)
+    {
+        return (CalculateMinValue(company) / 3) / SetupHistoricalData.PPPChip1LastRound;
+    }
+
+    private double CalculateChips2(int company)
+    {
+        return (CalculateMinValue(company) / 3) / SetupHistoricalData.PPPChip2LastRound;
+    }
+
+    private double CalculatePLT(int company)
+    {
+        return (CalculateMinValue(company) / 3) / SetupHistoricalData.PPPPLTBuyLastRound;
+    }
+
+    private double CalculateMinValue(int company)
+    {
+        double saldo = FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound - 1, company, "Saldo");
+        double returnValue;
+        if (MinMaxPerCompany[company - 1, 0] > 0 && saldo > 0) returnValue = MinMaxPerCompany[company - 1, 0] - saldo;
+        else if (MinMaxPerCompany[company - 1, 0] > 0 && saldo < 0) returnValue = saldo - MinMaxPerCompany[company - 1, 0];
+        else if (MinMaxPerCompany[company - 1, 0] < 0 && saldo < 0) returnValue = MinMaxPerCompany[company - 1, 0] - saldo;
+        else returnValue = MinMaxPerCompany[company - 1, 0] + saldo;
+        if (returnValue < 0) returnValue *= -1;
+        return returnValue;
+    }
+
+}

@@ -38,9 +38,9 @@
                 <p style="font-size:1.1em">#@CalculateRankingsController.CheckPosition("Marketshare")</p>
             </div>
             <div class="grid-item-mini" style="margin-left: 10px; margin-bottom: 10px">
-                <h5 style="margin:20px">Saldo</h5>
+                <h5 style="margin:20px">Vermögen</h5>
                 <object id="moneyIcon" type="image/svg+xml" data="/icons/hand.svg" style="width:60px;" class="svg-filter-teal"> </object>
-                <p style="font-size:1.1em">#@CalculateRankingsController.CheckPosition("Saldo")</p>
+                <p style="font-size:1.1em">#@CalculateRankingsController.CheckPosition("valueTotal")</p>
             </div>
             <div class="grid-item-mini" style="margin-right: 10px; margin-top: 10px">
                 <h5 style="margin:20px">Kontostand</h5>
@@ -153,7 +153,7 @@
 {
         new Pie
         {
-            Values = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "Marketshare"),
+            Values = MergedDataController.GetDataSetFromCompanyTable(new bool[]{false, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "Marketshare"),
             Labels = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" }
         }
     };
@@ -184,7 +184,7 @@
         new Bar
         {
             X = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" },
-            Y = MergedDataController.GetDataSetFromCompanyTable(new bool[]{true, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "PricePerPC"),
+            Y = MergedDataController.GetDataSetFromCompanyTable(new bool[]{false, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "PricePerPC"),
             Name = "Angebotspreise"
 
         },

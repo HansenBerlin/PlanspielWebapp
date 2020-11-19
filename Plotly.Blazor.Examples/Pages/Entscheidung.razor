@@ -14,7 +14,7 @@
         <h4>Stückpreis PLT: @PricePerPLTPiece</h4>
     </div>
     <div class="grid-item" style="text-align: right;">
-        <input class="slider" value="@EstimatedSalesPC" @oninput="@FilterChangedAsyncEstimatePCs" type="range" step="1000" min="0" max="@SetupData.PCCapacity" />
+        <input class="slider" value="@EstimatedSalesPC" @oninput="@FilterChangedAsyncEstimatePCs" type="range" step="1" min="0" max="@SetupData.PCStorage" />
         <input class="inputBox" value="@EstimatedSalesPC" @oninput="@FilterChangedAsyncEstimatePCs" placeholder="Schätzung PC Verkäufe" />
     </div>
 </div>
@@ -90,7 +90,7 @@
             <td class="table-left-column">Verkauf PLT</td>
             <td><input class="inputBox" value="@SellPLT" @oninput="@FilterChangedAsyncSellPLT" /></td>
             <td style="text-align:right"></td>
-            <td>benötigt in Runde @(SetupData.CurrentGameRound+1): @(SetupData.PCCapacity*5)</td>
+            <td>benötigt in Runde @(SetupData.CurrentGameRound+1): @(SetupData.PCCapacity*5) | Lager: @SetupData.PLTStorage</td>
         </tr>
         <tr>
             <td class="table-left-column">Marketingausgaben</td>
@@ -136,7 +136,7 @@
                 </tr>
                 <tr>
                     <td class="table-left-column">Marketing</td>
-                    <td style="text-align:right">@MarketingCost</td>
+                    <td style="text-align:right">-@MarketingCost</td>
                 </tr>
                 <tr>
                     <td class="table-left-column">Bericht</td>
@@ -339,12 +339,12 @@
             if (matchInput.Success)
             {
                 double inputAsDouble = Convert.ToDouble(input);
-                if (type == "Chip1" && inputAsDouble >= 1500000) returnValue = (SetupData.PPPChip1 * (100 / SetupData.Quality)) * 0.9;
-                else if (type == "Chip1" && inputAsDouble < 1500000) returnValue = (SetupData.PPPChip1 * (100 / SetupData.Quality));
-                if (type == "Chip2" && inputAsDouble >= 1000000) returnValue = (SetupData.PPPChip2 * (100 / SetupData.Quality)) * 0.9;
-                else if (type == "Chip2" && inputAsDouble < 1000000) returnValue = (SetupData.PPPChip2 * (100 / SetupData.Quality));
-                if (type == "PLT" && inputAsDouble >= 250000) returnValue = (SetupData.PPPPLTBuy * (100 / SetupData.Quality)) * 0.9;
-                else if (type == "PLT" && inputAsDouble < 250000) returnValue = (SetupData.PPPPLTBuy * (100 / SetupData.Quality));
+                if (type == "Chip1" && inputAsDouble >= 1500000) returnValue = SetupData.PPPChip1 * 0.9;
+                else if (type == "Chip1" && inputAsDouble < 1500000) returnValue = SetupData.PPPChip1;
+                if (type == "Chip2" && inputAsDouble >= 1000000) returnValue = SetupData.PPPChip2 * 0.9;
+                else if (type == "Chip2" && inputAsDouble < 1000000) returnValue = SetupData.PPPChip2;
+                if (type == "PLT" && inputAsDouble >= 250000) returnValue = SetupData.PPPPLTBuy * 0.9;
+                else if (type == "PLT" && inputAsDouble < 250000) returnValue = SetupData.PPPPLTBuy;
 
                 return (inputAsDouble * returnValue).ToString("N2") + " DM";
             }

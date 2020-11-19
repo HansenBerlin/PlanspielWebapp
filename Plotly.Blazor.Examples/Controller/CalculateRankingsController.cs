@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plotly.Blazor.Examples.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,34 +17,57 @@ namespace Plotly.Blazor.Examples.Controller
 
         public static double CheckPosition(string type)
         {
+            bool[] checkForRound = new bool[6];
+            for (int i = SetupData.CurrentGameRound - 2; i < 6; i++)
+            {
+                checkForRound[i] = true;
+            }
+
             double currentPosition = 1;
             if (type == "production")
             {
                 type = "OutputPC";
-                var listPCs = MergedDataController.GetDataSetFromCompanyTable(new bool[] { true, true, true, true, true, true }, new bool[] { true, true, true, true, true, true }, type);
+                var listPCs = MergedDataController.GetDataSetFromCompanyTable(checkForRound, new bool[] { true, true, true, true, true, true }, type);
                 type = "OutputPLT";
-                var listPLT = MergedDataController.GetDataSetFromCompanyTable(new bool[] { true, true, true, true, true, true }, new bool[] { true, true, true, true, true, true }, type);
+                var listPLT = MergedDataController.GetDataSetFromCompanyTable(checkForRound, new bool[] { true, true, true, true, true, true }, type);
 
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < 6; i++)
                 {
-                    if ((Convert.ToDouble(listPCs[i]) + Convert.ToDouble(listPLT[i])) > (Convert.ToDouble(listPCs[0]) + Convert.ToDouble(listPLT[0])))
+                    if ((Convert.ToDouble(listPCs[i])*20 + Convert.ToDouble(listPLT[i])) 
+                        > (Convert.ToDouble(listPCs[0])*20 + Convert.ToDouble(listPLT[0])))
                     {
                         currentPosition++;
                     }
                 }
             }
+            else if(type == "valueTotal")
+            {
+                type = "CapacityPC";
+                var listPCs = MergedDataController.GetDataSetFromCompanyTable(checkForRound, new bool[] { true, true, true, true, true, true }, type);
+                type = "CapacityPLT";
+                var listPLT = MergedDataController.GetDataSetFromCompanyTable(checkForRound, new bool[] { true, true, true, true, true, true }, type);
+
+                for (int i = 1; i < 6; i++)
+                {        
+                    if ((Convert.ToDouble(listPCs[i]) *1166 + Convert.ToDouble(listPLT[i])*134)
+                        > (Convert.ToDouble(listPCs[0]) * 1166 + Convert.ToDouble(listPLT[0])*134))
+                    {
+                        currentPosition++;
+                    }
+                }
+
+            }
             else
             {
-                var listAllValues = MergedDataController.GetDataSetFromCompanyTable(new bool[] { true, true, true, true, true, true }, new bool[] { true, true, true, true, true, true }, type);
-                for (int i = 1; i < 5; i++)
+                var listAllValues = MergedDataController.GetDataSetFromCompanyTable(checkForRound, new bool[] { true, true, true, true, true, true }, type);
+                for (int i = 1; i < 6; i++)
                 {
                     if (Convert.ToDouble(listAllValues[i]) > Convert.ToDouble(listAllValues[0]))
                     {
                         currentPosition++;
                     }
                 }
-            }
-            
+            }            
             return currentPosition;
         }
     }
