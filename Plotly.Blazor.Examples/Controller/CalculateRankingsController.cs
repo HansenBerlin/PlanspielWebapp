@@ -9,19 +9,15 @@ namespace Plotly.Blazor.Examples.Controller
 {
     public class CalculateRankingsController
     {
-        public double RankingIncome { get; set; }
-        public double RankingSaldo { get; set; }
-        public double ProductionCapacity { get; set; }
-        public double Marketshare { get; set; }
         
-
         public static double CheckPosition(string type)
         {
-            bool[] checkForRound = new bool[6];
-            for (int i = SetupData.CurrentGameRound - 2; i < 6; i++)
-            {
-                checkForRound[i] = true;
-            }
+            bool[] checkForRound = new bool[] { false, false, false, false, false, false};
+            checkForRound[SetupData.CurrentGameRound-2] = true;
+            //for (int i = SetupData.CurrentGameRound-1; i < 6; i++)
+            //{
+            //    checkForRound[i] = true;
+            //}
 
             double currentPosition = 1;
             if (type == "production")

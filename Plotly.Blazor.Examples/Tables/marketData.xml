@@ -274,6 +274,95 @@
     <CapacityPC>30000</CapacityPC>
     <CapacityPLT>225000</CapacityPLT>
     <OutputPC>0</OutputPC>
+    <OutputPLT>225000</OutputPLT>
+    <SalesPC>34451</SalesPC>
+    <SalesPLT>225000</SalesPLT>
+    <Marketshare>1</Marketshare>
+    <PricePerPC>7800</PricePerPC>
+    <Marketing>2000000</Marketing>
+    <Saldo>185663504</Saldo>
+    <Account>99384176</Account>
+    <Efficiency>88</Efficiency>
+    <CostMachinesBought>0</CostMachinesBought>  </record>
+  <record companyID="2" round="3">
+    <CapacityPC>6666000</CapacityPC>
+    <CapacityPLT>0</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>0</OutputPLT>
+    <SalesPC>5381194</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>95</Marketshare>
+    <PricePerPC>6025</PricePerPC>
+    <Marketing>100000000</Marketing>
+    <Saldo>-184132403200</Saldo>
+    <Account>-206220804096</Account>
+    <Efficiency>0</Efficiency>
+    <CostMachinesBought>0</CostMachinesBought>
+  </record>
+  <record companyID="3" round="3">
+    <CapacityPC>15000</CapacityPC>
+    <CapacityPLT>75000</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>54405</OutputPLT>
+    <SalesPC>7873</SalesPC>
+    <SalesPLT>0</SalesPLT>
+    <Marketshare>1</Marketshare>
+    <PricePerPC>5250</PricePerPC>
+    <Marketing>9000000</Marketing>
+    <Saldo>-27144840</Saldo>
+    <Account>-36751420</Account>
+    <Efficiency>60</Efficiency>
+    <CostMachinesBought>0</CostMachinesBought>
+  </record>
+  <record companyID="4" round="3">
+    <CapacityPC>9000</CapacityPC>
+    <CapacityPLT>300000</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>297000</OutputPLT>
+    <SalesPC>800</SalesPC>
+    <SalesPLT>116000</SalesPLT>
+    <Marketshare>1</Marketshare>
+    <PricePerPC>5000</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>30884630</Saldo>
+    <Account>27882220</Account>
+    <Efficiency>96</Efficiency>
+    <CostMachinesBought>0</CostMachinesBought>
+  </record>
+  <record companyID="5" round="3">
+    <CapacityPC>15000</CapacityPC>
+    <CapacityPLT>150000</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>150000</OutputPLT>
+    <SalesPC>16529</SalesPC>
+    <SalesPLT>75000</SalesPLT>
+    <Marketshare>1</Marketshare>
+    <PricePerPC>4449</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>89355088</Saldo>
+    <Account>102780600</Account>
+    <Efficiency>90</Efficiency>
+    <CostMachinesBought>0</CostMachinesBought>
+  </record>
+  <record companyID="6" round="3">
+    <CapacityPC>15000</CapacityPC>
+    <CapacityPLT>150000</CapacityPLT>
+    <OutputPC>0</OutputPC>
+    <OutputPLT>150000</OutputPLT>
+    <SalesPC>15000</SalesPC>
+    <SalesPLT>75000</SalesPLT>
+    <Marketshare>1</Marketshare>
+    <PricePerPC>4317</PricePerPC>
+    <Marketing>0</Marketing>
+    <Saldo>103776496</Saldo>
+    <Account>98438048</Account>
+    <Efficiency>90</Efficiency>
+    <CostMachinesBought>0</CostMachinesBought>
+  </record>
+  <record companyID="1" round="4">
+    <CapacityPC>30000</CapacityPC>
+    <CapacityPLT>225000</CapacityPLT>
+    <OutputPC>0</OutputPC>
     <OutputPLT>0</OutputPLT>
     <SalesPC>0</SalesPC>
     <SalesPLT>0</SalesPLT>
@@ -283,8 +372,9 @@
     <Saldo>0</Saldo>
     <Account>0</Account>
     <Efficiency>0</Efficiency>
-    <CostMachinesBought>0</CostMachinesBought>  </record>
-  <record companyID="2" round="3">
+    <CostMachinesBought>0</CostMachinesBought>
+  </record>
+  <record companyID="2" round="4">
     <CapacityPC>0</CapacityPC>
     <CapacityPLT>0</CapacityPLT>
     <OutputPC>0</OutputPC>
@@ -299,7 +389,7 @@
     <Efficiency>0</Efficiency>
     <CostMachinesBought>0</CostMachinesBought>
   </record>
-  <record companyID="3" round="3">
+  <record companyID="3" round="4">
     <CapacityPC>0</CapacityPC>
     <CapacityPLT>0</CapacityPLT>
     <OutputPC>0</OutputPC>

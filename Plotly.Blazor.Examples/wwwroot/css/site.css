@@ -28,15 +28,15 @@ a, .btn-link {
 }
 
 .svg-filter-red {
-    filter: invert(9%) sepia(93%) saturate(6961%) hue-rotate(342deg) brightness(69%) contrast(101%);
+    filter: invert(21%) sepia(63%) saturate(3405%) hue-rotate(355deg) brightness(89%) contrast(90%);
 }
 
 .svg-filter-yellow {
-    filter: invert(64%) sepia(94%) saturate(360%) hue-rotate(2deg) brightness(105%) contrast(104%);
+    filter: invert(83%) sepia(86%) saturate(622%) hue-rotate(329deg) brightness(101%) contrast(84%);
 }
 
 .svg-filter-green {
-    filter: invert(88%) sepia(10%) saturate(2071%) hue-rotate(59deg) brightness(101%) contrast(101%);
+    filter: invert(67%) sepia(38%) saturate(424%) hue-rotate(36deg) brightness(99%) contrast(84%);
 }
 
 .svg-small-dashboard-icon {

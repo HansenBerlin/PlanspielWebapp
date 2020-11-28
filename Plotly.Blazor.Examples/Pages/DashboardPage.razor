@@ -26,8 +26,8 @@
             </div>
         </div>
         <h5 style="margin:10px">Lagerbestand</h5>
-        <p style="font-size:0.9em">Chip 1: @SetupData.Chip1Storage | Chip 2: @SetupData.Chip2Storage</p>
-        <p style="font-size:0.9em">PLT: @SetupData.PLTStorage | PC: @SetupData.PCStorage</p>
+        <p style="font-size:0.9em">Chip 1: @SetupData.Chip1Storage.ToString("N0") | Chip 2: @SetupData.Chip2Storage.ToString("N0")</p>
+        <p style="font-size:0.9em">PLT: @SetupData.PLTStorage.ToString("N0") | PC: @SetupData.PCStorage.ToString("N0")</p>
 
     </div>
     <div class="grid-item-dashboard" style="background-color:#f2f2f2; padding:0px;">
@@ -127,7 +127,6 @@
     public static string ColorPLTMachinesReplace { get; set; } = "";
 
 
-
     PlotlyChart chart;
 
     Config config = new Config
@@ -143,18 +142,21 @@
         },
         Height = 400,
         Font = new Font { Family = "Anaheim"  },
-        Colorway = new List<object> { "0b0c10", "1f2833", "#c5c6c7", "66fcf1", "#45a29e", "d1e8e2" },
+        Colorway = new List<object> { "#c13018", "#f36f13", "#ebcb38", "#a2b969", "#0d95bc", "#063951" },
         PaperBgColor = "#fff",
         Margin = new Margin { B = -10, L = -10, R = -10, T = -10 }
 
     };
 
+
+
     List<ITrace> data = new List<ITrace>
-{
+    {
         new Pie
         {
-            Values = MergedDataController.GetDataSetFromCompanyTable(new bool[]{false, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "Marketshare"),
-            Labels = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" }
+            Values = MergedDataController.GetDataSetFromCompanyTable(CheckForRound(), new bool[]{true, true, true, true, true, true}, "Marketshare"),
+            Labels = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" },
+            Sort = false
         }
     };
 
@@ -174,19 +176,47 @@
         },
         Height = 400,
         Font = new Font { Family = "Anaheim" },
-        Colorway = new List<object> { "#45a29e", "rgb(165,0,38)" },
+        Colorway = new List<object> { "#c13018", "#f36f13", "#ebcb38", "#a2b969", "#0d95bc", "#063951" },
         PaperBgColor = "#fff"
     };
 
-
     List<ITrace> data2 = new List<ITrace>
-{
+    {
         new Bar
         {
-            X = new List<object> { "Firma 1", "Firma 2", "Firma 3", "Firma 4", "Firma 5", "Firma 6" },
-            Y = MergedDataController.GetDataSetFromCompanyTable(new bool[]{false, true, true, true, true, true}, new bool[]{true, true, true, true, true, true}, "PricePerPC"),
-            Name = "Angebotspreise"
-
+            X = new List<object> { "Firma 1" },
+            Y = MergedDataController.GetDataSetFromCompanyTable(CheckForRound(), new bool[]{true, false, false, false, false, false}, "PricePerPC"),
+            ShowLegend = false
+        },
+        new Bar
+        {
+            X = new List<object> { "Firma 2" },
+            Y = MergedDataController.GetDataSetFromCompanyTable(CheckForRound(), new bool[]{ false, true, false, false, false, false}, "PricePerPC"),
+            ShowLegend = false
+        },
+        new Bar
+        {
+            X = new List<object> { "Firma 3" },
+            Y = MergedDataController.GetDataSetFromCompanyTable(CheckForRound(), new bool[]{ false, false, true, false, false, false}, "PricePerPC"),
+            ShowLegend = false
+        },
+        new Bar
+        {
+            X = new List<object> { "Firma 4" },
+            Y = MergedDataController.GetDataSetFromCompanyTable(CheckForRound(), new bool[]{ false, false, false, true, false, false}, "PricePerPC"),
+            ShowLegend = false
+        },
+        new Bar
+        {
+            X = new List<object> { "Firma 5" },
+            Y = MergedDataController.GetDataSetFromCompanyTable(CheckForRound(), new bool[]{ false, false, false, false, true, false}, "PricePerPC"),
+            ShowLegend = false
+        },
+        new Bar
+        {
+            X = new List<object> { "Firma 6" },
+            Y = MergedDataController.GetDataSetFromCompanyTable(CheckForRound(), new bool[]{ false, false, false, false, false, true}, "PricePerPC"),
+            ShowLegend = false
         },
     };
 
@@ -265,5 +295,12 @@
             return SetupData.PLTMachinesToReplaceThisRound.ToString();
         }
         else return "";
+    }
+
+    private static bool[] CheckForRound()
+    {
+        bool[] checkForRound = new bool[] { false, false, false, false, false, false };
+        checkForRound[SetupData.CurrentGameRound - 2] = true;
+        return checkForRound;
     }
 }

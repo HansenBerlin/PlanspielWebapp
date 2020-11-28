@@ -62,6 +62,25 @@
     <PCMachinesAvailable>10</PCMachinesAvailable>
     <PLTMachinesBreakingAfterThisRound>0</PLTMachinesBreakingAfterThisRound>
     <PCMachinesBreakingAfterThisRound>10</PCMachinesBreakingAfterThisRound>
+    <PLTMachinesBoughtThisRound>200</PLTMachinesBoughtThisRound>
+    <PCMachinesBoughtThisRound>10</PCMachinesBoughtThisRound>
+    <Chip1Storage>14040000</Chip1Storage>
+    <Chip2Storage>10062000</Chip2Storage>
+    <PLTStorage>225000</PLTStorage>
+    <PCStorage>0</PCStorage>
+    <Chip1Bought>15000000</Chip1Bought>
+    <Chip2Bought>11000000</Chip2Bought>
+    <PLTBought>0</PLTBought>
+    <Chip1Price>6.77</Chip1Price>
+    <Chip2Price>28.30</Chip2Price>
+    <PLTPrice>2055.55</PLTPrice>
+    <Quality>90</Quality>
+  </record>
+  <record companyID="1" round="4">
+    <PLTMachinesAvailable>200</PLTMachinesAvailable>
+    <PCMachinesAvailable>10</PCMachinesAvailable>
+    <PLTMachinesBreakingAfterThisRound>0</PLTMachinesBreakingAfterThisRound>
+    <PCMachinesBreakingAfterThisRound>0</PCMachinesBreakingAfterThisRound>
     <PLTMachinesBoughtThisRound>0</PLTMachinesBoughtThisRound>
     <PCMachinesBoughtThisRound>0</PCMachinesBoughtThisRound>
     <Chip1Storage>0</Chip1Storage>
@@ -71,9 +90,9 @@
     <Chip1Bought>0</Chip1Bought>
     <Chip2Bought>0</Chip2Bought>
     <PLTBought>0</PLTBought>
-    <Chip1Price>6.77</Chip1Price>
-    <Chip2Price>28.30</Chip2Price>
-    <PLTPrice>2055.55</PLTPrice>
+    <Chip1Price>2.17</Chip1Price>
+    <Chip2Price>10.11</Chip2Price>
+    <PLTPrice>5728.27</PLTPrice>
     <Quality>90</Quality>
   </record>
 </companyProductionData>
