@@ -14,7 +14,7 @@
 </div>
 
     <div class="tab">
-        <button class="tablinks" onclick="openCity(event, '1')">Graph</button>
+        <button class="tablinks active" onclick="openCity(event, '1')">Graph</button>
         <button class="tablinks" onclick="openCity(event, '2')">Tabelle</button>
     </div>
 
@@ -22,7 +22,7 @@
         <p><PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart" /></p>
     </div>
 
-    <div id="2" class="tabcontent" style="display:none">
+    <div id="2" class="tabcontent">
         <p>
             <table class="table" style="width:100%">
                 <tr>

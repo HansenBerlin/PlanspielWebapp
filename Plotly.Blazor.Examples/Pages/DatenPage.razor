@@ -1,3 +1,309 @@
-﻿@page "/daten"
+﻿@using Plotly.Blazor.Examples.Models
+@using Plotly.Blazor.Examples.Controller
+@using Plotly.Blazor.LayoutLib
+@using Plotly.Blazor.Traces.ScatterLib
 
-<p>TBD</p>
+@page "/daten"
+
+<div class="tab">
+    <button class="tablinks active" onclick="openCity(event, '1')">Bilanz</button>
+    <button class="tablinks" onclick="openCity(event, '2')">Statistik</button>
+</div>
+
+<div id="1" class="tabcontent" style="display:block">
+    <table class="table" style="width:100%">
+        <tr>
+            <th style="width:30%">AKTIVA</th>
+            <th style="width:20%; margin-right:20px">Summe</th>
+            <th style="width:30%">PASSIVA</th>
+            <th style="width:20%; margin-right:20px">Summe</th>
+        </tr>
+        <tr>
+            <td class="table-left-column" style="font-weight:600">Anlagevermögen</td>
+            <td style="text-align:right"></td>
+            <td class="table-left-column" style="font-weight:600">Eigenkapital</td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column">PLT Maschinen</td>
+            <td style="text-align:right">@BilanzData.PLTMachinesValue.ToString("N0") DM</td>
+            <td class="table-left-column">Ergebnis/Gewinn</td>
+            <td style="text-align:right; background-color: lightseagreen">@BilanzData.WinSumThisRound.ToString("N0") DM</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">PC Maschinen</td>
+            <td style="text-align:right">@BilanzData.PCMachinesValue.ToString("N0") DM</td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column" style="font-weight:600">Umlaufvermögen</td>
+            <td style="text-align:right"></td>
+            <td class="table-left-column" style="font-weight:600">Fremdkapital</td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Chip 1</td>
+            <td style="text-align:right">@BilanzData.Chips1Value.ToString("N0") DM</td>
+            <td class="table-left-column">Ergebnis</td>
+            <td style="text-align:right">@BilanzData.AccountNegative.ToString("N0") DM</td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Chip 2</td>
+            <td style="text-align:right">@BilanzData.Chips2Value.ToString("N0") DM</td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column">Platinen</td>
+            <td style="text-align:right">@BilanzData.PLTValue.ToString("N0") DM</td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column">PCs</td>
+            <td style="text-align:right">@BilanzData.PCValue.ToString("N0") DM</td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column" style="font-weight:600">Kontostand</td>
+            <td style="text-align:right">@BilanzData.AccountPositive.ToString("N0") DM</td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+            <td class="table-left-column"></td>
+            <td style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td class="table-left-column" style="font-weight:600">Bilanzsumme</td>
+            <td style="text-align:right">@BilanzData.Bilanzsum.ToString("N0") DM</td>
+            <td class="table-left-column" style="font-weight:600">Bilanzsumme</td>
+            <td style="text-align:right">@BilanzData.Bilanzsum.ToString("N0") DM</td>
+        </tr>
+    </table>
+
+    <p>Bilanz für Runde:</p>
+    <select @bind="BoundID" style="height:40px; width:300px; border-color: #c13018">
+        <option value="1">Runde 1</option>
+        <option value="2">Runde 2</option>
+        <option value="3">Runde 3</option>
+        <option value="4">Runde 4</option>
+        <option value="5">Runde 5</option>
+        <option value="6">Runde 6</option>
+        <option value="7">Runde 7</option>
+        <option value="8">Runde 8</option>
+    </select>
+</div>
+
+<div id="2" class="tabcontent">
+    <p><PlotlyChart Id="TestId2" Config="config" Layout="layout" Data="data" @ref="chart" /></p>
+    @AddScatter()
+</div>
+
+
+
+@code
+    {
+    private int _boundID;
+    private int BoundID
+    {
+        get
+        {
+            return _boundID;
+        }
+        set
+        {
+            _boundID = value;
+            BilanzData.GameRoundToCheckFor = BoundID;
+        }
+    }
+
+    PlotlyChart chart;
+
+    Config config = new Config
+    {
+        Responsive = true
+    };
+
+    Layout layout = new Layout
+    {
+        Title = new Title
+        {
+            Text = ""
+        },
+        YAxis = new List<YAxis>
+            {
+                new YAxis
+                {
+                    Title = new LayoutLib.YAxisLib.Title
+                    {
+                        Text = "Betrag/Menge"
+                    }
+                }
+            },
+        Font = new Font { Family = "Anaheim" },
+        Colorway = new List<object> { "#c13018", "#f36f13", "#ebcb38", "#a2b969", "#0d95bc", "#063951", "#c13018", "#f36f13", "#ebcb38", "#a2b969", "#0d95bc" },
+        Width = 1500
+    };
+
+    IList<ITrace> data = new List<ITrace>{
+        new Scatter
+        {
+            Name = "",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = new List<object>(),
+            Y = new List<object>()
+        }
+    };
+
+    private async Task AddScatter()
+    {
+        await Task.Delay(2000);
+        await chart.Clear();
+
+        var listRounds = new List<object>();
+        var listWinnings = new List<object>();
+        var listAccountBalance = new List<object>();
+        var listStorageChip1 = new List<object>();
+        var listStorageChip2 = new List<object>();
+        var listStoragePLT = new List<object>();
+        var listStoragePC = new List<object>();
+        var listOutputPLT = new List<object>();
+        var listOutputPC = new List<object>();
+        var listCapacityPLT = new List<object>();
+        var listCapacityPC = new List<object>();
+        var listWorkers = new List<object>();
+
+        for (int i = 1; i < SetupData.CurrentGameRound; i++)
+        {
+            listRounds.Add(i);
+            BilanzData.GameRoundToCheckFor = i;
+            listWinnings.Add(BilanzData.WinSumThisRound - 40000000);
+            listAccountBalance.Add(FetchTableDataController.ReadValueFromXML("marketData.xml", i, 1, "Account"));
+            listStorageChip1.Add(FetchTableDataController.ReadValueFromXML("companyProductionData.xml", i, 1, "Chip1Storage"));
+            listStorageChip2.Add(FetchTableDataController.ReadValueFromXML("companyProductionData.xml", i, 1, "Chip2Storage"));
+            listStoragePLT.Add(FetchTableDataController.ReadValueFromXML("companyProductionData.xml", i, 1, "PLTStorage"));
+            listStoragePC.Add(FetchTableDataController.ReadValueFromXML("companyProductionData.xml", i, 1, "PCStorage"));
+            listOutputPLT.Add(FetchTableDataController.ReadValueFromXML("marketData.xml", i, 1, "OutputPLT"));
+            listOutputPC.Add(FetchTableDataController.ReadValueFromXML("marketData.xml", i, 1, "OutputPC"));
+            listCapacityPLT.Add(FetchTableDataController.ReadValueFromXML("marketData.xml", i, 1, "CapacityPLT"));
+            listCapacityPC.Add(FetchTableDataController.ReadValueFromXML("marketData.xml", i, 1, "CapacityPC"));
+            listWorkers.Add(FetchTableDataController.ReadValueFromXML("generalData.xml", i, 1, "CurrentWorkers"));
+        }
+
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Gewinn",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listWinnings,
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Kontostand",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listAccountBalance,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Lager Chip 1",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listStorageChip1,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Lager Chip 2",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listStorageChip2,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Lager PLT",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listStoragePLT,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Lager PC",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listStoragePC,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "hergestellte PLTs",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listOutputPLT,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "hergestellte PCs",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listOutputPC,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Kapazität PLTs",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listCapacityPLT,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Kapazität PCs",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listCapacityPC,
+            Visible = VisibleEnum.LegendOnly,
+
+        });
+        await chart.AddTrace(new Scatter
+        {
+            Name = "Mitarbeiter",
+            Mode = ModeFlag.Lines | ModeFlag.Markers,
+            X = listRounds,
+            Y = listWorkers,
+            Visible = VisibleEnum.LegendOnly,
+        });
+
+    }
+
+}

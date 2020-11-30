@@ -2,25 +2,50 @@
 @using Plotly.Blazor.Traces.ScatterLib
 @using System.Diagnostics
 
-<PlotlyChart style="height: 60vh; min-height: 350px" @bind-Config="config" @bind-Layout="layout" @bind-Data="data" @ref="chart" />
-
-<div class="text-right">
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("CapacityPC"))">PC Kapazität</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("CapacityPLT"))">PLT Kapazität</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("OutputPC"))">PC Output</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("OutputPLT"))">PLT Output</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("SalesPC"))">PC Verkäufe</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("SalesPLT"))">PLT Verkäufe</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("Marketshare"))">Marktanteil PC</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("PricePerPC"))">Verkaufspreis PC</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("Marketing"))">Marketingbudget</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("Saldo"))">Saldo</button>
-    <button type="button" class="btn btn-primary" @onclick="@(e => AddScatter("Account"))">Kontostand</button>
+<div class="grid-container" style="grid-template-columns: 33% 33% 33%">
+    <div class="grid-item" style="text-align: left; font-weight: 800; font-size:1em">
+        <select @bind="BoundID" style="height:40px; width:300px; border-color: #c13018">
+            <option value="CapacityPC">Produktionskapazität PCs</option>
+            <option value="CapacityPLT">Produktionskapazität PLTs</option>
+            <option value="OutputPC">produzierte PCs</option>
+            <option value="OutputPLT">produzierte PLTs</option>
+            <option value="SalesPC">verkaufte PCs</option>
+            <option value="SalesPLT">verkaufte PLTs</option>
+            <option value="Marketshare">Marktanteil PCs</option>
+            <option value="PricePerPC">Verkaufspreis pro PC</option>
+            <option value="Marketing">Marketingbudget</option>
+            <option value="Saldo">Saldo</option>
+            <option value="Account">Kontostand</option>
+        </select>
+    </div>
+    <div class="grid-item" style="text-align: center; font-weight: 800; font-size:1em">
+        <h3>@HeaderInfo</h3>
+    </div>
+    <div class="grid-item" style="text-align: right;">
+    </div>
 </div>
 
+<PlotlyChart style="height: 60vh; min-height: 350px" @bind-Config="config" @bind-Layout="layout" @bind-Data="data" @ref="chart" />
 
 @code
 {
+    private static string HeaderInfo = "";
+
+    private string _boundID = null;
+    private string BoundID
+    {
+        get
+        {
+            return _boundID;
+        }
+        set
+        {
+            _boundID = value;
+            SetHeaderName(BoundID);
+            AddScatter(BoundID);
+        }
+    }
+
     PlotlyChart chart;
 
     Config config = new Config
@@ -40,7 +65,7 @@
             {
                 Title = new LayoutLib.YAxisLib.Title
                 {
-                    Text = "Betrag"
+                    Text = "Betrag/Menge"
                 }
             }
         },
@@ -82,12 +107,26 @@
             var (x, y) = Helper.GenerateData(0, 100, data.Count + 1, key);
             await chart.AddTrace(new Scatter
             {
-
                 Name = $"Firma {data.Count + 1}",
                 Mode = ModeFlag.Lines | ModeFlag.Markers,
                 X = x,
-                Y = y
+                Y = y,
             });
         }
+    }
+
+    private void SetHeaderName(string key)
+    {
+        if (key == "CapacityPC") HeaderInfo = "Produktionskapazität PCs";
+        else if (key == "CapacityPLT") HeaderInfo = "Produktionskapazität";
+        else if (key == "OutputPC") HeaderInfo = "produzierte PCs";
+        else if (key == "OutputPLT") HeaderInfo = "produzierte PLTs";
+        else if (key == "SalesPC") HeaderInfo = "verkaufte PCs";
+        else if (key == "SalesPLT") HeaderInfo = "verkaufte PLTs";
+        else if (key == "Marketshare") HeaderInfo = "Marktanteil PCs";
+        else if (key == "PricePerPC") HeaderInfo = "Verkaufspreis pro PC";
+        else if (key == "Marketing") HeaderInfo = "Marketingbudget";
+        else if (key == "Saldo") HeaderInfo = "Saldo";
+        else if (key == "Account") HeaderInfo = "Kontostand";
     }
 }

@@ -193,7 +193,7 @@
     <Saldo>-97876320</Saldo>
     <Account>-86279320</Account>
     <Efficiency>100</Efficiency>
-     <CostMachinesBought>35000000</CostMachinesBought>
+    <CostMachinesBought>35000000</CostMachinesBought>
   </record>
   <record companyID="2" round="2">
     <CapacityPC>6666000</CapacityPC>
@@ -283,7 +283,8 @@
     <Saldo>185663504</Saldo>
     <Account>99384176</Account>
     <Efficiency>88</Efficiency>
-    <CostMachinesBought>0</CostMachinesBought>  </record>
+    <CostMachinesBought>30000000</CostMachinesBought>  
+  </record>
   <record companyID="2" round="3">
     <CapacityPC>6666000</CapacityPC>
     <CapacityPLT>0</CapacityPLT>
@@ -312,7 +313,7 @@
     <Saldo>-27144840</Saldo>
     <Account>-36751420</Account>
     <Efficiency>60</Efficiency>
-    <CostMachinesBought>0</CostMachinesBought>
+    <CostMachinesBought>10000000</CostMachinesBought>
   </record>
   <record companyID="4" round="3">
     <CapacityPC>9000</CapacityPC>
@@ -327,7 +328,7 @@
     <Saldo>30884630</Saldo>
     <Account>27882220</Account>
     <Efficiency>96</Efficiency>
-    <CostMachinesBought>0</CostMachinesBought>
+    <CostMachinesBought>40000000</CostMachinesBought>
   </record>
   <record companyID="5" round="3">
     <CapacityPC>15000</CapacityPC>
@@ -342,7 +343,7 @@
     <Saldo>89355088</Saldo>
     <Account>102780600</Account>
     <Efficiency>90</Efficiency>
-    <CostMachinesBought>0</CostMachinesBought>
+    <CostMachinesBought>20000000</CostMachinesBought>
   </record>
   <record companyID="6" round="3">
     <CapacityPC>15000</CapacityPC>
@@ -357,11 +358,11 @@
     <Saldo>103776496</Saldo>
     <Account>98438048</Account>
     <Efficiency>90</Efficiency>
-    <CostMachinesBought>0</CostMachinesBought>
+    <CostMachinesBought>20000000</CostMachinesBought>
   </record>
   <record companyID="1" round="4">
     <CapacityPC>30000</CapacityPC>
-    <CapacityPLT>225000</CapacityPLT>
+    <CapacityPLT>1500000</CapacityPLT>
     <OutputPC>0</OutputPC>
     <OutputPLT>0</OutputPLT>
     <SalesPC>0</SalesPC>

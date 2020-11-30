@@ -65,7 +65,7 @@ namespace Plotly.Blazor.Examples.Models
             PLTMachinesToReplaceThisRound = FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound, 1, "PLTMachinesBreakingAfterThisRound");
             ExpenseBoughtMachines = (FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound-1, 1, "PLTMachinesBoughtThisRound")*1000000)
                 +(FetchTableDataController.ReadValueFromXML("companyProductionData.xml", CurrentGameRound-1, 1, "PCMachinesBoughtThisRound")*3500000);
-            ExpenseStorage = Chip1Storage * .01 + Chip2Storage * 0.5 + PLTStorage * 10 + PCStorage * 100;
+            ExpenseStorage = Chip1Storage * 0.1 + Chip2Storage * 0.5 + PLTStorage * 10 + PCStorage * 100;
             ExpenseRunMachines = PCMachinesAvailableThisRound * 500000 + PLTMachinesAvailableThisRound * 200000;
 
             AccountBalance = FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound - 1, 1, "Account");
@@ -94,12 +94,12 @@ namespace Plotly.Blazor.Examples.Models
             resetTempData.ResetData();
 
             //var listMarketing = new List<double>();
-            double marketingMergerd = 0;
+            double marketingMerged = 0;
             for (int i = 0; i < 6; i++)
             {
-                marketingMergerd += (FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound-1, i, "Marketing"));
+                marketingMerged += (FetchTableDataController.ReadValueFromXML("marketData.xml", CurrentGameRound-1, i, "Marketing"));
             }
-            AverageMarketingBudgetAllCompanys = marketingMergerd / 6;
+            AverageMarketingBudgetAllCompanys = marketingMerged / 6;
         }
     }
 }

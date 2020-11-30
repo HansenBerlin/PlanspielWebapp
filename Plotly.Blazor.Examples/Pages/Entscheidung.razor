@@ -20,7 +20,7 @@
 </div>
 
 <div class="tab">
-    <button class="tablinks" onclick="openCity(event, '3')">Entscheidung eingeben</button>
+    <button class="tablinks active" onclick="openCity(event, '3')">Entscheidung eingeben</button>
     <button class="tablinks" onclick="openCity(event, '4')">Übersicht Einnahmen/Ausgaben</button>
 </div>
 
@@ -72,19 +72,19 @@
             <td class="table-left-column">Einkauf Chip 1</td>
             <td><input class="inputBox" value="@BuyChip1" @oninput="@FilterChangedAsyncBuyChip1" /></td>
             <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip1, "Chip1")</td>
-            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips1) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip1", BuyChip1)</td>
+            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips1) zusätzlich benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip1", BuyChip1)</td>
         </tr>
         <tr>
             <td class="table-left-column">Einkauf Chip 2</td>
             <td><input class="inputBox" value="@BuyChip2" @oninput="@FilterChangedAsyncBuyChip2" /></td>
             <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyChip2, "Chip2")</td>
-            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips2) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip2", BuyChip2)</td>
+            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalChips2) zusätzlich benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("Chip2", BuyChip2)</td>
         </tr>
         <tr>
             <td class="table-left-column">Einkauf PLT</td>
             <td><input class="inputBox" value="@BuyPLT" @oninput="@FilterChangedAsyncBuyPLT" /></td>
             <td style="text-align:right">@CalculateCostsForInputChipsAndPLT(BuyPLT, "PLT")</td>
-            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalPLT) benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("PLT", BuyPLT)</td>
+            <td style="color: #a50026">@ConvertToStringWithSeperators(AdditionalPLT) zusätzlich benötigt für aktuelle Produktion | @CalculateAdditionalPiecesForDiscount("PLT", BuyPLT)</td>
         </tr>
         <tr>
             <td class="table-left-column">Verkauf PLT</td>
@@ -107,7 +107,7 @@
     </table>
 </div>
 
-<div id="4" class="tabcontent" style="display:none">
+<div id="4" class="tabcontent">
    
             <table class="table" style="width:60%">
                 <tr>

@@ -25,7 +25,7 @@ namespace Plotly.Blazor.Examples
         /// <param name="configuration">The configuration.</param>
         public Startup(IConfiguration configuration)
         {
-            //var xmlDownloader = new DownloadXMLTablesController();
+            var xmlDownloader = new DownloadXMLTablesController();
             var setupData = new SetupData();
             var setupHistoricalData = new SetupHistoricalData();
 

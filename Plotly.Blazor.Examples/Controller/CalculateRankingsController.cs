@@ -45,8 +45,8 @@ namespace Plotly.Blazor.Examples.Controller
 
                 for (int i = 1; i < 6; i++)
                 {        
-                    if ((Convert.ToDouble(listPCs[i]) *1166 + Convert.ToDouble(listPLT[i])*134)
-                        > (Convert.ToDouble(listPCs[0]) * 1166 + Convert.ToDouble(listPLT[0])*134))
+                    if (Convert.ToDouble(listPCs[i]) *1166 + Convert.ToDouble(listPLT[i])*134 + FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound - 1, i, "Account")
+                        > Convert.ToDouble(listPCs[0]) * 1166 + Convert.ToDouble(listPLT[0])*134 + FetchTableDataController.ReadValueFromXML("marketData.xml", SetupData.CurrentGameRound - 1, 1, "Account"))
                     {
                         currentPosition++;
                     }

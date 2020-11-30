@@ -161,7 +161,7 @@ a, .btn-link {
     background-color: #c5c6c7;
     color: #0b0c10;
     text-align: left;
-    padding: 8px;
+    padding: 2px;
 }
 
 .table-left-column {
@@ -169,7 +169,7 @@ a, .btn-link {
     background-color: #c5c6c7;
     color: #0b0c10;
     text-align: left;
-    padding: 8px;
+    padding: 0px;
 }
 
 .tr:nth-child(even) {
