@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <generalData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<record companyID="1" round="0">
-		<CurrentGameRound>4</CurrentGameRound>
+		<CurrentGameRound>5</CurrentGameRound>
 		<CurrentWage>17000</CurrentWage>
 		<CurrentWorkers>200</CurrentWorkers>
 		<PCDemandThisRound>75</PCDemandThisRound>
 		<Efficiency>80</Efficiency>		
 	</record>
 	<record companyID="1" round="1">
-		<CurrentGameRound>4</CurrentGameRound>
+		<CurrentGameRound>5</CurrentGameRound>
 		<CurrentWage>17250</CurrentWage>
 		<CurrentWorkers>250</CurrentWorkers>
     <PCDemandThisRound>90</PCDemandThisRound>
 		<Efficiency>100</Efficiency>		
 	</record>
   <record companyID="1" round="2">
-    <CurrentGameRound>4</CurrentGameRound>
+    <CurrentGameRound>5</CurrentGameRound>
     <CurrentWage>110000</CurrentWage>
     <CurrentWorkers>375</CurrentWorkers>
     <PCDemandThisRound>90</PCDemandThisRound>
     <Efficiency>100</Efficiency>
   </record>
   <record companyID="1" round="3">
-    <CurrentGameRound>4</CurrentGameRound>
+    <CurrentGameRound>5</CurrentGameRound>
     <CurrentWage>110866</CurrentWage>
     <CurrentWorkers>375</CurrentWorkers>
     <PCDemandThisRound>90</PCDemandThisRound>
     <Efficiency>88</Efficiency>
+  </record>
+  <record companyID="1" round="4">
+    <CurrentGameRound>5</CurrentGameRound>
+    <CurrentWage>114408</CurrentWage>
+    <CurrentWorkers>2500</CurrentWorkers>
+    <PCDemandThisRound>90</PCDemandThisRound>
+    <Efficiency>98</Efficiency>
   </record>
 </generalData>
 
